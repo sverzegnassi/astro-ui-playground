@@ -1,0 +1,66 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+  size?: "regular" | "breakout" | "full-width";
+  padding?: "xs" | "sm" | "md" | "lg" | "xl";
+  prose?: false | "prose" | "prose-w-full" | "not-prose";
+} & HTMLAttributes<"div">;
+
+const { size = "regular", padding = "md", prose = false, class: className, ...attrs } = Astro.props;
+
+const proseClasses = [
+  (prose == "prose" || prose == "prose-w-full") && [
+    "prose",
+    "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-2 prose-a:decoration-link-900",
+    "hover:prose-a:text-link-900",
+  ],
+  prose == "not-prose" && "not-prose",
+  prose == "prose-w-full" && "max-w-none",
+];
+---
+
+<div class:list={["box", size, padding, proseClasses, className]} {...attrs}>
+  <slot />
+</div>
+
+<style is:global>
+  .boxGrid > :not(.breakout, .full-width),
+  .full-width > :not(.breakout, .full-width) {
+    grid-column: regular;
+  }
+
+  .boxGrid > .breakout {
+    grid-column: breakout;
+  }
+
+  .boxGrid > .full-width {
+    grid-column: full-width;
+
+    display: grid;
+    grid-template-columns: inherit;
+  }
+</style>
+
+<style>
+  .box {
+    @apply w-full px-6 lg:px-8;
+    @apply rounded-xl;
+  }
+
+  .box.xs {
+    @apply py-8 sm:py-12;
+  }
+  .box.sm {
+    @apply py-12 sm:py-16;
+  }
+  .box.md {
+    @apply py-16 sm:py-24;
+  }
+  .box.lg {
+    @apply py-24 sm:py-32;
+  }
+  .box.xl {
+    @apply py-32 sm:py-48 lg:py-56;
+  }
+</style>
