@@ -1,17 +1,13 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { clx, type CommonProps } from "./common";
 
-type StyleProps = {
+type Props = (
+  | ({ as: "button" } & HTMLAttributes<"button">)
+  | ({ as: "anchor" } & HTMLAttributes<"a">)
+  | ({ as: "input" } & HTMLAttributes<"input">)
+) & {
   color?: "primary" | "secondary" | "tertiary" | "brand" | "success" | "error" | "warning" | "info";
-} & CommonProps;
-
-type Props = StyleProps &
-  (
-    | ({ as: "button" } & HTMLAttributes<"button">)
-    | ({ as: "anchor" } & HTMLAttributes<"a">)
-    | ({ as: "input" } & HTMLAttributes<"input">)
-  );
+};
 
 const { class: className, color = "default", as = "button", ...attrs } = Astro.props;
 
