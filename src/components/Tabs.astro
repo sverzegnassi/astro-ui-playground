@@ -86,6 +86,8 @@ tabPanelIds.push(Math.random().toString(16));
     @apply bg-neutral-100;
     @apply border border-neutral-300 border-dashed;
     @apply rounded-full;
+
+    @apply focus-within:overflow-visible;
   }
 
   .tab-button {
@@ -94,6 +96,8 @@ tabPanelIds.push(Math.random().toString(16));
     @apply font-semibold;
     @apply rounded-full;
     @apply bg-transparent text-neutral-900;
+    
+    @apply focus:outline-none focus:ring-4 ring-offset-4 focus:ring-neutral-500;
   }
 
   .tab-button.active {
