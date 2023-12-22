@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = (
+export type Props = (
   | ({ as: "button" } & HTMLAttributes<"button">)
   | ({ as: "anchor" } & HTMLAttributes<"a">)
   | ({ as: "input" } & HTMLAttributes<"input">)
