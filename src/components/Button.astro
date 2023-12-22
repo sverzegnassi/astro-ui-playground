@@ -6,12 +6,13 @@ type Props = (
   | ({ as: "anchor" } & HTMLAttributes<"a">)
   | ({ as: "input" } & HTMLAttributes<"input">)
 ) & {
-  color?: "primary" | "secondary" | "tertiary" | "brand" | "success" | "error" | "warning" | "info";
+  color?: "primary" | "secondary" | "tertiary" | "muted" | "brand" | "success" | "error" | "warning" | "info";
+  size?: "sm" | "md"
 };
 
-const { class: className, color = "default", as = "button", ...attrs } = Astro.props;
+const { class: className, color = "default", size = "md", as = "button", ...attrs } = Astro.props;
 
-const styleClassList = ["btn", color, className];
+const styleClassList = ["btn", color, size, className];
 ---
 
 {
@@ -42,10 +43,15 @@ const styleClassList = ["btn", color, className];
 <style>
   .btn {
     @apply flex items-center justify-center;
-    @apply px-8 py-4 gap-1;
-    @apply font-semibold;
+    @apply gap-1;
+    @apply px-8 py-4;
+    @apply font-medium;
     @apply bg-neutral-800 text-neutral-100;
     @apply rounded-full;
+  }
+
+  .btn.sm {
+    @apply px-4 py-2;
   }
 
   .btn:hover {
@@ -57,10 +63,16 @@ const styleClassList = ["btn", color, className];
 
   .btn.secondary {
     @apply bg-neutral-300 text-neutral-900;
+    @apply hover:bg-neutral-400;
   }
 
   .btn.tertiary {
     @apply bg-transparent text-link-900;
+  }
+
+  .btn.muted {
+    @apply bg-transparent text-neutral-900;
+    @apply hover:bg-neutral-400;
   }
 
   .btn.brand {
