@@ -48,6 +48,7 @@ const styleClassList = ["btn", color, size, className];
     @apply font-medium;
     @apply bg-neutral-800 text-neutral-100;
     @apply rounded-full;
+    @apply focus:outline-none focus:ring-4 ring-offset-4 focus:ring-neutral-500;
   }
 
   .btn.sm {
@@ -77,21 +78,26 @@ const styleClassList = ["btn", color, size, className];
 
   .btn.brand {
     @apply bg-neutral-500 text-neutral-100;
+    @apply focus:ring-neutral-900;
   }
 
   .btn.success {
     @apply bg-success-700 text-success-300;
+    @apply focus:ring-success-500;
   }
 
   .btn.error {
     @apply bg-error-700 text-error-300;
+    @apply focus:ring-error-500;
   }
 
   .btn.warning {
     @apply bg-warning-700 text-warning-300;
+    @apply focus:ring-warning-500;
   }
 
   .btn.info {
     @apply bg-info-700 text-info-300;
+    @apply focus:ring-info-500;
   }
 </style>
