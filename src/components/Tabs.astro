@@ -1,0 +1,114 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { parse } from "node-html-parser";
+
+type Props = {
+  children?: HTMLElement[];
+} & HTMLAttributes<"div">;
+
+const innerHTML = await Astro.slots.render("default");
+const root = parse(innerHTML);
+
+const { class: className, ...attrs } = Astro.props;
+
+let tabPanelIds: string[] = [];
+
+// Pregenerate first id
+tabPanelIds.push(Math.random().toString(16));
+---
+
+<section x-data=`{ activePanel: 'panel_${tabPanelIds[0]}' }`>
+  <div>
+    <div class="tablist--wrapper">
+      <div class="tablist" role="tablist" aria-label="Tabs">
+        {
+          root.querySelectorAll(".tab-panel").map((panel, index) => {
+            const title = panel.getAttribute("data-tab-title");
+
+            const id = (index !== 0) ? Math.random().toString(16) : tabPanelIds[0];
+            panel.setAttribute("data-tab-id", id);
+
+            if (index !== 0) {
+                tabPanelIds.push(id);
+            }
+
+            return (
+              <button
+                x-data={`{ refPanel: 'panel_${id}' }`}
+                id={`tab_${id}`}
+                role="tab"
+                class="tab-button"
+                x-bind:class={`{ 'active': ( activePanel == refPanel ) }`}
+                x-bind:tabindex="activePanel === refPanel ? 0 : -1"
+                x-bind:aria-selected="activePanel === refPanel"
+                x-bind-aria-controls="{ refPanel }"
+                x-on:click.prevent="activePanel = refPanel"
+                @keydown.left.prevent="$el.previousElementSibling.focus()"
+                @keydown.right.prevent="$el.nextElementSibling.focus()"
+              >
+                {title}
+              </button>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    {
+      tabPanelIds.map((id) => {
+        const el = root.querySelector(`[data-tab-id=${id}]`);
+
+        return (
+          <div
+            x-data={`{ refPanel: 'panel_${id}' }`}
+            id={`panel_${id}`}
+            role="tabpanel"
+            tabindex="0"
+            aria-labelledby={`tab_${id}`}
+            x-bind:hidden="activePanel !== refPanel"
+          >
+            <Fragment set:html={el?.outerHTML} />
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .tablist--wrapper {
+    @apply flex mb-8;
+  }
+
+  .tablist {
+    @apply inline-flex mx-auto p-1 gap-1;
+    @apply overflow-x-auto snap-x snap-proximity;
+    @apply bg-neutral-100;
+    @apply border border-neutral-300 border-dashed;
+    @apply rounded-full;
+
+    @apply focus-within:overflow-visible;
+  }
+
+  .tab-button {
+    @apply flex-shrink-0;
+    @apply px-8 py-4;
+    @apply font-semibold;
+    @apply rounded-full;
+    @apply bg-transparent text-neutral-900;
+    
+    @apply focus:outline-none focus:ring-4 ring-offset-4 focus:ring-neutral-500;
+  }
+
+  .tab-button.active {
+    @apply bg-neutral-800 text-neutral-100;
+  }
+
+  .tab-button:hover {
+    @apply bg-neutral-300;
+  }
+
+  .tab-button:hover[aria-selected="true"] {
+    @apply bg-neutral-600;
+  }
+</style>

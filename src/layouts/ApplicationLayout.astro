@@ -1,0 +1,127 @@
+---
+import Button from "@components/Button.astro";
+import BaseLayout from "./BaseLayout.astro";
+import HeroIcon from "@components/HeroIcon.astro";
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <div class="applicationLayout" x-data="{sidebarOpen: false}">
+    <header>
+      <div class="header-left">
+        <Button
+          size="sm"
+          color="muted"
+          class="!grid"
+          @click="sidebarOpen = !sidebarOpen"
+          :aria-expanded="sidebarOpen"
+          :aria-label="! sidebarOpen ? 'Show Sidebar' : 'Hide Sidebar'"
+        >
+          <HeroIcon
+            name="bars-3"
+            class="size-6 col-start-1 row-start-1"
+            x-show="!sidebarOpen"
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 scale-90"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-out duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-90"
+          />
+          <HeroIcon
+            name="x-mark"
+            class="size-6 col-start-1 row-start-1"
+            x-show="sidebarOpen"
+            x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 scale-90"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-out duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-90"
+          />
+        </Button>
+        <slot name="header-left" />
+      </div>
+      <div class="header-center">
+        <slot name="header-center" />
+      </div>
+      <div class="header-right">
+        <slot name="header-right" />
+      </div>
+    </header>
+    <main>
+      <aside
+        id="sidebar"
+        x-show="sidebarOpen"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="-translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition ease-out duration-150"
+        x-transition:leave-start="translate-0"
+        x-transition:leave-end="-translate-x-full"
+      >
+        <slot name="sidebar" />
+      </aside>
+      <div id="content" :class="sidebarOpen && 'overflow-y-hidden h-0 md:overflow-auto md:h-auto'">
+        <slot />
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .applicationLayout {
+    @apply w-full min-h-dvh;
+    @apply bg-neutral-200;
+
+    & header {
+      @apply sticky top-0;
+      @apply w-full h-16;
+      @apply bg-neutral-100;
+      @apply border-b border-neutral-300;
+      @apply px-2;
+
+      @apply flex items-center gap-x-8;
+      @apply justify-between;
+
+      & .header-left {
+        @apply flex items-center gap-x-4;
+      }
+
+      & .header-center {
+        @apply flex items-center gap-x-4;
+      }
+
+      & .header-right {
+        @apply flex items-center gap-x-4;
+      }
+    }
+
+    & main {
+      @apply flex;
+      @apply h-full;
+
+      & #sidebar {
+        @apply fixed md:sticky md:top-16;
+        @apply w-dvw md:w-max md:min-w-72;
+        @apply h-[calc(100dvh-4rem)];
+        @apply bg-neutral-100;
+        @apply border-r border-neutral-300;
+        @apply shrink-0;
+      }
+
+      & #content {
+        @apply grow;
+      }
+    }
+  }
+
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+import Button from "@components/Button.astro";
+import ApplicationLayout from "./ApplicationLayout.astro";
+import HeroIcon from "@components/HeroIcon.astro";
+import Menu from "@components/Menu.astro";
+import MenuItem from "@components/MenuItem.astro";
+import Badge from "@components/Badge.astro";
+
+type Props = {
+  pageTitle: string;
+};
+
+const { pageTitle } = Astro.props;
+
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<ApplicationLayout title={pageTitle}>
+  <!-- HEADER -->
+  <h1 slot="header-left">Astro</h1>
+
+  <div slot="header-center" class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
+
+  <Button slot="header-right" as="anchor" size="small" color="muted">
+    <HeroIcon name="adjustments-vertical" class="size-6 text-neutral-800" />
+     Settings
+  </Button>
+
+  <!-- SIDEBAR -->
+  <nav slot="sidebar">
+    <Menu class="p-4">
+      <MenuItem href="/" aria-current={currentPath === "/" ? "page" : "false"}>
+        <HeroIcon slot="left" name="home" class="size-5" />
+         Homepage
+        <HeroIcon slot="right" name="arrow-right" class="size-5" />
+      </MenuItem>
+      <MenuItem href="/buttons" aria-current={currentPath === "/buttons" ? "page" : "false"}>
+        <HeroIcon slot="left" name="cursor-arrow-rays" class="size-5" />
+         Buttons
+        <Badge slot="right" color="muted">New</Badge>
+      </MenuItem>
+      <MenuItem href="/badges" aria-current={currentPath === "/badges" ? "page" : "false"}>
+        <HeroIcon slot="left" name="check-badge" class="size-5" />
+         Badge
+        <Badge slot="right">Like this</Badge>
+      </MenuItem>
+      <MenuItem href="/boxes" aria-current={currentPath === "/boxes" ? "page" : "false"}>
+        <HeroIcon slot="left" name="archive-box" class="size-5" />
+         Box and BoxGrid
+      </MenuItem>
+      <MenuItem as="button">
+        <HeroIcon name="plus-circle" class="size-6" />
+         Create new dashboard
+      </MenuItem>
+      <MenuItem as="button" color="secondary">Edit configuration</MenuItem>
+    </Menu>
+  </nav>
+
+  <!-- CONTENT -->
+  <slot />
+</ApplicationLayout>

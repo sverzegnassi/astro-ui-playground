@@ -1,0 +1,55 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"span"> & {
+  color?: "default" | "muted" | "brand" | "success" | "error" | "warning" | "info";
+  size?: "sm" | "lg" | "md";
+};
+
+const { class: className, color = "default", size = "sm", ...attrs } = Astro.props;
+---
+
+<span class:list={["badge", color, size, className]} {...attrs}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    @apply rounded-md;
+    @apply text-sm py-0.5 px-2 leading-none;
+    @apply bg-neutral-300 text-neutral-900;
+  }
+
+  .badge.md {
+    @apply text-base py-1 px-2;
+  }
+
+  .badge.lg {
+    @apply text-base py-1 px-4;
+  }
+
+  .badge.muted {
+    @apply bg-transparent text-neutral-800;
+    @apply border border-neutral-300;
+  }
+
+  .badge.success {
+    @apply bg-success-300 text-success-700;
+    @apply border border-success-500;
+  }
+
+  .badge.error {
+    @apply bg-error-300 text-error-700;
+    @apply border border-error-500;
+  }
+
+  .badge.warning {
+    @apply bg-warning-300 text-warning-700;
+    @apply border border-warning-500;
+  }
+
+  .badge.info {
+    @apply bg-info-300 text-info-700;
+    @apply border border-info-500;
+  }
+</style>

@@ -1,16 +1,57 @@
 ---
-
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import AppLayout from "@layouts/AppLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<AppLayout pageTitle="Dashboard">
+  <BoxGrid>
+    <Box padding="xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Dashboard</h1>
+    </Box>
+
+    <!-- Test prose mode. Generated with ChatGPT -->
+    <Box padding="lg" prose="prose">
+      <h1>This is a Heading</h1>
+      <p>This is a paragraph of text. You can add more text here to see how Tailwind Typography styles it.</p>
+      <ul>
+        <li>Unordered List Item 1</li>
+        <li>Unordered List Item 2</li>
+        <li>Unordered List Item 3</li>
+      </ul>
+      <p>Another paragraph of text between lists.</p>
+      <ol>
+        <li>Ordered List Item 1</li>
+        <li>Ordered List Item 2</li>
+        <li>Ordered List Item 3</li>
+      </ol>
+      <blockquote>
+        <p>This is a blockquote. You can use it to highlight important information.</p>
+      </blockquote>
+      <p>Yet another paragraph of text.</p>
+      <h2>Subheading</h2>
+      <p>This is a subheading with more text. You can continue to add content as needed.</p>
+      <ul>
+        <li>Another Unordered List Item</li>
+        <li>And one more Unordered List Item</li>
+      </ul>
+      <ol>
+        <li>Another Ordered List Item</li>
+        <li>One more Ordered List Item</li>
+      </ol>
+      <p>End of the document.</p>
+  
+      <!-- Additional Tags -->
+      <a href="#">This is a link</a>
+      <figure>
+        <img src="https://picsum.photos/200/300" alt="An example image">
+        <figcaption>Caption for the image</figcaption>
+      </figure>
+      <strong>This is strong text</strong>
+      <em>This is emphasized text</em>
+      <code>This is inline code</code>
+      <pre><code>This is a code block</code></pre>
+      <hr>
+    </Box>
+  </BoxGrid>
+</AppLayout>

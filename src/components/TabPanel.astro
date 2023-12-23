@@ -1,0 +1,26 @@
+---
+type Props = {
+    title: string
+}
+
+const { title } = Astro.props
+---
+
+<div class="tab-panel" data-tab-title={title}>
+  <slot />
+</div>
+
+<style>
+  .tab-panel {
+    @apply motion-safe:animate-[animate-entrance_.3s_ease-out];
+  }
+
+  @keyframes animate-entrance {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
