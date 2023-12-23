@@ -1,0 +1,84 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Button, { type Props as ButtonProps } from "@components/Button.astro";
+
+type Props = ({ as: "button" } & ButtonProps) | ({ as: "anchor" } & HTMLAttributes<"a">);
+
+const { class: className, as = "anchor", ...attrs } = Astro.props;
+---
+
+<li class:list={["menuItem"]} role="presentation">
+  {
+    as === "anchor" && (
+      <a class={className} {...attrs}>
+        <div class="left-slot">
+          <slot name="left" />
+        </div>
+        <div class="default-slot">
+          <slot />
+        </div>
+        <div class="right-slot">
+          <slot name="right" />
+        </div>
+      </a>
+    )
+  }
+
+  {
+    as === "button" && (
+      <Button class:list={[className]} size={attrs.size || "sm"} {...attrs}>
+        <slot />
+      </Button>
+    )
+  }
+</li>
+
+<style>
+  .menuItem {
+    @apply col-span-3;
+    @apply grid grid-cols-subgrid;
+
+    & a {
+      @apply col-span-3 p-2;
+      @apply grid grid-cols-subgrid;
+      @apply gap-2 items-center;
+      @apply rounded-md;
+
+      @apply hover:bg-neutral-300;
+
+      & > * {
+        @apply col-span-1;
+      }
+
+      & > *:nth-child(1) {
+        @apply text-neutral-700;
+      }
+
+      & > *:nth-child(2) {
+        @apply underline;
+        @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
+        @apply hover:text-link-900;
+      }
+
+      & > *:nth-child(3) {
+        justify-self: end;
+      }
+    }
+  }
+
+  .menuItem:has(button) > * {
+    @apply col-span-3;
+  }
+
+  .menuItem:has(a) + .menuItem:has(button) {
+    @apply mt-4;
+  }
+
+  .menuItem:has(button) + .menuItem:has(button) {
+    @apply mt-2;
+  }
+
+  .menuItem a:not([aria-current="false"]) {
+    @apply bg-info-300;
+  }
+</style>
