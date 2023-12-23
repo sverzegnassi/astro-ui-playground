@@ -13,15 +13,17 @@ const proseClasses = [
   (prose == "prose" || prose == "prose-w-full") && [
     "prose prose-custom",
     "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-2 prose-a:decoration-link-900",
-    "hover:prose-a:text-link-900",
+    "hover:prose-a:text-link-900"
   ],
   prose == "not-prose" && "not-prose",
   prose == "prose-w-full" && "max-w-none",
 ];
 ---
 
-<div class:list={["box", size, padding, proseClasses, className]} {...attrs}>
-  <slot />
+<div class:list={["box", size, padding, className]} {...attrs}>
+  <div class:list={[proseClasses]}>
+    <slot />
+  </div>
 </div>
 
 <style is:global>
