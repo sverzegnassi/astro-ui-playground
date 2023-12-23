@@ -44,6 +44,10 @@ const currentPath = new URL(Astro.request.url).pathname;
          Badge
         <Badge slot="right">Like this</Badge>
       </MenuItem>
+      <MenuItem href="/boxes" aria-current={currentPath === "/boxes" ? "page" : "false"}>
+        <HeroIcon slot="left" name="archive-box" class="size-5" />
+         Box and BoxGrid
+      </MenuItem>
       <MenuItem as="button">
         <HeroIcon name="plus-circle" class="size-6" />
          Create new dashboard

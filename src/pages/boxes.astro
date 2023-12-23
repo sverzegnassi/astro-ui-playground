@@ -1,0 +1,99 @@
+---
+import Badge from "@components/Badge.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Box">
+  <BoxGrid>
+    <Box
+      padding="xl"
+      prose="prose"
+      size="breakout"
+      class="mt-8 bg-neutral-100 border border-neutral-300 [&>.prose]:mx-auto [&>.prose]:text-center"
+    >
+      <h1>Box</h1>
+      <p>
+        This component provides a flexible container with customizable size, padding, and prose styling through its
+        integration with Tailwind Typography classes.
+      </p>
+      <p>
+        To center a box that uses the prose styling offered by Tailwind CSS and restricts its line length to 65
+        characters, the specific CSS classes <code>[&>.prose]:mx-auto [&>.prose]:text-center</code> have been applied.
+      </p>
+    </Box>
+  </BoxGrid>
+  <BoxGrid class="my-8 gap-y-4">
+    <Box padding="xs" class="border border-neutral-500 border-dotted">
+      <h2>Padding `xs`</h2>
+      <ul>
+        <li>Size: `regular` (default)</li>
+      </ul>
+      <p>
+        This box is a child of a <code>BoxGrid</code> that utilizes the <code class="font-bold">gap-y-4</code> class to
+        introduce a gap between adjacent boxes.<br />Please avoid using <code class="font-bold">gap-*</code> or <code
+          class="font-bold">gap-x-*</code
+        > classes, as they may result in an unexpected layout.
+      </p>
+    </Box>
+
+    <Box padding="sm" size="breakout" class="border border-neutral-500 border-dotted">
+      <h2>Padding `sm`</h2>
+      <ul>
+        <li>Size: `breakout`</li>
+      </ul>
+    </Box>
+
+    <Box padding="md" prose="prose" class="border border-neutral-500 border-dotted">
+      <h2>Padding `md` (default)</h2>
+      <ul>
+        <li>Size: `regular` (default)</li>
+        <li>Prose: `prose`</li>
+      </ul>
+      <p>
+        The default line length is set to 65 characters, for better readability. This limitation promotes a consistent
+        and aesthetically pleasing layout throughout the document. It's worth noting that this entire paragraph is
+        intentionally crafted to be 341 characters long, demonstrating how the text is laid out with this specific
+        feature enabled.
+      </p>
+    </Box>
+
+    <Box
+      padding="lg"
+      prose="prose-w-full"
+      size="full-width"
+      class="bg-info-300 border border-neutral-700 border-dotted"
+    >
+      <h2>Padding `lg`</h2>
+      <ul>
+        <li>Size: `full-width`</li>
+        <li>Prose: `prose-w-full`</li>
+      </ul>
+      <p>
+        In this case, the line length limit has been removed, and the line length is limited by the width of its parent
+        container. This text has been crafted to be 245 characters long, demonstrating how the previous 65-character
+        limit no longer applies.
+      </p>
+
+      <Box padding="xs" prose="not-prose" class="border-2 border-neutral-900 border-dotted">
+        <h2>Inner Box</h2>
+        <ul>
+          <li>Padding `xs`</li>
+          <li>Prose: `not-prose`</li>
+        </ul>
+      </Box>
+      <Box padding="sm" class="border-2 border-neutral-900 border-dotted">
+        <h2>Inner Box</h2>
+        <ul>
+          <li>Padding `sm`</li>
+          <li><em>Prose inherited by its parent box</em></li>
+        </ul>
+      </Box>
+    </Box>
+
+    <Box padding="xl" class="border border-neutral-500 border-dotted">
+      <h2>Padding `xl`</h2>
+    </Box>
+  </BoxGrid>
+</AppLayout>
