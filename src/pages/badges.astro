@@ -1,0 +1,53 @@
+---
+import Badge from "@components/Badge.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Buttons">
+  <BoxGrid>
+    <Box size="2xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Badges</h1>
+    </Box>
+
+    <Box size="xs" prose="prose-w-full" class="text-center">
+      <h2>Small size (default)</h2>
+
+      <div class="flex flex-wrap justify-center gap-4">
+          <Badge color="default" size="sm">Primary button</Badge>
+          <Badge color="muted" size="sm">Muted button</Badge>
+          <Badge color="success" size="sm">Success button</Badge>
+          <Badge color="error" size="sm">Error button</Badge>
+          <Badge color="warning" size="sm">Warning button</Badge>
+          <Badge color="info" size="sm">Info button</Badge>
+      </div>
+  </Box>
+
+    <Box size="xs" prose="prose-w-full" class="text-center">
+        <h2>Medium size</h2>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <Badge color="default" size="md">Primary button</Badge>
+            <Badge color="muted" size="md">Muted button</Badge>
+            <Badge color="success" size="md">Success button</Badge>
+            <Badge color="error" size="md">Error button</Badge>
+            <Badge color="warning" size="md">Warning button</Badge>
+            <Badge color="info" size="md">Info button</Badge>
+        </div>
+    </Box>
+
+    <Box size="xs" prose="prose-w-full" class="text-center">
+      <h2>Large size</h2>
+
+      <div class="flex flex-wrap justify-center gap-4">
+          <Badge color="default" size="lg">Primary button</Badge>
+          <Badge color="muted" size="lg">Muted button</Badge>
+          <Badge color="success" size="lg">Success button</Badge>
+          <Badge color="error" size="lg">Error button</Badge>
+          <Badge color="warning" size="lg">Warning button</Badge>
+          <Badge color="info" size="lg">Info button</Badge>
+      </div>
+  </Box>
+  </BoxGrid>
+</AppLayout>
