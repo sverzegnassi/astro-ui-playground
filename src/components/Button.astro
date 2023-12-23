@@ -6,7 +6,7 @@ export type Props = (
   | ({ as: "anchor" } & HTMLAttributes<"a">)
   | ({ as: "input" } & HTMLAttributes<"input">)
 ) & {
-  color?: "primary" | "secondary" | "tertiary" | "muted" | "brand" | "success" | "error" | "warning" | "info";
+  color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
   size?: "sm" | "md"
 };
 
@@ -74,11 +74,6 @@ const styleClassList = ["btn", color, size, className];
   .btn.muted {
     @apply bg-transparent text-neutral-900;
     @apply hover:bg-neutral-400;
-  }
-
-  .btn.brand {
-    @apply bg-neutral-500 text-neutral-100;
-    @apply focus:ring-neutral-900;
   }
 
   .btn.success {
