@@ -1,0 +1,44 @@
+---
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Button from "@components/Button.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Buttons">
+  <BoxGrid>
+    <Box size="2xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Buttons</h1>
+    </Box>
+
+    <Box size="xs" prose="prose-w-full" class="text-center">
+        <h2>Regular size</h2>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <Button color="primary" size="md">Primary button</Button>
+            <Button color="secondary" size="md">Secondary button</Button>
+            <Button color="tertiary" size="md">Tertiary button</Button>
+            <Button color="muted" size="md">Muted button</Button>
+            <Button color="success" size="md">Success button</Button>
+            <Button color="error" size="md">Error button</Button>
+            <Button color="warning" size="md">Warning button</Button>
+            <Button color="info" size="md">Info button</Button>
+        </div>
+    </Box>
+
+    <Box size="xs" prose="prose-w-full" class="text-center">
+        <h2>Small size</h2>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <Button color="primary" size="sm">Primary button</Button>
+            <Button color="secondary" size="sm">Secondary button</Button>
+            <Button color="tertiary" size="sm">Tertiary button</Button>
+            <Button color="muted" size="sm">Muted button</Button>
+            <Button color="success" size="sm">Success button</Button>
+            <Button color="error" size="sm">Error button</Button>
+            <Button color="warning" size="sm">Warning button</Button>
+            <Button color="info" size="sm">Info button</Button>
+        </div>
+    </Box>
+  </BoxGrid>
+</AppLayout>
