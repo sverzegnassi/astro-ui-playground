@@ -19,7 +19,9 @@ const currentPath = new URL(Astro.request.url).pathname;
   <!-- HEADER -->
   <h1 slot="header-left">Astro</h1>
 
-  <div slot="header-center" class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
+  <slot slot="header-center" name="header-center">
+    <div class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
+  </slot>
 
   <Button slot="header-right" as="anchor" size="small" color="muted">
     <HeroIcon name="adjustments-vertical" class="size-6 text-neutral-800" />
