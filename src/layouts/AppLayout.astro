@@ -57,6 +57,10 @@ const currentPath = new URL(Astro.request.url).pathname;
         <HeroIcon slot="left" name="archive-box" class="size-5" />
          Modals
       </MenuItem>
+      <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
+        <HeroIcon slot="left" name="rocket-launch" class="size-5" />
+         Global Menu
+      </MenuItem>
       <MenuItem as="button">
         <HeroIcon name="plus-circle" class="size-6" />
          Create new dashboard

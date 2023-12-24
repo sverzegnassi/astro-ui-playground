@@ -1,0 +1,36 @@
+---
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+import GlobalMenu from "@components/GlobalMenu.astro";
+---
+
+<AppLayout pageTitle="Global Menu">
+  <GlobalMenu slot="header-center"></GlobalMenu>
+  <BoxGrid class="my-8">
+    <Box
+      padding="xl"
+      prose="prose"
+      size="breakout"
+      class="[&>.prose]:mx-auto [&>.prose]:text-center bg-neutral-100 border border-neutral-300"
+    >
+      <h1>Global Menu</h1>
+      <p>
+        Consolidate the application menus into a single location, providing a streamlined and space-efficient interface.
+        This feature is designed for users who prefer or require keyboard-centric interactions.
+      </p>
+      <p>Inspired by the Ubuntu's Unity 7 HUD interface.</p>
+    </Box>
+
+    <Box padding="xs" prose="prose" class="text-center" class="[&>.prose]:mx-auto [&>.prose]:text-center">
+      <h2>How it works</h2>
+      <p>The search engine is powered by <strong>Fuse.js</strong> and supports Fuse.js extended search operators.</p>
+      <p>Two different type of results are supported: <code>action</code> which can be used for actions or settings, and <code>search</code> which might represent the result of an index corresponding to the content in the current view.</p>
+    </Box>
+
+    <Box padding="md" prose="prose" class="text-center" class="[&>.prose]:mx-auto [&>.prose]:text-center bg-info-300 border border-info-700 border-dashed">
+      <h2>Try it</h2>
+      <p>You can find the Global Menu component at the top of this page, in the application header.</p>
+    </Box>
+  </BoxGrid>
+</AppLayout>
