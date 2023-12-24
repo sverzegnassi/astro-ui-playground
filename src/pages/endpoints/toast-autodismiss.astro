@@ -1,0 +1,21 @@
+---
+export const partial = true;
+export const prerender = false;
+
+import Button from "@components/Button.astro";
+import Dialog from "@components/Dialog.astro";
+
+if (Astro.request.method !== "POST") {
+  Astro.response.status = 405;
+  Astro.response.statusText = "Method not allowed";
+}
+---
+
+<Dialog x-init="$el.show(); setTimeout(() => dismiss(), 5000)" class="static" x-data="{ dismiss: () => $el.close() }">
+  <span>Hi! I'm a Toast notification!</span>
+  <div slot="actions" class="flex flex-row-reverse justify-evenly mt-4 gap-2">
+    <Button as="anchor" href="https://www.google.com/" size="sm">Visit google.com</Button>
+    <Button as="button" @click="alert('Clicked')" size="sm">Click me</Button>
+    <Button color="secondary" size="sm" @click="dismiss()">Dismiss</Button>
+  </div>
+</Dialog>

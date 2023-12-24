@@ -1,0 +1,25 @@
+---
+export const partial = true;
+export const prerender = false;
+
+import Button from "@components/Button.astro";
+import Dialog from "@components/Dialog.astro";
+
+if (Astro.request.method !== "POST") {
+  Astro.response.status = 405;
+  Astro.response.statusText = "Method not allowed";
+}
+---
+
+<Dialog x-init="$el.show()" class="static bg-error-300 border-error-500" x-data="{ dismiss: () => $el.close() }">
+  <span class="text-error-700">This is a critical error!</span>
+  <div slot="actions" class="flex flex-row-reverse justify-evenly mt-4 gap-2">
+    <Button
+      color="error"
+      size="sm"
+      @click="alert('For simplicity, I showcased this functionality with a few selected use cases. You can follow this pattern to incorporate the remaining functionalities.')"
+    >
+      Fix this!
+    </Button>
+  </div>
+</Dialog>

@@ -1,0 +1,32 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div"> & {
+  id: string;
+};
+
+const { id, ...attrs } = Astro.props;
+---
+
+<!-- TODO: Style --><!-- TODO: Not quite finalized. -->
+<div {...attrs} id={id} class="snackBars not-prose">
+  <slot />
+</div>
+
+<script>
+  import "htmx.org";
+</script>
+
+<style>
+  .snackBars {
+    @apply fixed bottom-4 right-4;
+    @apply w-[calc(100%-2rem)] sm:min-w-96 sm:w-auto;
+    @apply flex flex-col-reverse gap-4;
+  }
+</style>
+
+<style is:global>
+  .snackBars {
+    @apply [&>*]:w-full;
+  }
+</style>

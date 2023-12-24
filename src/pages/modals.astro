@@ -1,0 +1,124 @@
+---
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Button from "@components/Button.astro";
+import Dialog from "@components/Dialog.astro";
+import SnackBars from "@components/SnackBars.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Modals">
+  <BoxGrid>
+    <Box
+      padding="xl"
+      prose="prose-w-full"
+      size="breakout"
+      class="mt-8 bg-neutral-100 border border-neutral-300 text-center"
+    >
+      <h1>Modals</h1>
+    </Box>
+
+    <Box padding="xs" prose="prose-w-full" class="text-center">
+      <h2>Dialog</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 mt-16 sm:divide-x divide-neutral-300">
+        <div class="grid row-span-2 grid-rows-subgrid">
+          <div class="m-4">
+            <p>Modal dialogs can be opened by using <code>@click="$refs.(dialog_id).showModal()"</code></p>
+          </div>
+          <div>
+            <Button color="primary" size="md" class="mx-auto" @click="$refs.dialogmodal.showModal()">Modal</Button>
+            <Dialog id="dialogmodal">Hi, I am a modal dialog!</Dialog>
+          </div>
+        </div>
+
+        <div class="grid row-span-2 grid-rows-subgrid">
+          <div class="m-4">
+            <p>Non-modal dialogs can be opened by using <code>@click="$refs.(dialog_id).show()"</code></p>
+            <p>The user can still interact with the underneath elements on the page.</p>
+          </div>
+          <div>
+            <Button color="primary" size="md" class="mx-auto" @click="$refs.dialognonmodal.show()">Non modal</Button>
+            <Dialog id="dialognonmodal">Hi, I am a non-modal dialog!</Dialog>
+          </div>
+        </div>
+      </div>
+    </Box>
+
+    <Box padding="xs" prose="prose-w-full" class="text-center">
+      <h2>Popover</h2>
+      <p>
+        Popover won't be implemented until Firefox officially introduce the support for the <strong>Popover API</strong>
+         into stable.
+      </p>
+    </Box>
+
+    <Box padding="xs" prose="prose-w-full" class="text-center">
+      <h2>Toast Notifications</h2>
+      <p>
+        Dialogs can also be used with the <code>SnackBars</code> component to display toast notifications.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 mt-16 sm:divide-x divide-neutral-300">
+        <div class="grid row-span-2 grid-rows-subgrid">
+          <div class="m-4">
+            <h3>Self-dismissing notification</h3>
+            <p>
+              To demonstrate the concept of a self-destructing notification, consider the following example implemented
+              in a hypothetical programming context.
+            </p>
+          </div>
+          <div>
+            <Button
+              color="primary"
+              size="md"
+              class="mx-auto"
+              hx-post="/endpoints/toast-autodismiss"
+              hx-trigger="click"
+              hx-target="#snackBars"
+              hx-swap="beforeend"
+            >
+              Show toast notification
+            </Button>
+          </div>
+        </div>
+
+        <div class="grid row-span-2 grid-rows-subgrid">
+          <div class="m-4">
+            <h3>Custom style</h3>
+            <p>
+              Below is an example of a notification for a critical error. This example is again generic in nature, and
+              can be adapted to the specific environment you are working with.
+            </p>
+          </div>
+          <div>
+            <Button
+              color="primary"
+              size="md"
+              class="mx-auto"
+              hx-post="/endpoints/toast-critical"
+              hx-trigger="click"
+              hx-target="#snackBars"
+              hx-swap="beforeend"
+            >
+              Show toast notification
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-prose text-center mx-auto">
+        <h3>Client side notifications with AlpineJS</h3>
+        <p>
+          Alternatively, you can leverage AlpineJS attributes, such as <code>x-data</code>, and the AlpineJS templating
+          system to manage notifications on the client side.
+          <br /><br />
+           The <code>&lt;SnackBar /&gt;</code> component conveniently offers an Astro slot, allowing the insertion of
+          inner HTML.
+        </p>
+      </div>
+
+      <SnackBars id="snackBars" />
+    </Box>
+  </BoxGrid>
+</AppLayout>
