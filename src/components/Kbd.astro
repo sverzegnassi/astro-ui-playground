@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props =  HTMLAttributes<"span">;
+
+const { class: className, ...attrs} = Astro.props
+---
+
+<span {...attrs} class:list={["kbd", className]}>
+    <slot />
+</span>
+
+<style>
+    .kbd {
+        @apply text-sm font-mono font-semibold tracking-tighter leading-none;
+        @apply px-2 py-1.5;
+        @apply bg-neutral-200;
+        @apply border border-neutral-600;
+        @apply border-b-neutral-900;
+        @apply shadow-sm;
+        @apply rounded-md;
+    }
+</style>
