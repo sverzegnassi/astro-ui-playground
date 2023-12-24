@@ -17,7 +17,10 @@ const currentPath = new URL(Astro.request.url).pathname;
 
 <ApplicationLayout title={pageTitle}>
   <!-- HEADER -->
-  <h1 slot="header-left">Astro</h1>
+  <div slot="header-left">
+    <h1 class="font-semibold leading-none">Astro Components Demo</h1>
+    <span class="text-sm text-neutral-800">{pageTitle}</span>
+  </div>
 
   <slot slot="header-center" name="header-center">
     <div class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
