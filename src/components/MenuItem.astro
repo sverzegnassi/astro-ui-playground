@@ -50,18 +50,18 @@ const { class: className, as = "anchor", ...attrs } = Astro.props;
         @apply col-span-1;
       }
 
-      & > *:nth-child(1) {
+      & > .left-slot {
         @apply text-neutral-700;
       }
 
-      & > *:nth-child(2) {
+      & > .default-slot {
         @apply underline;
         @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
         @apply hover:text-link-900;
       }
 
-      & > *:nth-child(3) {
-        justify-self: end;
+      & > .right-slot {
+        @apply ml-2 justify-self-end;
       }
     }
   }
