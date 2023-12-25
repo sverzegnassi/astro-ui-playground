@@ -11,7 +11,7 @@ if (Astro.request.method !== "POST") {
 }
 ---
 
-<Dialog x-init="$el.show(); setTimeout(() => dismiss(), 5000)" class="static" x-data="{ dismiss: () => $el.close() }">
+<Dialog role="alert" x-init="$el.show(); setTimeout(() => dismiss(), 5000)" class="static" x-data="{ dismiss: () => $el.close() }">
   <span>Hi! I'm a Toast notification!</span>
   <div slot="actions" class="flex flex-row-reverse justify-evenly mt-4 gap-2">
     <Button as="anchor" href="https://www.google.com/" size="sm">Visit google.com</Button>

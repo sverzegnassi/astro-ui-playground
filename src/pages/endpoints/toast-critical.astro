@@ -11,7 +11,7 @@ if (Astro.request.method !== "POST") {
 }
 ---
 
-<Dialog x-init="$el.show()" class="static bg-error-300 border-error-500" x-data="{ dismiss: () => $el.close() }">
+<Dialog role="alert" x-init="$el.show()" class="static bg-error-300 border-error-500" x-data="{ dismiss: () => $el.close() }">
   <span class="text-error-700">This is a critical error!</span>
   <div slot="actions" class="flex flex-row-reverse justify-evenly mt-4 gap-2">
     <Button
