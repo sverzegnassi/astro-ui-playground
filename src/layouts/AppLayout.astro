@@ -57,6 +57,10 @@ const currentPath = new URL(Astro.request.url).pathname;
         <HeroIcon slot="left" name="archive-box" class="size-5" />
          Modals
       </MenuItem>
+      <MenuItem href="/tab-panels" aria-current={currentPath === "/tab-panels" ? "page" : "false"}>
+        <HeroIcon slot="left" name="folder" class="size-5" />
+         Tabs
+      </MenuItem>
       <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
         <HeroIcon slot="left" name="rocket-launch" class="size-5" />
          Global Menu
