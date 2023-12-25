@@ -2,6 +2,7 @@
 import Button from "@components/Button.astro";
 import BaseLayout from "./BaseLayout.astro";
 import HeroIcon from "@components/HeroIcon.astro";
+import Header from "@components/Header.astro";
 type Props = {
   title: string;
 };
@@ -11,49 +12,44 @@ const { title } = Astro.props;
 
 <BaseLayout title={title}>
   <div class="applicationLayout" x-data="{sidebarOpen: false}">
-    <header>
-      <div class="header-left">
-        <Button
-          size="sm"
-          color="muted"
-          class="!grid"
-          @click="sidebarOpen = !sidebarOpen"
-          :aria-expanded="sidebarOpen"
-          :aria-label="! sidebarOpen ? 'Show Sidebar' : 'Hide Sidebar'"
-        >
-          <HeroIcon
-            name="bars-3"
-            class="size-6 col-start-1 row-start-1"
-            x-show="!sidebarOpen"
-            x-transition:enter="transition ease-out duration-150"
-            x-transition:enter-start="opacity-0 scale-90"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-out duration-150"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-90"
-          />
-          <HeroIcon
-            name="x-mark"
-            class="size-6 col-start-1 row-start-1"
-            x-show="sidebarOpen"
-            x-cloak
-            x-transition:enter="transition ease-out duration-150"
-            x-transition:enter-start="opacity-0 scale-90"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-out duration-150"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-90"
-          />
-        </Button>
-        <slot name="header-left" />
-      </div>
-      <div class="header-center">
-        <slot name="header-center" />
-      </div>
-      <div class="header-right">
-        <slot name="header-right" />
-      </div>
-    </header>
+    <Header>
+      <Button
+        slot="header-left"
+        size="sm"
+        color="muted"
+        class="!grid"
+        @click="sidebarOpen = !sidebarOpen"
+        :aria-expanded="sidebarOpen"
+        :aria-label="! sidebarOpen ? 'Show Sidebar' : 'Hide Sidebar'"
+      >
+        <HeroIcon
+          name="bars-3"
+          class="size-6 col-start-1 row-start-1"
+          x-show="!sidebarOpen"
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 scale-90"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-out duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-90"
+        />
+        <HeroIcon
+          name="x-mark"
+          class="size-6 col-start-1 row-start-1"
+          x-show="sidebarOpen"
+          x-cloak
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 scale-90"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-out duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-90"
+        />
+      </Button>
+      <slot name="header-left" slot="header-left" />
+      <slot name="header-center" slot="header-center" />
+      <slot name="header-right" slot="header-right" />
+    </Header>
     <main>
       <aside
         id="sidebar"
@@ -81,25 +77,6 @@ const { title } = Astro.props;
 
     & header {
       @apply sticky top-0;
-      @apply w-full h-16;
-      @apply bg-neutral-100;
-      @apply border-b border-neutral-300;
-      @apply px-2;
-
-      @apply flex items-center gap-x-8;
-      @apply justify-between;
-
-      & .header-left {
-        @apply flex items-center gap-x-4;
-      }
-
-      & .header-center {
-        @apply flex items-center gap-x-4;
-      }
-
-      & .header-right {
-        @apply flex items-center gap-x-4;
-      }
     }
 
     & main {
