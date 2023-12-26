@@ -34,6 +34,7 @@ const currentPath = new URL(Astro.request.url).pathname;
   <!-- SIDEBAR -->
   <nav slot="sidebar">
     <Menu class="p-4">
+      <div class="col-span-3 flex gap-2 items-center px-2 py-1">Application</div>
       <MenuItem href="/" aria-current={currentPath === "/" ? "page" : "false"}>
         <HeroIcon slot="left" name="home" class="size-5" />
          Homepage
@@ -64,6 +65,12 @@ const currentPath = new URL(Astro.request.url).pathname;
       <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
         <HeroIcon slot="left" name="rocket-launch" class="size-5" />
          Global Menu
+      </MenuItem>
+      <div class="mt-8 col-span-3 flex gap-2 items-center px-2 py-1">Marketing</div>
+      <MenuItem href="/marketing/navbar" aria-current={currentPath === "/marketing/navbar" ? "page" : "false"}>
+        <HeroIcon slot="left" name="link" class="size-5" />
+         Navigation Bar
+        <HeroIcon slot="right" name="arrow-right" class="size-5" />
       </MenuItem>
       <MenuItem as="button">
         <HeroIcon name="plus-circle" class="size-6" />

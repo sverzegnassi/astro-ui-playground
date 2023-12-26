@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Button from "@components/Button.astro";
+import HeroIcon from "@components/HeroIcon.astro";
+
+type Props = HTMLAttributes<"button">;
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class="subMenuHeader">
+  <span class="text-lg">
+    <span class="sr-only">
+      Submenu for{" "}
+    </span>
+    <slot />
+  </span>
+  <Button {...attrs} color="secondary" size="sm">
+    <HeroIcon name="arrow-uturn-left" class="size-6" />
+     Go Back
+  </Button>
+</div>
+
+<style>
+  .subMenuHeader {
+    @apply flex md:hidden items-center gap-x-4 justify-between;
+    @apply relative;
+    @apply mb-4;
+    @apply px-4 pt-2;
+
+    /* A little tribute to earlier Ubuntu for Phone UI design */
+    &::before {
+        content: "";
+        @apply absolute -top-4;
+        @apply w-dvw -mx-4;
+        @apply border-t-8 border-neutral-300;
+        @apply shadow-inner;
+    }
+  }
+</style>

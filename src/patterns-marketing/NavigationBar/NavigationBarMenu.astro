@@ -1,0 +1,83 @@
+---
+import NavigationBarSubmenuButton from './NavigationBarSubmenuButton.astro';
+import NavigationBarSubmenuHeader from './NavigationBarSubmenuHeader.astro';
+
+type Props = {
+    isSubMenu?: boolean;
+    title?: string,
+}
+
+const { title, isSubMenu = false } = Astro.props
+
+---
+
+{
+!isSubMenu && (
+    <ul class="menu" :class="showMenu && 'menuVisible'">
+        <slot />
+    </ul>
+)}
+
+{ isSubMenu && (
+    <li class="relative" x-data="{ showSubmenu: false }">
+        <NavigationBarSubmenuButton
+          @click="showSubmenu = true"
+          @mouseover="if (!isSmallScreen()) showSubmenu = true"
+          @mouseleave="if (!isSmallScreen()) showSubmenu = false"
+        >
+          {title}
+        </NavigationBarSubmenuButton>
+        <ul
+          class="submenu"
+          @mouseover="if (!isSmallScreen()) showSubmenu = true"
+          @mouseleave="if (!isSmallScreen()) showSubmenu = false"
+          x-show="showSubmenu"
+          x-cloak
+        >
+
+        <NavigationBarSubmenuHeader @click="showSubmenu = false">{title}</NavigationBarSubmenuHeader>
+        <slot />
+    </ul>
+    </li>
+)}
+
+<style>
+  .menu {
+    @apply hidden md:inline-flex flex-col md:flex-row gap-x-4 gap-y-2;
+    @apply col-span-2;
+    @apply md:items-center;
+
+    /* A little tribute to earlier Ubuntu for Phone UI design */
+    &::before {
+        content: "";
+        @apply md:hidden;
+        @apply absolute top-16;
+        @apply w-dvw -mx-4;
+        @apply border-t-8 border-neutral-300;
+        @apply shadow-inner;
+    }
+  }
+
+  .menuVisible {
+    @media (width < 768px) {
+      display: flex;
+      @apply bg-neutral-100;
+    }
+  }
+
+  .submenu {
+    @apply fixed md:absolute md:top-full top-16;
+    @apply left-0 /*md:left-1/2 md:-translate-x-1/2*/;
+    @apply w-dvw h-dvh md:h-max md:min-w-40 md:w-max;
+    @apply overflow-y-auto;
+
+    @apply bg-neutral-100 border border-neutral-300;
+    @apply md:rounded-xl md:shadow-xl;
+    @apply p-4;
+    @apply space-y-0.5;
+    
+    @apply grid md:grid-flow-dense;
+    @apply md:grid-cols-[repeat(3,_minmax(0,_12rem))];
+    @apply md:gap-4;
+  }
+</style>
