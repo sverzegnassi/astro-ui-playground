@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Box from "@components/Box.astro";
+import AccordionGroup from "@components/AccordionGroup.astro";
+import Accordion from "@components/Accordion.astro";
+---
+
+<BaseLayout title="FAQ Patterns">
+    <div class="absolute w-dvw h-dvh bg-neutral-200 -z-50"></div>
+
+  <BoxGrid>
+    <Box
+      padding="xl"
+      prose="prose"
+      size="breakout"
+      class="mt-8 bg-neutral-100 border border-neutral-300 [&>.prose]:mx-auto [&>.prose]:text-center"
+    >
+      <h1>FAQ patterns</h1>
+    </Box>
+
+    <Box>
+      <AccordionGroup title="Frequently Asked Questions" mode="all-opened">
+        <Accordion title="1. Is there a free trial?">
+          <p>Yes, we offer a [X]-day free trial on all plans. No credit card required.</p>
+        </Accordion>
+        <Accordion title="2. Can I change my plan later?">
+          <p>Absolutely! You can upgrade or downgrade your plan at any time.</p>
+        </Accordion>
+        <Accordion title="3. What payment methods do you accept?">
+          <p>We accept [Payment Method 1], [Payment Method 2], and [Payment Method 3].</p>
+        </Accordion>
+      </AccordionGroup>
+    </Box>
+
+    <Box>
+      <div class="divide-y divide-neutral-300">
+        <h2 class="font-bold text-xl py-8">Frequenty Asked Questions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 py-8">
+          <h3 class="font-semibold text-lg">1. Is there a free trial?</h3>
+          <div class="prose"><p>Yes, we offer a [X]-day free trial on all plans. No credit card required.</p></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 py-8">
+          <h3 class="font-semibold text-lg">2. Can I change my plan later?</h3>
+          <div class="prose"><p>Absolutely! You can upgrade or downgrade your plan at any time.</p></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 py-8">
+          <h3 class="font-semibold text-lg">3. What payment methods do you accept?</h3>
+          <div class="prose"><p>We accept [Payment Method 1], [Payment Method 2], and [Payment Method 3].</p></div>
+        </div>
+      </div>
+    </Box>
+
+    <Box>
+        <h2 class="font-bold text-2xl py-8 border-b border-neutral-300">Frequenty Asked Questions</h2>
+        <div class="columns-[65ch]">
+          <div class="py-8 space-y-2 break-inside-avoid">
+            <h3 class="font-semibold text-lg">1. Is there a free trial?</h3>
+            <div class="prose"><p>Yes, we offer a [X]-day free trial on all plans. No credit card required.</p></div>
+          </div>
+          <div class="py-8 space-y-2 break-inside-avoid">
+            <h3 class="font-semibold text-lg">2. Can I change my plan later?</h3>
+            <div class="prose"><p>Absolutely! You can upgrade or downgrade your plan at any time.</p></div>
+          </div>
+          <div class="py-8 space-y-2 break-inside-avoid">
+            <h3 class="font-semibold text-lg">3. What payment methods do you accept?</h3>
+            <div class="prose"><p>We accept [Payment Method 1], [Payment Method 2], and [Payment Method 3].</p></div>
+          </div>
+        </div>
+      </Box>
+  </BoxGrid>
+</BaseLayout>
