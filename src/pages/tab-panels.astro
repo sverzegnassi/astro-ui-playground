@@ -1,0 +1,29 @@
+---
+import AppLayout from "@layouts/AppLayout.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Tabs from "@components/Tabs.astro";
+import TabPanel from "@components/TabPanel.astro";
+---
+
+<AppLayout pageTitle="Tabs">
+  <BoxGrid class="space-y-8">
+    <Box padding="xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Tabs</h1>
+    </Box>
+
+    <Tabs>
+      <TabPanel title="Panel 1">
+        <Box padding="xs" prose="prose-w-full" class="text-center">
+          <h2>Hello from Panel #1</h2>
+        </Box>
+      </TabPanel>
+
+      <TabPanel title="Panel 2">
+        <Box padding="xs" prose="prose-w-full" class="text-center">
+          <h2>Hello from Panel #2</h2>
+        </Box>
+      </TabPanel>
+    </Tabs>
+  </BoxGrid>
+</AppLayout>

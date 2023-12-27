@@ -6,6 +6,9 @@ type Props = HTMLAttributes<"ul"> & {};
 const { class: className, ...attrs } = Astro.props;
 ---
 
+<!-- TODO: `as="popover"` once Firefox support officially lands -->
+<!-- TODO: Nested menus (as popover) -->
+
 <ul class:list={["menu", className]} {...attrs}>
   <slot />
 </ul>

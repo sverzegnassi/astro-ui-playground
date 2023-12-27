@@ -17,9 +17,14 @@ const currentPath = new URL(Astro.request.url).pathname;
 
 <ApplicationLayout title={pageTitle}>
   <!-- HEADER -->
-  <h1 slot="header-left">Astro</h1>
+  <div slot="header-left">
+    <h1 class="font-semibold leading-none">Astro Components Demo</h1>
+    <span class="text-sm text-neutral-800">{pageTitle}</span>
+  </div>
 
-  <div slot="header-center" class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
+  <slot slot="header-center" name="header-center">
+    <div class="hidden md:block w-96 h-4 bg-neutral-300" slot="header-center"></div>
+  </slot>
 
   <Button slot="header-right" as="anchor" size="small" color="muted">
     <HeroIcon name="adjustments-vertical" class="size-6 text-neutral-800" />
@@ -29,6 +34,7 @@ const currentPath = new URL(Astro.request.url).pathname;
   <!-- SIDEBAR -->
   <nav slot="sidebar">
     <Menu class="p-4">
+      <div class="col-span-3 flex gap-2 items-center px-2 py-1">Application</div>
       <MenuItem href="/" aria-current={currentPath === "/" ? "page" : "false"}>
         <HeroIcon slot="left" name="home" class="size-5" />
          Homepage
@@ -47,6 +53,24 @@ const currentPath = new URL(Astro.request.url).pathname;
       <MenuItem href="/boxes" aria-current={currentPath === "/boxes" ? "page" : "false"}>
         <HeroIcon slot="left" name="archive-box" class="size-5" />
          Box and BoxGrid
+      </MenuItem>
+      <MenuItem href="/modals" aria-current={currentPath === "/modals" ? "page" : "false"}>
+        <HeroIcon slot="left" name="archive-box" class="size-5" />
+         Modals
+      </MenuItem>
+      <MenuItem href="/tab-panels" aria-current={currentPath === "/tab-panels" ? "page" : "false"}>
+        <HeroIcon slot="left" name="folder" class="size-5" />
+         Tabs
+      </MenuItem>
+      <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
+        <HeroIcon slot="left" name="rocket-launch" class="size-5" />
+         Global Menu
+      </MenuItem>
+      <div class="mt-8 col-span-3 flex gap-2 items-center px-2 py-1">Marketing</div>
+      <MenuItem href="/marketing/navbar" aria-current={currentPath === "/marketing/navbar" ? "page" : "false"}>
+        <HeroIcon slot="left" name="link" class="size-5" />
+         Navigation Bar
+        <HeroIcon slot="right" name="arrow-right" class="size-5" />
       </MenuItem>
       <MenuItem as="button">
         <HeroIcon name="plus-circle" class="size-6" />

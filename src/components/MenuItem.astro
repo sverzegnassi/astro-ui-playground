@@ -7,7 +7,7 @@ type Props = ({ as: "button" } & ButtonProps) | ({ as: "anchor" } & HTMLAttribut
 const { class: className, as = "anchor", ...attrs } = Astro.props;
 ---
 
-<li class:list={["menuItem"]} role="presentation">
+<li class:list={["menuItem"]} role="presentationZ">
   {
     as === "anchor" && (
       <a class={className} {...attrs}>
@@ -50,18 +50,18 @@ const { class: className, as = "anchor", ...attrs } = Astro.props;
         @apply col-span-1;
       }
 
-      & > *:nth-child(1) {
+      & > .left-slot {
         @apply text-neutral-700;
       }
 
-      & > *:nth-child(2) {
+      & > .default-slot {
         @apply underline;
         @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
         @apply hover:text-link-900;
       }
 
-      & > *:nth-child(3) {
-        justify-self: end;
+      & > .right-slot {
+        @apply ml-2 justify-self-end;
       }
     }
   }
@@ -78,7 +78,12 @@ const { class: className, as = "anchor", ...attrs } = Astro.props;
     @apply mt-2;
   }
 
-  .menuItem a:not([aria-current="false"]) {
+  .menuItem a[aria-current="page"],
+  .menuItem a[aria-current="step"],
+  .menuItem a[aria-current="location"],
+  .menuItem a[aria-current="date"],
+  .menuItem a[aria-current="time"],
+  .menuItem a[aria-current="true"] {
     @apply bg-info-300;
   }
 </style>

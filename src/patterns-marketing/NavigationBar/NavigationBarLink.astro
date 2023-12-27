@@ -1,0 +1,37 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<li class="navigationBarLink">
+  <a class:list={[className]} {...attrs}>
+    <slot />
+  </a>
+</li>
+
+<style>
+  .navigationBarLink {
+    @apply col-span-full md:col-span-1;
+    @apply row-span-1;
+
+    & > a {
+      @apply block;
+      @apply px-2 py-2;
+      @apply block w-full h-full;
+      @apply underline;
+      @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
+      @apply hover:text-link-900;
+      @apply hover:bg-neutral-300;
+      @apply rounded-md;
+    }
+  }
+
+  li:has(.box) {
+    @apply col-span-full row-span-8 md:col-span-1 md:row-span-7;       
+    @apply border border-neutral-300;
+    @apply rounded-lg;
+  }
+</style>

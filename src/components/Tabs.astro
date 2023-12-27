@@ -2,9 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { parse } from "node-html-parser";
 
-type Props = {
-  children?: HTMLElement[];
-} & HTMLAttributes<"div">;
+type Props = HTMLAttributes<"div">;
 
 const innerHTML = await Astro.slots.render("default");
 const root = parse(innerHTML);
@@ -17,7 +15,7 @@ let tabPanelIds: string[] = [];
 tabPanelIds.push(Math.random().toString(16));
 ---
 
-<section x-data=`{ activePanel: 'panel_${tabPanelIds[0]}' }`>
+<section {...attrs} x-data=`{ activePanel: 'panel_${tabPanelIds[0]}' }`>
   <div>
     <div class="tablist--wrapper">
       <div class="tablist" role="tablist" aria-label="Tabs">

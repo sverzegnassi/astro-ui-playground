@@ -8,11 +8,12 @@ export type Props = (
 ) & {
   color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
   size?: "sm" | "md"
+  fullWidth?: false | "fullWidth"
 };
 
-const { class: className, color = "default", size = "md", as = "button", ...attrs } = Astro.props;
+const { class: className, color = "default", size = "md", fullWidth, as = "button", ...attrs } = Astro.props;
 
-const styleClassList = ["btn", color, size, className];
+const styleClassList = ["btn", color, size, fullWidth, className];
 ---
 
 {
@@ -53,6 +54,10 @@ const styleClassList = ["btn", color, size, className];
 
   .btn.sm {
     @apply px-4 py-2;
+  }
+
+  .btn.fullWidth {
+    @apply w-full;
   }
 
   .btn:hover {

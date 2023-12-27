@@ -1,0 +1,93 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Button from "@components/Button.astro";
+import NavigationBarLink from "./NavigationBarLink.astro";
+import NavigationBarSubmenuHeader from "./NavigationBarSubmenuHeader.astro";
+import NavigationBarMenuButton from "./NavigationBarMenuButton.astro";
+import NavigationBarMenu from "./NavigationBarMenu.astro";
+import NavigationBarSubmenuButton from "./NavigationBarSubmenuButton.astro";
+
+type Props = HTMLAttributes<"header">;
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<header
+  {...attrs}
+  class:list={["navbar", className]}
+  x-data={`
+    {
+      showMenu: false,
+      isSmallScreen: () => (window.innerWidth > 0)
+        ? (window.innerWidth < 768)
+        : (screen.width < 768)
+    }
+  `}
+>
+  <nav>
+    <a href="/" class="logo">
+      <span class="text-lg font-bold tracking-tighter text-neutral-500">Logo</span>
+    </a>
+    <NavigationBarMenuButton
+      @click="showMenu = !showMenu"
+      :aria-expanded="showMenu"
+      :aria-label="! showMenu ? 'Show Menu' : 'Hide Menu'"
+    />
+
+    <NavigationBarMenu>
+      <NavigationBarMenu title="About Us" isSubMenu={true}>
+          <NavigationBarLink class="box" href="#" style="background-image: url('https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg')">Our story</NavigationBarLink>
+          <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
+          <NavigationBarLink href="#">Team</NavigationBarLink>
+          <NavigationBarLink href="#">Culture</NavigationBarLink>
+          <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
+          <NavigationBarLink class="box" href="#">Partnerships</NavigationBarLink>
+          <NavigationBarLink href="#">Media Kit</NavigationBarLink>
+          <NavigationBarLink href="#">Testimonials</NavigationBarLink>
+          <NavigationBarLink href="#">Careers</NavigationBarLink>
+      </NavigationBarMenu>
+      <NavigationBarLink href="#">Our Services</NavigationBarLink>
+      <NavigationBarLink href="#">Pricing</NavigationBarLink>
+      <NavigationBarLink href="#">Blog</NavigationBarLink>
+      <NavigationBarLink href="#">FAQ</NavigationBarLink>
+      <NavigationBarLink href="#">Contact Us</NavigationBarLink>
+    </NavigationBarMenu>
+
+    <NavigationBarMenu>
+      <Button as="anchor" href="#" size="sm" color="tertiary">Support</Button>
+      <Button as="anchor" href="#" size="sm">Contact Us</Button>
+    </NavigationBarMenu>
+  </nav>
+</header>
+
+<style>
+  .navbar {
+    @apply w-full h-16;
+    @apply bg-neutral-100;
+    @apply border-b border-neutral-300;
+    @apply px-4 md:px-8;
+
+    & > nav {
+      @apply w-full h-full;
+
+      @apply grid md:flex items-center gap-8;
+      @apply justify-between;
+      @apply grid-cols-2;
+      @apply grid-rows-[4rem_1fr_1fr];
+
+      & > .logo {
+        @apply col-span-1;
+      }
+    }
+  }
+
+  .submenu {
+    @apply fixed md:absolute md:top-full top-16 left-0 md:left-1/2 md:-translate-x-1/2;
+    @apply w-dvw h-dvh md:h-max md:min-w-40 md:w-auto;
+
+    @apply bg-neutral-100 border border-neutral-300;
+    @apply md:rounded-xl;
+    @apply p-4;
+    @apply space-y-0.5;
+  }
+</style>

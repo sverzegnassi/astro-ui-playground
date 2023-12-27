@@ -11,9 +11,14 @@ type Props = {
 ) &
   HTMLAttributes<"svg">;
 
+export async function importIcon(size: string, style: string, name: string) {
+  const icon = await import(`../assets/heroicons/optimized/${size}/${style}/${name}.svg?raw`);
+  return icon.default;
+}
+
 const { size = "24", style = "outline", name, ...attrs } = Astro.props;
 
-const { default: raw } = await import(`../assets/heroicons/optimized/${size}/${style}/${name}.svg?raw`);
+const raw = await importIcon(size, style, name);
 
 const svg = parse(raw).querySelector("svg");
 Object.keys(attrs)

@@ -1,0 +1,37 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import Button from "./Button.astro";
+import HeroIcon from "./HeroIcon.astro";
+
+type Props = HTMLAttributes<"dialog"> & {
+  id: string;
+  mode: "modal" | "nonModal"
+};
+
+const { class: className, id, ...attrs } = Astro.props;
+---
+
+<!-- Popover, once Firefox officially supports them -->
+
+<dialog class:list={["dialog", className]} id={id} x-ref={id} {...attrs}>
+  <slot />
+  <slot name="actions">
+    <Button size="sm" fullWidth="fullWidth" color="secondary" @click={`$refs.${id}.close()`} class="mt-8">
+      <HeroIcon name="x-mark" class="size-6" />
+       Close
+    </Button>
+  </slot>
+</dialog>
+
+<style>
+  .dialog {
+    @apply min-w-64 px-8 py-6;
+    @apply rounded-2xl;
+    @apply border border-neutral-300 drop-shadow-xl;
+
+    &::backdrop {
+      @apply bg-neutral-900/80;
+    }
+  }
+</style>
