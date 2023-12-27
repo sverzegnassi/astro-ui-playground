@@ -23,6 +23,7 @@ const { class: className, ...attrs } = Astro.props;
         : (screen.width < 768)
     }
   `}
+  x-effect="$dispatch('showmenuchanged', { newValue: showMenu }); console.log(showMenu)"
 >
   <nav>
     <a href="/" class="logo">
@@ -62,6 +63,7 @@ const { class: className, ...attrs } = Astro.props;
 
 <style>
   .navbar {
+    @apply sticky top-0;
     @apply w-full h-16;
     @apply bg-neutral-100;
     @apply border-b border-neutral-300;
@@ -79,15 +81,5 @@ const { class: className, ...attrs } = Astro.props;
         @apply col-span-1;
       }
     }
-  }
-
-  .submenu {
-    @apply fixed md:absolute md:top-full top-16 left-0 md:left-1/2 md:-translate-x-1/2;
-    @apply w-dvw h-dvh md:h-max md:min-w-40 md:w-auto;
-
-    @apply bg-neutral-100 border border-neutral-300;
-    @apply md:rounded-xl;
-    @apply p-4;
-    @apply space-y-0.5;
   }
 </style>
