@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export type Props = HTMLAttributes<"div"> & {
+  color?: "neutral" | "success" | "error" | "warning" | "info";
+};
+
+const { class: className, color = "neutral", ...attrs } = Astro.props;
+---
+
+<div {...attrs} class:list={["callout not-prose", color, className]}>
+    <slot />
+</div>
+
+<style>
+    .callout {
+        @apply p-4;
+        @apply bg-neutral-200 text-neutral-800;
+        @apply rounded-xl;
+        @apply border border-l-[6px] border-neutral-300;
+
+        &.success {
+            @apply bg-success-300 border-success-500 text-success-700;
+        }
+
+        &.error {
+            @apply bg-error-300 border-error-500 text-error-700;
+        }
+
+        &.warning {
+            @apply bg-warning-300 border-warning-500 text-warning-700;
+        }
+
+        &.info {
+            @apply bg-info-300 border-info-500 text-info-700;
+        }
+    }
+</style>
