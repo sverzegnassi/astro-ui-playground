@@ -6,15 +6,9 @@ import HeroIcon from "@components/HeroIcon.astro";
 type Props = HTMLAttributes<"button">;
 
 const { class: className, ...attrs } = Astro.props;
-
 ---
 
-<Button
-  {...attrs}
-  class:list={["menuButton", className]}
-  size="sm"
-  color="muted"
->
+<Button {...attrs} class:list={["menuButton", className]} size="sm" color="muted">
   <div class="grid">
     <HeroIcon
       name="bars-3"
@@ -44,6 +38,10 @@ const { class: className, ...attrs } = Astro.props;
 </Button>
 
 <style>
+  [x-cloak] {
+    display: none !important;
+  }
+
   .menuButton {
     @apply col-span-1;
     @apply justify-self-end;
