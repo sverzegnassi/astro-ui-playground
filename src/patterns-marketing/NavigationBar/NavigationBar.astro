@@ -23,7 +23,7 @@ const { class: className, ...attrs } = Astro.props;
         : (screen.width < 768)
     }
   `}
-  x-effect="$dispatch('showmenuchanged', { newValue: showMenu }); console.log(showMenu)"
+  x-effect="$dispatch('showmenuchanged', { newValue: showMenu })"
 >
   <nav>
     <a href="/" class="logo">
