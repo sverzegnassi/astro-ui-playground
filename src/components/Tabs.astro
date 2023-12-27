@@ -15,6 +15,8 @@ let tabPanelIds: string[] = [];
 tabPanelIds.push(Math.random().toString(16));
 ---
 
+<!-- TODO: Enhance TabButton to support customizable icons -->
+
 <section {...attrs} x-data=`{ activePanel: 'panel_${tabPanelIds[0]}' }`>
   <div>
     <div class="tablist--wrapper">
