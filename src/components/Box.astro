@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = {
   size?: "regular" | "breakout" | "full-width";
-  padding?: "xs" | "sm" | "md" | "lg" | "xl";
+  padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
   prose?: false | "prose" | "prose-w-full" | "not-prose";
 } & HTMLAttributes<"div">;
 
@@ -48,6 +48,10 @@ const proseClasses = [
   .box {
     @apply w-full px-6 lg:px-8;
     @apply rounded-xl;
+  }
+
+  .box.xs {
+    @apply py-0;
   }
 
   .box.xs {
