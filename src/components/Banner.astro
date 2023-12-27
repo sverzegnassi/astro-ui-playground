@@ -1,0 +1,125 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Box from "./Box.astro";
+import Button from "./Button.astro";
+import HeroIcon from "./HeroIcon.astro";
+
+type Props = HTMLAttributes<"div"> & {
+  color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
+  alignment?: false | "justify-center" | "justify-between";
+  dismissable?: boolean;
+};
+
+const { color = "primary", alignment = false, dismissable = true, class: className, ...attrs } = Astro.props;
+---
+<!-- FIXME: Address flickering issue with Dismissable Banner on initial rendering -->
+
+<Box
+  {...attrs}
+  class:list={["banner", color, className]}
+  padding="none"
+  x-data={`{ dismissable : ${dismissable} }`}
+  x-id="['banner']"
+  x-show="getSessionCookie($id('banner'), true) !== 'false'"
+  x-cloak
+>
+  <div class:list={["inner", alignment]}>
+    <slot />
+  </div>
+  <Button
+    class="dismissBtn"
+    color={color}
+    size="sm"
+    x-show="dismissable"
+    @click="$root.remove(); setSessionCookie($id('banner'), false);"
+  >
+    <HeroIcon name="x-mark" class="size-6" />
+    <span class="sr-only">Close banner</span>
+  </Button>
+</Box>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .dismissBtn {
+    @apply absolute right-1 top-1;
+  }
+
+  .banner {
+    @apply bg-neutral-800 text-neutral-100 rounded-sm;
+    @apply relative;
+    @apply px-2;
+    @apply text-sm sm:text-base;
+
+    & .inner {
+      @apply w-full inline-flex flex-col sm:flex-row gap-2;
+      @apply items-start sm:items-center;
+      @apply min-h-12;
+      @apply pr-14;
+      @apply py-2;
+    }
+  }
+
+  .banner.secondary {
+    @apply bg-neutral-300 text-neutral-900;
+    @apply hover:bg-neutral-400;
+  }
+
+  .banner.tertiary {
+    @apply bg-transparent text-link-900;
+  }
+
+  .banner.muted {
+    @apply bg-transparent text-neutral-900;
+    @apply hover:bg-neutral-400;
+  }
+
+  .banner.success {
+    @apply bg-success-700 text-success-300;
+    @apply focus:ring-success-500;
+  }
+
+  .banner.error {
+    @apply bg-error-700 text-error-300;
+    @apply focus:ring-error-500;
+  }
+
+  .banner.warning {
+    @apply bg-warning-700 text-warning-300;
+    @apply focus:ring-warning-500;
+  }
+
+  .banner.info {
+    @apply bg-info-700 text-info-300;
+    @apply focus:ring-info-500;
+  }
+</style>
+
+<script is:inline>
+  /* Functions to manage the visibility state of a dismissed banner */
+  /* Ensures that the banner remains hidden for the duration of the user's session. */
+
+  function setSessionCookie(cookieName, cookieValue) {
+    const now = new Date();
+    const expirationTime = new Date(now.getTime() + 30 * 60 * 1000); // 30 minutes in milliseconds
+
+    const cookieString = `${cookieName}=${cookieValue}; expires=${expirationTime.toUTCString()}; path=/; SameSite=Lax`;
+    document.cookie = cookieString;
+  }
+
+  function getSessionCookie(cookieName, defaultValue = null) {
+    const cookies = document.cookie.split("; ");
+
+    for (const cookie of cookies) {
+      const [name, value] = cookie.split("=");
+
+      if (name === cookieName) {
+        return value;
+      }
+    }
+
+    return defaultValue;
+  }
+</script>
