@@ -4,18 +4,19 @@ import type { HTMLAttributes } from "astro/types";
 type Props = {
   size?: "regular" | "breakout" | "full-width";
   padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
-  prose?: false | "prose" | "prose-w-full" | "not-prose";
+  prose?: false | "prose" | "prose-80" | "prose-w-full" | "not-prose";
 } & HTMLAttributes<"div">;
 
 const { size = "regular", padding = "md", prose = false, class: className, ...attrs } = Astro.props;
 
 const proseClasses = [
-  (prose == "prose" || prose == "prose-w-full") && [
+  (prose == "prose" || prose == "prose-w-full" || prose == "prose-80") && [
     "prose prose-custom",
     "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-2 prose-a:decoration-link-900",
     "hover:prose-a:text-link-900"
   ],
   prose == "not-prose" && "not-prose",
+  prose == "prose-80" && "max-w-[80ch]",
   prose == "prose-w-full" && "max-w-none",
 ];
 ---
