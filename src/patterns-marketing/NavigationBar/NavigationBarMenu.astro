@@ -11,35 +11,44 @@ const { title, isSubMenu = false } = Astro.props
 
 ---
 
-{
-!isSubMenu && (
-    <ul class="menu" :class="showMenu && 'menuVisible'">
-        <slot />
-    </ul>
+<!-- TODO: Should I use aria-haspopup? expands? controls? Check how Radix UI does -->
+
+{ !isSubMenu && (
+  <ul class="menu" :class="showMenu && 'menuVisible'">
+    <slot />
+  </ul>
 )}
 
 { isSubMenu && (
-    <li class="relative" x-data="{ showSubmenu: false }" @showmenuchanged.window="if ($event.detail.newValue == false) showSubmenu = false;" x-cloak>
-        <NavigationBarSubmenuButton
-          @click="showSubmenu = true"
-          @mouseover="if (!isSmallScreen()) showSubmenu = true"
-          @mouseleave="if (!isSmallScreen()) showSubmenu = false"
-        >
-          {title}
-        </NavigationBarSubmenuButton>
-        <ul
-          class="submenu"
-          @mouseover="if (!isSmallScreen()) showSubmenu = true"
-          @mouseleave="if (!isSmallScreen()) showSubmenu = false"
-          x-show="showSubmenu"
-          x-cloak
-        >
-
-        <NavigationBarSubmenuHeader @click="showSubmenu = false">{title}</NavigationBarSubmenuHeader>
-        <slot />
+  <li x-data="{ showSubmenu: false, closeTimer: undefined }" @showmenuchanged.window="if ($event.detail.newValue == false) showSubmenu = false;" x-cloak>
+    <NavigationBarSubmenuButton
+      @click="showSubmenu = true"
+      @mouseover="if (!isSmallScreen()) showSubmenu = true"
+      @mouseleave="if (!isSmallScreen()) { closeTimer = setTimeout(() => showSubmenu = false, 166) }"
+    >
+      {title}
+    </NavigationBarSubmenuButton>
+    <ul
+      class="submenu"
+      @mouseover="if (!isSmallScreen()) clearTimeout(closeTimer); showSubmenu = true"
+      @mouseleave="if (!isSmallScreen()) { closeTimer = setTimeout(() => showSubmenu = false, 166) }"
+      x-show="showSubmenu"
+      x-cloak
+    >
+      <NavigationBarSubmenuHeader @click="showSubmenu = false">{title}</NavigationBarSubmenuHeader>
+      <slot />
     </ul>
-    </li>
+  </li>
 )}
+
+<style is:global>
+  .submenu {
+    & li {
+      @apply flex-shrink-0;
+    }
+  }
+</style>
+
 
 <style>
   [x-cloak] {
@@ -48,18 +57,19 @@ const { title, isSubMenu = false } = Astro.props
 
   .menu {
     @apply hidden md:inline-flex flex-col md:flex-row gap-x-4 gap-y-2;
-    @apply w-dvw h-dvh md:h-max md:w-max;
+    @apply w-full h-auto md:h-max md:w-max;
     @apply col-span-2;
     @apply md:items-center;
+    @apply pb-4 md:pb-0;
 
     /* A little tribute to earlier Ubuntu for Phone UI design */
     &::before {
-        content: "";
-        @apply md:hidden;
-        @apply absolute top-16;
-        @apply w-dvw -mx-4;
-        @apply border-t-8 border-neutral-300;
-        @apply shadow-inner;
+      content: "";
+      @apply md:hidden;
+      @apply absolute top-16;
+      @apply w-dvw -mx-4;
+      @apply border-t-8 border-neutral-300;
+      @apply shadow-inner;
     }
   }
 
@@ -71,18 +81,22 @@ const { title, isSubMenu = false } = Astro.props
   }
 
   .submenu {
-    @apply fixed md:absolute md:top-full top-16;
-    @apply left-0 /*md:left-1/2 md:-translate-x-1/2*/;
-    @apply w-dvw h-dvh md:h-max md:min-w-40 md:w-max;
-    @apply overflow-y-auto;
+    /*  !!!
+        Make sure the nearest positioned ancestor is <NavigationBar> root element ( i.e. <header> ).
+    */
+    @apply fixed md:absolute;
+    @apply top-16 md:top-[calc(100%_+_1px)] left-0;
+    @apply w-full h-[calc(100dvh-4rem)] md:h-max;
+    @apply overflow-y-auto overflow-x-hidden;
 
-    @apply bg-neutral-100 border border-neutral-300;
-    @apply md:rounded-xl md:shadow-xl;
+    @apply bg-neutral-100;
+    @apply md:shadow-xl;
     @apply p-4;
-    @apply space-y-0.5;
+    @apply gap-x-4 gap-y-2;
     
-    @apply grid md:grid-flow-dense;
-    @apply md:grid-cols-[repeat(3,_minmax(0,_12rem))];
-    @apply md:gap-4;
+    @apply flex flex-col md:grid md:grid-flow-col-dense;
+    @apply md:grid-rows-12 md:grid-cols-2 lg:grid-rows-5 lg:auto-cols-fr;
+    @apply md:px-4 xl:px-[15%] 2xl:px-[25%];
   }
 </style>
+
