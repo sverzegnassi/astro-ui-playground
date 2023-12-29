@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"table"> & {
+  layout?: "table-auto" | "table-fixed";
+};
+
+const { class: className, layout = "table-auto", ...attrs } = Astro.props;
+---
+
+<table {...attrs} class:list={["table", layout, className]}>
+  <slot />
+</table>
+
+<style is:global>
+  .table {
+    @apply w-full;
+
+    & > caption {
+      @apply py-4;
+      @apply italic text-neutral-800;
+    }
+
+    & > thead > tr {
+      @apply border-neutral-300;
+      @apply first:border-t last:border-b;
+
+      @apply text-neutral-800 first:text-neutral-900;
+      
+      & > th {
+        @apply px-4 pt-4 pb-2;
+        @apply bg-neutral-100;
+        @apply font-semibold text-left align-bottom;
+
+        @apply first:pl-8 last:pr-8;
+        @apply first:border-l last:border-r border-neutral-300;
+      }
+
+      &:last-child > th {
+        @apply py-4;
+      }
+    }
+
+    & > tbody {
+      @apply text-neutral-800;
+
+      & > tr:hover > td {
+        @apply bg-info-300;
+      }
+    }
+
+    td {
+      @apply px-4 py-4;
+      @apply first:pl-8 last:pr-8;
+      @apply bg-neutral-100;
+
+      @apply border-b border-b-neutral-300;
+      @apply first:border-l last:border-r first:border-l-neutral-300 last:border-r-neutral-300;
+      @apply transition-colors;
+    }
+  }
+</style>

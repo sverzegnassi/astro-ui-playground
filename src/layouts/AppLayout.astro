@@ -70,6 +70,10 @@ const currentPath = new URL(Astro.request.url).pathname;
         <HeroIcon slot="left" name="exclamation-triangle" class="size-5" />
          Callouts
       </MenuItem>
+      <MenuItem href="/tables" aria-current={currentPath === "/tables" ? "page" : "false"}>
+        <HeroIcon slot="left" name="table-cells" class="size-5" />
+         Tables
+      </MenuItem>
       <div class="mt-8 col-span-3 flex gap-2 items-center px-2 py-1">Marketing</div>
       <MenuItem href="/marketing/navbar" aria-current={currentPath === "/marketing/navbar" ? "page" : "false"}>
         <HeroIcon slot="left" name="link" class="size-5" />
