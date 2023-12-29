@@ -2,14 +2,15 @@
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"span"> & {
-  color?: "default" | "muted" | "brand" | "success" | "error" | "warning" | "info";
+  color?: "default" | "brand" | "success" | "error" | "warning" | "info";
   size?: "sm" | "lg" | "md";
+  style?: "default" | "muted";
 };
 
-const { class: className, color = "default", size = "sm", ...attrs } = Astro.props;
+const { class: className, color = "default", style="default", size = "sm", ...attrs } = Astro.props;
 ---
 
-<span class:list={["badge", color, size, className]} {...attrs}>
+<span class:list={["badge", color, size, style, className]} {...attrs}>
   <slot />
 </span>
 
@@ -26,11 +27,6 @@ const { class: className, color = "default", size = "sm", ...attrs } = Astro.pro
 
   .badge.lg {
     @apply text-base py-1 px-4;
-  }
-
-  .badge.muted {
-    @apply bg-transparent text-neutral-800;
-    @apply border border-neutral-300;
   }
 
   .badge.success {
@@ -51,5 +47,9 @@ const { class: className, color = "default", size = "sm", ...attrs } = Astro.pro
   .badge.info {
     @apply bg-info-300 text-info-700;
     @apply border border-info-500;
+  }
+
+  .badge.muted {
+    @apply !bg-transparent;
   }
 </style>
