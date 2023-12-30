@@ -1,0 +1,29 @@
+---
+import Box, { type Props as BoxProps } from "@components/Box.astro";
+import AccordionGroup from "@components/AccordionGroup.astro";
+import Accordion from "@components/Accordion.astro";
+
+export type Question = {
+  q: string;
+  a: string;
+};
+
+type Props = BoxProps & {
+  title: string;
+  questions: Question[];
+};
+
+const { class: className, title, questions, ...attrs } = Astro.props;
+---
+
+<Box {...attrs} class:list={[className]}>
+  <AccordionGroup title={title}>
+    {
+      questions.map((question) => (
+        <Accordion title={question.q}>
+          <Fragment set:html={question.a} />
+        </Accordion>
+      ))
+    }
+  </AccordionGroup>
+</Box>
