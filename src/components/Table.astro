@@ -21,12 +21,13 @@ const { class: className, layout = "table-auto", ...attrs } = Astro.props;
       @apply italic text-neutral-800;
     }
 
-    & > thead > tr {
+    & > thead > tr,
+    & > tfoot > tr {
       @apply border-neutral-300;
       @apply first:border-t last:border-b;
 
       @apply text-neutral-800 first:text-neutral-900;
-      
+     
       & > th {
         @apply px-4 pt-4 pb-2;
         @apply bg-neutral-100;
