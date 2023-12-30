@@ -5,8 +5,8 @@ import BoxGrid from "@components/BoxGrid.astro";
 import NavigationBar from "@marketing/NavigationBar/NavigationBar.astro";
 import Button from "../../components/Button.astro";
 import Banner from "../../components/Banner.astro";
-import ConsentManager from "@components/ConsentManager/ConsentManager.astro"
 
+import Testimonial from "../../patterns-marketing/Testimonial.astro";
 import LogoCarousel from "../../patterns-marketing/LogoCarousel.astro";
 
 // Logo Carousel assets
@@ -28,15 +28,21 @@ import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro"
   <NavigationBar>
     <NavigationBarMenu>
       <NavigationBarMenu title="About Us" isSubMenu={true}>
-          <NavigationBarLink class="box" href="#" style="background-image: url('https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg')">Our story</NavigationBarLink>
-          <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
-          <NavigationBarLink href="#">Team</NavigationBarLink>
-          <NavigationBarLink href="#">Culture</NavigationBarLink>
-          <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
-          <NavigationBarLink class="box" href="#">Partnerships</NavigationBarLink>
-          <NavigationBarLink href="#">Media Kit</NavigationBarLink>
-          <NavigationBarLink href="#">Testimonials</NavigationBarLink>
-          <NavigationBarLink href="#">Careers</NavigationBarLink>
+        <NavigationBarLink
+          class="box"
+          href="#"
+          style="background-image: url('https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg')"
+        >
+          Our story
+        </NavigationBarLink>
+        <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
+        <NavigationBarLink href="#">Team</NavigationBarLink>
+        <NavigationBarLink href="#">Culture</NavigationBarLink>
+        <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
+        <NavigationBarLink class="box" href="#">Partnerships</NavigationBarLink>
+        <NavigationBarLink href="#">Media Kit</NavigationBarLink>
+        <NavigationBarLink href="#">Testimonials</NavigationBarLink>
+        <NavigationBarLink href="#">Careers</NavigationBarLink>
       </NavigationBarMenu>
       <NavigationBarLink href="#">Our Services</NavigationBarLink>
       <NavigationBarLink href="#">Pricing</NavigationBarLink>
@@ -102,25 +108,15 @@ import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro"
       </ul>
     </Box>
 
-    <Box padding="sm">
-      <figure class="quote">
-        <blockquote>
-          I've been using [Your Product/Service] for [X] months now, and it has completely transformed the way I
-          [use/interact with] [Product/Service]. The [specific feature] is a game-changer, and I can't imagine my
-          [workday/life] without it.
-        </blockquote>
-        <figcaption>
-          [Customer Name]
-          <cite>[Job Title/Industry]</cite>
-        </figcaption>
-        <picture>
-          <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
-        </picture>
-      </figure>
-    </Box>
+    <Testimonial
+      imageUrl="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      figCaption="[Customer Name]"
+      cite="[Job Title/Industry]"
+    >
+      I've been using [Your Product/Service] for [X] months now, and it has completely transformed the way I
+      [use/interact with] [Product/Service]. The [specific feature] is a game-changer, and I can't imagine my
+      [workday/life] without it.
+    </Testimonial>
 
     <Box>
       <div class="divide-y divide-neutral-300">
@@ -141,39 +137,3 @@ import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro"
     </Box>
   </BoxGrid>
 </BaseLayout>
-
-<style>
-  .quote {
-    @apply grid grid-cols-1 sm:grid-cols-[max-content] lg:grid-cols-[max-content_max-content] gap-y-8 lg:gap-y-4 lg:gap-x-16;
-    @apply place-content-center;
-
-    & > * {
-      @apply lg:col-start-2;
-      @apply order-2;
-    }
-
-    & > blockquote {
-      @apply text-xl/loose max-w-screen-sm md:max-w-prose;
-    }
-
-    & > figcaption {
-      @apply block;
-      @apply text-lg font-semibold;
-
-      & > cite {
-        @apply block text-base font-normal;
-        @apply text-neutral-800;
-      }
-    }
-
-    & > picture {
-      @apply lg:col-start-1 lg:row-start-1 lg:row-span-2;
-      @apply order-1;
-      @apply lg:grid lg:place-content-center;
-
-      & > img {
-        @apply h-32 w-auto lg:w-full lg:h-auto;
-      }
-    }
-  }
-</style>
