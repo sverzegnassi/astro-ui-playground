@@ -1,0 +1,88 @@
+---
+import Badge from "@components/Badge.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Table from "@components/Table.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Tables">
+  <BoxGrid class="bg-neutral-200">
+    <Box padding="xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Tables</h1>
+    </Box>
+
+    <Box>
+      <Table>
+        <caption>CRM Accounts</caption>
+        <thead>
+          <tr>
+            <th colspan="6">Company Name</th>
+            <th colspan="5">Details</th>
+          </tr>  
+          <tr>
+            <th>Company Name</th>
+            <th>Industry</th>
+            <th>Contact Person</th>
+            <th>Contact Email</th>
+            <th>Contact Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal Code</th>
+            <th>Country</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ABC Corporation</td>
+            <td>Technology</td>
+            <td>John Doe</td>
+            <td>john.doe@abc.com</td>
+            <td>+1 (555) 123456</td>
+            <td>123 Main St</td>
+            <td>Anytown</td>
+            <td>CA</td>
+            <td>12345</td>
+            <td>USA</td>
+            <td>
+              <Badge color="success" style="muted" size="sm">Active</Badge>
+            </td>
+          </tr>
+          <tr>
+            <td>XYZ Ltd</td>
+            <td>Finance</td>
+            <td>Jane Smith</td>
+            <td>jane.smith@xyz.com</td>
+            <td>+1 (555) 987654</td>
+            <td>456 Oak Ave</td>
+            <td>Othercity</td>
+            <td>NY</td>
+            <td>56789</td>
+            <td>USA</td>
+            <td>
+              <Badge color="warning" style="muted" size="sm">Inactive</Badge>
+            </td>
+          </tr>
+          <tr>
+            <td>Acme Inc</td>
+            <td>Manufacturing</td>
+            <td>Alice Johnson</td>
+            <td>alice.j@acme.com</td>
+            <td>+1 (555) 789012</td>
+            <td>789 Maple Ln</td>
+            <td>Anothercity</td>
+            <td>TX</td>
+            <td>98765</td>
+            <td>USA</td>
+            <td>
+              <Badge color="success" style="muted" size="sm">Active</Badge>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    </Box>
+
+  </BoxGrid>
+</AppLayout>

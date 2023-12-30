@@ -30,8 +30,18 @@ const { class: className, ...attrs } = Astro.props;
   }
 
   li:has(.box) {
-    @apply col-span-full row-span-8 md:col-span-1 md:row-span-7;       
+    @apply col-span-1 row-span-5;
+    @apply w-full h-48 md:h-auto;   
     @apply border border-neutral-300;
     @apply rounded-lg;
+    
+    & a {
+      @apply block h-full w-full bg-neutral-200 text-left;
+      @apply bg-cover bg-center;
+      @apply decoration-link-900;
+      @apply hover:contrast-125;
+      @apply text-neutral-900;
+      text-shadow: 0px 0px 12px white;
+    }
   }
 </style>

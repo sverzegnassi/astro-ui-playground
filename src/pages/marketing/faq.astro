@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Box from "@components/Box.astro";
+import FaqVariant1 from "@marketing/FaqVariant1.astro"
+import FaqVariant2 from "@marketing/FaqVariant2.astro"
+import FaqVariant3 from "@marketing/FaqVariant3.astro"
+
+const questions = [
+  {
+    q: "What payment methods do you accept?",
+    a: "<p>We accept payments through major credit cards, including Visa, MasterCard, and American Express.</p>",
+  },
+  {
+    q: "Is there a free trial available?",
+    a: "<p>Yes, we offer a [X]-day free trial on all plans. No credit card is required during the trial period.</p>",
+  },
+  {
+    q: "Can I change my plan later?",
+    a: "<p>Absolutely! You can upgrade or downgrade your plan at any time through your account settings.</p>",
+  },
+  {
+    q: " Do you offer discounts for non-profits or educational institutions?",
+    a: "<p>Yes, we have special pricing and discounts available for non-profits and educational institutions.<br>Contact our sales team for more information.</p>",
+  },
+  {
+    q: "How is the pricing calculated for enterprise plans?",
+    a: "<p>Enterprise plans are tailored to specific needs and usage. Please contact our sales team for a custom quote based on your requirements.</p>",
+  },
+  {
+    q: "Is there a limit on the number of users for each plan?",
+    a: "<p>Our pricing plans come with different user limits. Please refer to the specific plan details for information on user limits.</p>",
+  },
+];
+---
+
+<BaseLayout title="FAQ Patterns">
+  <BoxGrid>
+    <Box
+      padding="xl"
+      prose="prose"
+      size="breakout"
+      class="mt-8 bg-neutral-100 border border-neutral-300 [&>.prose]:mx-auto [&>.prose]:text-center"
+    >
+      <h1>FAQ patterns</h1>
+    </Box>
+
+    <FaqVariant1 title="Frequently Asked Questions" questions={questions}/>
+    <FaqVariant2 title="Frequently Asked Questions" questions={questions}/>
+    <FaqVariant3 title="Frequently Asked Questions" questions={questions}/>
+
+  </BoxGrid>
+</BaseLayout>

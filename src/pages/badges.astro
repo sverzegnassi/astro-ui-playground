@@ -14,26 +14,32 @@ import AppLayout from "@layouts/AppLayout.astro";
     <Box padding="xs" prose="prose-w-full" class="text-center">
       <h2>Small size (default)</h2>
 
-      <div class="flex flex-wrap justify-center gap-4">
-          <Badge color="default" size="sm">Primary button</Badge>
-          <Badge color="muted" size="sm">Muted button</Badge>
-          <Badge color="success" size="sm">Success button</Badge>
-          <Badge color="error" size="sm">Error button</Badge>
-          <Badge color="warning" size="sm">Warning button</Badge>
-          <Badge color="info" size="sm">Info button</Badge>
+      <div class="flex flex-wrap justify-center gap-4 mb-4">
+          <Badge color="default" size="sm">Primary</Badge>
+          <Badge color="success" size="sm">Success</Badge>
+          <Badge color="error" size="sm">Error</Badge>
+          <Badge color="warning" size="sm">Warning</Badge>
+          <Badge color="info" size="sm">Info</Badge>
       </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <Badge style="muted" color="default" size="sm">Primary (muted)</Badge>
+        <Badge style="muted" color="success" size="sm">Success (muted)</Badge>
+        <Badge style="muted" color="error" size="sm">Error (muted)</Badge>
+        <Badge style="muted" color="warning" size="sm">Warning (muted)</Badge>
+        <Badge style="muted" color="info" size="sm">Info (muted)</Badge>
+    </div>
   </Box>
 
     <Box padding="xs" prose="prose-w-full" class="text-center">
         <h2>Medium size</h2>
 
         <div class="flex flex-wrap justify-center gap-4">
-            <Badge color="default" size="md">Primary button</Badge>
-            <Badge color="muted" size="md">Muted button</Badge>
-            <Badge color="success" size="md">Success button</Badge>
-            <Badge color="error" size="md">Error button</Badge>
-            <Badge color="warning" size="md">Warning button</Badge>
-            <Badge color="info" size="md">Info button</Badge>
+            <Badge color="default" size="md">Primary</Badge>
+            <Badge color="success" size="md">Success</Badge>
+            <Badge color="error" size="md">Error</Badge>
+            <Badge color="warning" size="md">Warning</Badge>
+            <Badge color="info" size="md">Info</Badge>
         </div>
     </Box>
 
@@ -41,12 +47,11 @@ import AppLayout from "@layouts/AppLayout.astro";
       <h2>Large size</h2>
 
       <div class="flex flex-wrap justify-center gap-4">
-          <Badge color="default" size="lg">Primary button</Badge>
-          <Badge color="muted" size="lg">Muted button</Badge>
-          <Badge color="success" size="lg">Success button</Badge>
-          <Badge color="error" size="lg">Error button</Badge>
-          <Badge color="warning" size="lg">Warning button</Badge>
-          <Badge color="info" size="lg">Info button</Badge>
+          <Badge color="default" size="lg">Primary</Badge>
+          <Badge color="success" size="lg">Success</Badge>
+          <Badge color="error" size="lg">Error</Badge>
+          <Badge color="warning" size="lg">Warning</Badge>
+          <Badge color="info" size="lg">Info</Badge>
       </div>
   </Box>
   </BoxGrid>

@@ -1,0 +1,31 @@
+---
+import Box, { type Props as BoxProps } from "@components/Box.astro";
+
+export type Question = {
+  q: string;
+  a: string;
+};
+
+type Props = BoxProps & {
+  title: string;
+  questions: Question[];
+};
+
+const { class: className, title, questions, ...attrs } = Astro.props;
+---
+
+<Box {...attrs} class:list={[className]}>
+  <h2 class="font-bold text-2xl py-8 border-b border-neutral-300">Frequenty Asked Questions</h2>
+  <div class="columns-[65ch]">
+    {
+      questions.map((question) => (
+        <div class="py-8 space-y-2 break-inside-avoid">
+          <h3 class="font-semibold text-lg">{question.q}</h3>
+          <div class="prose">
+            <Fragment set:html={question.a} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Box>

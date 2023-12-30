@@ -16,11 +16,12 @@ const { class: className, ...attrs } = Astro.props;
 
 <style>
   .submenuBtn {
-    @apply py-2;
-    @apply mx-2;
+    @apply px-2 py-2;
     @apply underline;
     @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
     @apply hover:text-link-900;
-    @apply flex w-full gap-1 items-end;
+    @apply hover:bg-neutral-300;
+    @apply rounded-md;
+    @apply flex w-full gap-1 items-end;      
   }
 </style>

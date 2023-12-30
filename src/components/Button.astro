@@ -7,7 +7,9 @@ export type Props = (
   | ({ as: "input" } & HTMLAttributes<"input">)
 ) & {
   color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
-  size?: "sm" | "md"
+  
+  // NOTE: Variant "xs" should only be used inside a Banner. No other use case rn.
+  size?: "xs" | "sm" | "md"
   fullWidth?: false | "fullWidth"
 };
 
@@ -18,7 +20,7 @@ const styleClassList = ["btn", color, size, fullWidth, className];
 
 {
   as === "button" && (
-    <button class:list={styleClassList} {...attrs}>
+    <button {...attrs} class:list={styleClassList}>
       <slot />
     </button>
   )
@@ -26,7 +28,7 @@ const styleClassList = ["btn", color, size, fullWidth, className];
 
 {
   as === "anchor" && (
-    <a class:list={styleClassList} {...attrs}>
+    <a {...attrs} class:list={styleClassList}>
       <slot />
     </a>
   )
@@ -35,7 +37,7 @@ const styleClassList = ["btn", color, size, fullWidth, className];
 {
   as === "input" && (
     <>
-      <input class:list={styleClassList} {...attrs} />
+      <input {...attrs} class:list={styleClassList} />
       <slot />
     </>
   )
@@ -54,6 +56,10 @@ const styleClassList = ["btn", color, size, fullWidth, className];
 
   .btn.sm {
     @apply px-4 py-2;
+  }
+
+  .btn.xs {
+    @apply px-4 py-1;
   }
 
   .btn.fullWidth {

@@ -1,0 +1,42 @@
+---
+import Button from "./Button.astro";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<!-- https://insidegovuk.blog.gov.uk/2021/10/29/how-we-made-the-gov-uk-accordion-component-more-accessible/ -->
+
+<div class="accordionGroup" x-data x-id="['accordion-group']">
+  <div class="accordionHeader">
+    <h2 class="accordionTitle">{title}</h2>
+    <Button
+      size="sm"
+      color="secondary"
+      @click="$root.querySelectorAll('.accordion').forEach(node => { Alpine.$data(node).expanded = true; })"
+    >
+      Show all sections
+    </Button>
+  </div>
+  <div class="accordionGroup--inner">
+    <slot />
+  </div>
+</div>
+
+<style is:global>
+  .accordionHeader {
+    @apply flex items-center justify-between;
+
+    & > .accordionTitle {
+      @apply font-bold text-xl;
+    }
+  }
+
+  .accordionGroup--inner {
+    @apply py-4;
+    @apply divide-y divide-neutral-300;
+  }
+</style>

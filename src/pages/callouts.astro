@@ -1,0 +1,77 @@
+---
+import Badge from "@components/Badge.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Callout from "@components/Callout.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout pageTitle="Callouts">
+  <BoxGrid>
+    <Box padding="xl" prose="prose-w-full" size="breakout" class="mt-8 bg-neutral-100 border border-neutral-300 text-center">
+      <h1>Callouts</h1>
+    </Box>
+
+    <Box padding="sm" prose="prose-80" class="mt-8 bg-neutral-100 border border-neutral-300">
+      <h1>User Authentication</h1>
+      <p>Welcome to the documentation for [Your Product/Service]! Our user authentication system provides a secure and seamless experience for managing user access to your application. Below, you'll find detailed information on how to implement and customize user authentication.</p>
+
+      <Callout color="warning">
+        <p><strong>Warning: This documentation is for example purposes only.</strong></p>
+        <p>Replace placeholder names like [Your Product/Service] and include specific details, examples, and links relevant to your product or service.</p>
+      </Callout>
+
+      <h2>Getting Started</h2>
+      <p>To get started with user authentication, follow these simple steps:</p>
+  
+      <pre>
+<code>{`npm install @your-product/authentication
+const authentication = require(&#039;@your-product/authentication&#039;);
+
+const authentication = require('@your-product/authentication');
+
+// Initialize the authentication module
+authentication.initialize({
+  // Add your configuration options here
+});
+
+// User Sign-Up
+const newUser = {
+  username: 'example_user',
+  email: 'user@example.com',
+  password: 'secure_password',
+};
+
+authentication.signUp(newUser);
+
+// User Login
+const credentials = {
+  username: 'example_user',
+  password: 'secure_password',
+};
+
+const userToken = authentication.login(credentials);
+
+`}
+        </code>
+      </pre>
+
+      <h2>Customization Options</h2>
+      <p>Extend and customize the user authentication system based on your needs:</p>
+  
+      <pre>
+        <code>{`
+  // Add custom fields during initialization
+  authentication.initialize({
+    customFields: ['first_name', 'last_name'],
+  });
+  
+  // Enable social media authentication
+  authentication.initialize({
+    socialMediaAuth: true,
+  });`}
+        </code>
+      </pre>
+    </Box>
+  </BoxGrid>
+</AppLayout>

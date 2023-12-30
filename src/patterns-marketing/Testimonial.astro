@@ -1,0 +1,71 @@
+---
+import Box from "../components/Box.astro";
+
+type Props = {
+  imageUrl?: string;
+  imageAlt?: string;
+  figCaption?: string;
+  cite?: string;
+};
+
+const { imageUrl, imageAlt = "", figCaption, cite } = Astro.props;
+---
+
+<Box padding="sm">
+  <figure class="quote">
+    <blockquote>
+      <slot />
+    </blockquote>
+    {
+      figCaption && (
+        <figcaption>
+          {figCaption}
+          {cite && <cite>[Job Title/Industry]</cite>}
+        </figcaption>
+      )
+    }
+    {
+      imageUrl && (
+        <picture>
+          <img src={imageUrl} alt={imageAlt} />
+        </picture>
+      )
+    }
+  </figure>
+</Box>
+
+<style>
+  .quote {
+    @apply grid grid-cols-1 sm:grid-cols-[max-content] lg:grid-cols-[max-content_max-content] gap-y-8 lg:gap-y-4 lg:gap-x-16;
+    @apply place-content-center;
+
+    & > * {
+      @apply lg:col-start-2;
+      @apply order-2;
+    }
+
+    & > blockquote {
+      @apply text-xl/loose max-w-screen-sm md:max-w-prose;
+    }
+
+    & > figcaption {
+      @apply block;
+      @apply text-lg font-semibold;
+
+      & > cite {
+        @apply block text-base font-normal;
+        @apply text-neutral-800;
+      }
+    }
+
+    & > picture {
+      @apply lg:col-start-1 lg:row-start-1 lg:row-span-2;
+      @apply order-1;
+      @apply lg:grid lg:place-content-center;
+
+      & > img {
+        @apply h-32 w-auto lg:w-full lg:h-auto;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Box from "@components/Box.astro";
+import { Image } from "astro:assets";
+
+type Asset = {
+  src: string;
+  alt: string;
+};
+
+type Props = HTMLAttributes<"div"> & {
+  assets: Asset[];
+  mode?: "no-scroll" | "infinite-scroll";
+  logoHeight?: string,
+  logoXGap?: string,
+  logoXGapXl?: string,
+  duration: string,
+};
+
+const {
+  assets,
+  mode = "no-scroll",
+  logoHeight = "2rem",
+  logoXGap = "8rem",
+  logoXGapXl = "16rem",
+  duration = "10s",
+  class: className,
+  ...attrs
+} = Astro.props;
+
+/*
+  To ensure a visually pleasing effect without odd gaps in the infinite scroll,
+  we duplicate assets to fill a 2560px screen width.
+
+  Assuming the worst case of logos having a 1:1 ratio:
+
+  - Logo total width = 10rem (up to 1280px)
+  - Logo total width = 18rem (1280px upwards)
+
+  Screen width conversions:
+  - 1280px = 80rem
+  - 2560px = 160rem
+
+  Therefore, for a seamless experience:
+  - On small screens, 8 logos are required.
+  - On large screens, 8.89 logos are required.
+
+  A value of 9 will be used for convenience.  
+*/
+const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
+---
+
+<Box {...attrs} padding="xs" size="full-width" class:list={["logoCarousel", className]}>
+  <slot />
+  <div class:list={["logoCarousel--inner", mode]}>
+    {
+      assets.map((asset) => <Image src={asset.src} alt={asset.alt} />)
+    }
+    {
+      () => {
+        if (mode === "infinite-scroll" || mode === "infinite-scroll-reverse") {
+          console.log(numberOfDuplicates)
+          return Array(numberOfDuplicates).fill().map(
+            () => assets.map((asset) => <Image src={asset.src} alt={asset.alt} />)
+          )
+        }
+      }
+    }
+  </div>
+</Box>
+
+<style define:vars={{ numberOfDuplicates, duration, logoHeight, logoXGap, logoXGapXl }}>
+  .logoCarousel {
+    @apply overflow-hidden;
+  }
+
+  .logoCarousel--inner {
+    --logo-gap-x: var(--logoXGap);
+
+    @media (width > 1280px) {
+      --logo-gap-x: var(--logoXGapXl);
+    }
+
+    @apply flex flex-wrap gap-y-8 w-max;
+    @apply items-center;
+    @apply gap-x-[var(--logo-gap-x)];
+
+    & > * {
+      @apply grow-0 flex-shrink-0;
+      @apply block w-auto sm:h-12;
+      @apply h-[var(--logoHeight)];
+      
+      @apply mix-blend-multiply;
+      @apply grayscale;
+
+      &:hover {
+        @apply grayscale-0;
+      }
+    }
+  }
+
+  .infinite-scroll {
+    @apply flex-nowrap justify-normal;
+
+    /*
+      WORKAROUND: Force GPU acceleration
+      ref. https://graffino.com/til/CjT2jrcLHP-how-to-fix-filter-blur-performance-issue-in-safari
+    */
+    transform: translate3d(0, 0, 0);
+
+    animation: slide var(--duration) infinite linear; 
+
+    &:has(*:hover) {
+      animation-play-state: paused;
+    }
+  }
+
+  /*
+    Additionally, it's crucial to consider that the Box component aligns its
+    children elements within the `regular` grid, capped at a max-width of 1280px.
+
+    Previously, we established that 2560px equals 160rem.
+    
+    With a gap of 16rem between logos, we must offset the animation by -10%
+    to ensure the animation starts from the correct point.
+  */
+
+  @keyframes slide {
+    from {
+      transform: translateX(-10%);
+    }
+    to {
+      transform: translateX(
+        calc(-10% + 
+          (-100% / (var(--numberOfDuplicates) + 1)) - 
+          (var(--logo-gap-x) / (var(--numberOfDuplicates) + 1))));
+    }
+  }
+</style>

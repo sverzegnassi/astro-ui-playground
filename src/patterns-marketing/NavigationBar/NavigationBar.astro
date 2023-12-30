@@ -14,7 +14,7 @@ const { class: className, ...attrs } = Astro.props;
 
 <header
   {...attrs}
-  class:list={["navbar", className]}
+  class:list={["navbar", "relative", className]}
   x-data={`
     {
       showMenu: false,
@@ -23,6 +23,8 @@ const { class: className, ...attrs } = Astro.props;
         : (screen.width < 768)
     }
   `}
+  x-effect="$dispatch('showmenuchanged', { newValue: showMenu });"
+  x-bind:data-is-open="showMenu"
 >
   <nav>
     <a href="/" class="logo">
@@ -33,35 +35,23 @@ const { class: className, ...attrs } = Astro.props;
       :aria-expanded="showMenu"
       :aria-label="! showMenu ? 'Show Menu' : 'Hide Menu'"
     />
-
-    <NavigationBarMenu>
-      <NavigationBarMenu title="About Us" isSubMenu={true}>
-          <NavigationBarLink class="box" href="#" style="background-image: url('https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg')">Our story</NavigationBarLink>
-          <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
-          <NavigationBarLink href="#">Team</NavigationBarLink>
-          <NavigationBarLink href="#">Culture</NavigationBarLink>
-          <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
-          <NavigationBarLink class="box" href="#">Partnerships</NavigationBarLink>
-          <NavigationBarLink href="#">Media Kit</NavigationBarLink>
-          <NavigationBarLink href="#">Testimonials</NavigationBarLink>
-          <NavigationBarLink href="#">Careers</NavigationBarLink>
-      </NavigationBarMenu>
-      <NavigationBarLink href="#">Our Services</NavigationBarLink>
-      <NavigationBarLink href="#">Pricing</NavigationBarLink>
-      <NavigationBarLink href="#">Blog</NavigationBarLink>
-      <NavigationBarLink href="#">FAQ</NavigationBarLink>
-      <NavigationBarLink href="#">Contact Us</NavigationBarLink>
-    </NavigationBarMenu>
-
-    <NavigationBarMenu>
-      <Button as="anchor" href="#" size="sm" color="tertiary">Support</Button>
-      <Button as="anchor" href="#" size="sm">Contact Us</Button>
-    </NavigationBarMenu>
+    <slot />
   </nav>
 </header>
 
+<style is:global>
+  @media (width < 768px) {   
+    body:has(.navbar[data-is-open]) {
+      & > *:not(.navbar) {
+        @apply h-0 overflow-hidden;
+      }
+    }
+  }
+</style>
+
 <style>
   .navbar {
+    @apply sticky top-0 z-50;
     @apply w-full h-16;
     @apply bg-neutral-100;
     @apply border-b border-neutral-300;
@@ -70,7 +60,7 @@ const { class: className, ...attrs } = Astro.props;
     & > nav {
       @apply w-full h-full;
 
-      @apply grid md:flex items-center gap-8;
+      @apply grid md:flex items-center gap-4;
       @apply justify-between;
       @apply grid-cols-2;
       @apply grid-rows-[4rem_1fr_1fr];
@@ -79,15 +69,5 @@ const { class: className, ...attrs } = Astro.props;
         @apply col-span-1;
       }
     }
-  }
-
-  .submenu {
-    @apply fixed md:absolute md:top-full top-16 left-0 md:left-1/2 md:-translate-x-1/2;
-    @apply w-dvw h-dvh md:h-max md:min-w-40 md:w-auto;
-
-    @apply bg-neutral-100 border border-neutral-300;
-    @apply md:rounded-xl;
-    @apply p-4;
-    @apply space-y-0.5;
   }
 </style>

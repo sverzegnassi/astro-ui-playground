@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import NavigationBar from "@marketing/NavigationBar/NavigationBar.astro";
+import Button from "../../components/Button.astro";
+import Banner from "../../components/Banner.astro";
+
+import Testimonial from "../../patterns-marketing/Testimonial.astro";
+import LogoCarousel from "../../patterns-marketing/LogoCarousel.astro";
+
+// Logo Carousel assets
+import airbnbLogo from "@assets/logos/airbnb-1.svg";
+import coronaLogo from "@assets/logos/corona-2.svg";
+import fordLogo from "@assets/logos/ford-logo-flat.svg";
+import northFaceLogo from "@assets/logos/the-north-face-1.svg";
+import xboxLogo from "@assets/logos/xbox-9.svg";
+import NavigationBarMenu from "@marketing/NavigationBar/NavigationBarMenu.astro";
+import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro";
+---
+
+<BaseLayout title="Navigation bar">
+  <Banner alignment="justify-center" color="success">
+    🎉 Exciting News: [New Event/Product Launch/Special Offer] - Limited Time Only! 🚀
+    <Button size="xs" color="success" class="border border-success-500 shrink-0">Click here</Button>
+  </Banner>
+
+  <NavigationBar>
+    <NavigationBarMenu>
+      <NavigationBarMenu title="About Us" isSubMenu={true}>
+        <NavigationBarLink
+          class="box"
+          href="#"
+          style="background-image: url('https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg')"
+        >
+          Our story
+        </NavigationBarLink>
+        <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
+        <NavigationBarLink href="#">Team</NavigationBarLink>
+        <NavigationBarLink href="#">Culture</NavigationBarLink>
+        <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
+        <NavigationBarLink class="box" href="#">Partnerships</NavigationBarLink>
+        <NavigationBarLink href="#">Media Kit</NavigationBarLink>
+        <NavigationBarLink href="#">Testimonials</NavigationBarLink>
+        <NavigationBarLink href="#">Careers</NavigationBarLink>
+      </NavigationBarMenu>
+      <NavigationBarLink href="#">Our Services</NavigationBarLink>
+      <NavigationBarLink href="#">Pricing</NavigationBarLink>
+      <NavigationBarLink href="#">Blog</NavigationBarLink>
+      <NavigationBarLink href="#">FAQ</NavigationBarLink>
+      <NavigationBarLink href="#">Contact Us</NavigationBarLink>
+    </NavigationBarMenu>
+
+    <NavigationBarMenu>
+      <Button as="anchor" href="#" size="sm" color="tertiary">Support</Button>
+      <Button as="anchor" href="#" size="sm">Contact Us</Button>
+    </NavigationBarMenu>
+  </NavigationBar>
+
+  <BoxGrid>
+    <Box padding="md" prose="prose">
+      <h1 class="mb-0">Empowering Your [Industry] Journey with [Your Company Name]</h1>
+      <p><em>Unleash Possibilities, Embrace Excellence.</em></p>
+      <p>
+        Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
+        [industry] experience, setting the stage for unparalleled success.
+      </p>
+      <Button>Contact Us</Button>
+    </Box>
+
+    <LogoCarousel
+      mode="infinite-scroll"
+      assets={[
+        { src: airbnbLogo, alt: "AirBnb" },
+        { src: coronaLogo, alt: "Corona" },
+        { src: fordLogo, alt: "Ford" },
+        { src: northFaceLogo, alt: "The North Face" },
+        { src: xboxLogo, alt: "XBox" },
+      ]}
+    >
+      <div class="text-center mx-auto mb-16 font-bold text-xl">Trusted by 100+ companies</div>
+    </LogoCarousel>
+
+    <Box padding="sm" prose="prose-w-full">
+      <h2 class="text-center">Why Partner with [Your Company Name]?</h2>
+      <ul class="list-none grid grid-cols-1 md:grid-cols-3">
+        <li>
+          <h3>✨ Beyond Expertise</h3>
+          <p>
+            Dive into a realm of unparalleled proficiency, where our seasoned professionals redefine the standards of
+            excellence.
+          </p>
+        </li>
+        <li>
+          <h3>🚀 Innovation Unleashed</h3>
+          <p>
+            Propel your [industry] endeavors with avant-garde solutions, meticulously crafted to fuel your success
+            story.
+          </p>
+        </li>
+        <li>
+          <h3>🤝 Your Unique Partner</h3>
+          <p>
+            Recognizing your uniqueness, we tailor our services to align seamlessly with your distinct goals and
+            aspirations.
+          </p>
+        </li>
+      </ul>
+    </Box>
+
+    <Testimonial
+      imageUrl="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      figCaption="[Customer Name]"
+      cite="[Job Title/Industry]"
+    >
+      I've been using [Your Product/Service] for [X] months now, and it has completely transformed the way I
+      [use/interact with] [Product/Service]. The [specific feature] is a game-changer, and I can't imagine my
+      [workday/life] without it.
+    </Testimonial>
+
+   
+  </BoxGrid>
+</BaseLayout>

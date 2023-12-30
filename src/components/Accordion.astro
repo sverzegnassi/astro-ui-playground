@@ -1,0 +1,86 @@
+---
+import Box from "./Box.astro";
+import HeroIcon from "./HeroIcon.astro";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<div class="accordion" x-data="{ expanded: false }" x-id={`[ '${title}' ]`}>
+  <h3>
+    <button
+      type="button"
+      :aria-expanded="expanded"
+      class="accordionBtn"
+      aria-controls={`$id('${title}')-content`}
+      :id={`$id('${title}')`}
+      @click="expanded = ! expanded"
+    >
+      <span class="accordionTitle">
+        {title}
+      </span>
+      <div class="grid">
+        <HeroIcon
+          name="plus"
+          class="size-6 col-start-1 row-start-1"
+          x-show="!expanded"
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 scale-90"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-out duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-90"
+        />
+        <HeroIcon
+          name="minus"
+          class="size-6 col-start-1 row-start-1"
+          x-show="expanded"
+          x-cloak
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 scale-90"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-out duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-90"
+        />
+      </div>
+    </button>
+  </h3>
+  <Box
+    class="accordionContent"
+    role="region"
+    aria-labelledby={`$id('${title}')`}
+    id={`$id('${title}')-content`}
+    size="regular"
+    padding="none"
+    prose="prose-w-full"
+    x-show="expanded"
+    x-cloak
+  >
+    <slot />
+  </Box>
+</div>
+
+<style>
+  .accordion {
+    @apply py-4;
+  }
+
+  .accordionBtn {
+    @apply w-full px-4;
+    @apply flex justify-between items-center gap-x-1;
+  }
+
+  .accordionTitle {
+    @apply text-lg;
+  }
+
+  .accordionContent {
+    @apply py-2;
+  }
+
+  [x-cloak] { display: none !important; }
+</style>
