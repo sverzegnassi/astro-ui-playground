@@ -8,37 +8,67 @@ type Props = HTMLAttributes<"table"> & {
 const { class: className, layout = "table-auto", ...attrs } = Astro.props;
 ---
 
-<table {...attrs} class:list={["table", layout, className]}>
-  <slot />
-</table>
+<div class:list={["table--wrapper", className]}>
+  <table {...attrs} class:list={["table", layout]}>
+    <slot />
+  </table>
+</div>
 
 <style is:global>
+  .table--wrapper {
+    @apply pt-4 pb-4 has-[.table>caption]:mt-10;
+    @apply bg-neutral-100;
+    @apply border border-neutral-300;
+    @apply rounded-lg;
+    @apply [&>*]:-mx-px;
+    @apply relative;
+  }
+
   .table {
-    @apply w-full;
+    @apply w-[calc(100%+2px)];
 
     & > caption {
-      @apply py-4;
-      @apply italic text-neutral-800;
+      @apply text-lg italic text-neutral-900;
+      @apply pb-2;
+      @apply absolute -top-10 left-1/2 -translate-x-1/2;
+    }
+
+    & > thead > tr {
+      @apply last:border-b;
+
+      & > th {
+        @apply px-4 py-2;
+      }
+
+      &:last-child > th {
+        @apply pb-4;
+      }
+    }
+
+    & > tfoot > tr {
+      @apply first:border-t;
+
+      & > th {
+        @apply px-4;
+      }
+
+      &:last-child > th {
+        @apply pt-4;
+      }
     }
 
     & > thead > tr,
     & > tfoot > tr {
       @apply border-neutral-300;
-      @apply first:border-t last:border-b;
 
       @apply text-neutral-800 first:text-neutral-900;
-     
+
       & > th {
-        @apply px-4 pt-4 pb-2;
         @apply bg-neutral-100;
         @apply font-semibold text-left align-bottom;
 
         @apply first:pl-8 last:pr-8;
         @apply first:border-l last:border-r border-neutral-300;
-      }
-
-      &:last-child > th {
-        @apply py-4;
       }
     }
 
