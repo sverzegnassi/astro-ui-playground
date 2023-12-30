@@ -1,13 +1,19 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"a">;
+type Props = HTMLAttributes<"a"> & {
+  mode?: "default" | "box",
+  backgroundImageUrl?: string,
+};
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, mode = "default", backgroundImageUrl, ...attrs } = Astro.props;
+
+// TODO: For now it's okay. Once KeyStatic configuration is finalized, backgroundImageUrl should
+// be handled through `astro:assets` (and support local assets only).
 ---
 
 <li class="navigationBarLink">
-  <a class:list={[className]} {...attrs}>
+  <a class:list={[className, mode]} {...attrs} style={backgroundImageUrl ? `background-image: url(${backgroundImageUrl})` : ""}>
     <slot />
   </a>
 </li>
