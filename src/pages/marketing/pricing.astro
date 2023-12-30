@@ -1,0 +1,120 @@
+---
+import AppLayout from "@layouts/AppLayout.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import NavigationBar from "@marketing/NavigationBar/NavigationBar.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import AccordionGroup from "@components/AccordionGroup.astro";
+import Accordion from "@components/Accordion.astro";
+import Table from "@components/Table.astro";
+import Badge from "@components/Badge.astro";
+
+---
+
+<BaseLayout title="Pricing">
+  <NavigationBar />
+
+  <BoxGrid>
+    <Box padding="md" prose="prose" class="[&>*]:mx-auto [&>*]:text-center">
+      <h1 class="mb-0">Pricing Plans</h1>
+      <p>Choose the plan that best fits your needs and unlock the full potential of [Your Product/Service].</p>
+    </Box>
+
+    <Box padding="xs">
+      <div class="grid grid-cols-3">
+        <div class="border border-neutral-300 py-6 px-4 rounded-xl rounded-r-none my-8 shadow-md">
+          <h2 class="text-2xl font-bold">Basic Plan</h2>
+          <div class="mt-4"><span class="text-4xl font-bold">$9</span>/month</div>
+          <Button size="sm" fullWidth="fullWidth" color="tertiary" class="border border-link-900 mt-4">Get Started</Button>
+          <ul class="py-4 space-y-2 list-disc list-inside">
+            <li>Ideal for individuals or small teams</li>
+            <li>Essential features included</li>
+            <li>[List key features]</li>
+          </ul>
+        </div>
+        <div class="border-[1.5px] border-neutral-500 py-6 px-4 rounded-xl bg-neutral-100 shadow-lg shadow-neutral-500/50">
+          <h2 class="text-2xl font-bold text-neutral-500">Pro Plan</h2>
+          <div class="mt-4"><span class="text-4xl font-bold">$19</span>/month</div>
+          <Button size="sm" fullWidth="fullWidth" color="primary" class="mt-4 !bg-neutral-500">Upgrade Now</Button>
+          <ul class="py-4 space-y-2 list-disc list-inside">
+            <li>Perfect for growing businesses</li>
+            <li>Enhanced features for increased productivity</li>
+            <li>[List key features]</li>
+          </ul>
+        </div>
+        <div class="border border-neutral-300 py-6 px-4 rounded-xl rounded-l-none my-8 shadow-md">
+          <h2 class="text-2xl font-bold">Enterprise Plan</h2>
+          <div class="mt-4"><span class="text-lg">Contact Us for a Custom Quote</span></div>
+          <Button size="sm" fullWidth="fullWidth" color="tertiary" class="border border-link-900 mt-4">Contact Sales</Button>
+          <ul class="py-4 space-y-2 list-disc list-inside">
+            <li>Tailored solutions for large enterprises</li>
+            <li>Priority support and personalized features</li>
+            <li>[List key features]</li>
+          </ul>
+        </div>
+      </div>
+    </Box>
+
+    <Box>
+      <Table class="shadow-xl [&_td.checkmark]:text-success-700 [&_th:nth-child(2)]:text-center [&_th:nth-child(3)]:text-center [&_th:nth-child(4)]:text-center [&_td:nth-child(2)]:text-center [&_td:nth-child(3)]:text-center [&_td:nth-child(4)]:text-center">
+        <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Basic Plan</th>
+          <th><Badge color="brand" size="sm" class="inline-block mb-2">Most popular</Badge><br>Pro Plan</th>
+          <th>Enterprise Plan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ideal for individuals or small teams</td>
+          <td class="checkmark">&#10003;</td>
+          <td class="checkmark">&#10003;</td>
+          <td class="checkmark">&#10003;</td>
+        </tr>
+        <tr>
+          <td>Enhanced features for increased productivity</td>
+          <td></td>
+          <td class="checkmark">&#10003;</td>
+          <td class="checkmark">&#10003;</td>
+        </tr>
+        <tr>
+          <td>Tailored solutions for large enterprises</td>
+          <td></td>
+          <td></td>
+          <td class="checkmark">&#10003;</td>
+        </tr>
+        <tr>
+          <td>Priority support and personalized features</td>
+          <td></td>
+          <td></td>
+          <td class="checkmark">&#10003;</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th><Button size="sm" color="tertiary" class="mx-auto">Get Started</Button></th>
+          <th><Button size="sm" color="tertiary" class="mx-auto">Upgrade Now</Button></th>
+          <th><Button size="sm" color="tertiary" class="mx-auto">Contact Sales</Button></th>
+        </tr>
+      </tfoot>
+      </Table>
+    </Box>
+
+    <Box>
+      <AccordionGroup title="Frequently Asked Questions" mode="all-opened">
+        <Accordion title="1. Is there a free trial?">
+          <p>Yes, we offer a [X]-day free trial on all plans. No credit card required.</p>
+        </Accordion>
+        <Accordion title="2. Can I change my plan later?">
+          <p>Absolutely! You can upgrade or downgrade your plan at any time.</p>
+        </Accordion>
+        <Accordion title="3. What payment methods do you accept?">
+          <p>We accept [Payment Method 1], [Payment Method 2], and [Payment Method 3].</p>
+        </Accordion>
+      </AccordionGroup>
+    </Box>
+  </BoxGrid>
+</BaseLayout>
