@@ -36,16 +36,28 @@ const { imageUrl, imageAlt = "", figCaption, cite } = Astro.props;
 
 <style>
   .quote {
-    @apply grid grid-cols-1 sm:grid-cols-[max-content] lg:grid-cols-[max-content_max-content] gap-y-8 lg:gap-y-4 lg:gap-x-16;
+    @apply grid grid-cols-1 md:grid-cols-[max-content] lg:grid-cols-[max-content_max-content] gap-y-8 lg:gap-y-4 lg:gap-x-16;
     @apply place-content-center;
-
+    
     & > * {
       @apply lg:col-start-2;
       @apply order-2;
     }
 
     & > blockquote {
-      @apply text-xl/loose max-w-screen-sm md:max-w-prose;
+      @apply text-lg/loose max-w-screen-sm md:max-w-prose;
+      @apply text-pretty;
+      position: relative;
+      
+      &::before {
+        content: "“";
+        font-size: 8rem;
+        line-height: 8rem;
+        width: 4rem;
+        @apply -z-30;
+        @apply text-neutral-300;
+        @apply absolute -top-[2rem] -left-[2rem];
+      }
     }
 
     & > figcaption {

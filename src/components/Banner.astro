@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import Box from "./Box.astro";
 import Button from "./Button.astro";
-import HeroIcon from "./HeroIcon.astro";
+import TablerIcon from "./TablerIcon.astro";
 
 type Props = HTMLAttributes<"div"> & {
   color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
@@ -33,7 +33,7 @@ const { color = "primary", alignment = false, dismissable = true, class: classNa
     x-show="dismissable"
     @click="$root.remove(); setSessionCookie($id('banner'), false);"
   >
-    <HeroIcon name="x-mark" class="size-6" />
+    <TablerIcon name="x" class="size-6" />
     <span class="sr-only">Close banner</span>
   </Button>
 </Box>

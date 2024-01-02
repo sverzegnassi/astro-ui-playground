@@ -2,11 +2,12 @@
 import type { HTMLAttributes } from "astro/types";
 
 import Button from "./Button.astro";
-import HeroIcon from "./HeroIcon.astro";
+import TablerIcon from "./TablerIcon.astro";
 
 type Props = HTMLAttributes<"dialog"> & {
   id: string;
   mode: "modal" | "nonModal"
+  "x-data"?: string;
 };
 
 const { class: className, id, ...attrs } = Astro.props;
@@ -14,11 +15,11 @@ const { class: className, id, ...attrs } = Astro.props;
 
 <!-- Popover, once Firefox officially supports them -->
 
-<dialog class:list={["dialog", className]} id={id} x-ref={id} {...attrs}>
+<dialog {...attrs} class:list={["dialog", className]} id={id} x-ref={id}>
   <slot />
   <slot name="actions">
     <Button size="sm" fullWidth="fullWidth" color="secondary" @click={`$refs.${id}.close()`} class="mt-8">
-      <HeroIcon name="x-mark" class="size-6" />
+      <TablerIcon name="x" class="size-6" />
        Close
     </Button>
   </slot>

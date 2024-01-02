@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Button from "@components/Button.astro";
-import HeroIcon from "@components/HeroIcon.astro";
+import TablerIcon from "@components/TablerIcon.astro";
 
 type Props = HTMLAttributes<"button">;
 
@@ -10,8 +10,8 @@ const { class: className, ...attrs } = Astro.props;
 
 <Button {...attrs} class:list={["menuButton", className]} size="sm" color="muted">
   <div class="grid">
-    <HeroIcon
-      name="bars-3"
+    <TablerIcon
+      name="menu"
       class="size-6 col-start-1 row-start-1"
       x-show="!showMenu"
       x-transition:enter="transition ease-out duration-150"
@@ -21,8 +21,8 @@ const { class: className, ...attrs } = Astro.props;
       x-transition:leave-start="opacity-100 scale-100"
       x-transition:leave-end="opacity-0 scale-90"
     />
-    <HeroIcon
-      name="x-mark"
+    <TablerIcon
+      name="x"
       class="size-6 col-start-1 row-start-1"
       x-show="showMenu"
       x-cloak

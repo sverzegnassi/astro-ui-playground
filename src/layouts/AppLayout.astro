@@ -1,7 +1,7 @@
 ---
 import Button from "@components/Button.astro";
 import ApplicationLayout from "./ApplicationLayout.astro";
-import HeroIcon from "@components/HeroIcon.astro";
+import TablerIcon from "@components/TablerIcon.astro";
 import Menu from "@components/Menu.astro";
 import MenuItem from "@components/MenuItem.astro";
 import Badge from "@components/Badge.astro";
@@ -27,7 +27,7 @@ const currentPath = new URL(Astro.request.url).pathname;
   </slot>
 
   <Button slot="header-right" as="anchor" size="small" color="muted">
-    <HeroIcon name="adjustments-vertical" class="size-6 text-neutral-800" />
+    <TablerIcon name="settings" class="size-6 text-neutral-800" />
      Settings
   </Button>
 
@@ -36,52 +36,52 @@ const currentPath = new URL(Astro.request.url).pathname;
     <Menu class="p-4">
       <div class="col-span-3 flex gap-2 items-center px-2 py-1">Application</div>
       <MenuItem href="/" aria-current={currentPath === "/" ? "page" : "false"}>
-        <HeroIcon slot="left" name="home" class="size-5" />
+        <TablerIcon slot="left" name="home" class="size-5" />
          Homepage
-        <HeroIcon slot="right" name="arrow-right" class="size-5" />
+        <TablerIcon slot="right" name="arrow-right" class="size-5" />
       </MenuItem>
       <MenuItem href="/buttons" aria-current={currentPath === "/buttons" ? "page" : "false"}>
-        <HeroIcon slot="left" name="cursor-arrow-rays" class="size-5" />
+        <TablerIcon slot="left" name="click" class="size-5" />
          Buttons
         <Badge slot="right" color="muted">New</Badge>
       </MenuItem>
       <MenuItem href="/badges" aria-current={currentPath === "/badges" ? "page" : "false"}>
-        <HeroIcon slot="left" name="check-badge" class="size-5" />
+        <TablerIcon slot="left" name="badge" class="size-5" />
          Badge
         <Badge slot="right">Like this</Badge>
       </MenuItem>
       <MenuItem href="/boxes" aria-current={currentPath === "/boxes" ? "page" : "false"}>
-        <HeroIcon slot="left" name="archive-box" class="size-5" />
+        <TablerIcon slot="left" name="box" class="size-5" />
          Box and BoxGrid
       </MenuItem>
       <MenuItem href="/modals" aria-current={currentPath === "/modals" ? "page" : "false"}>
-        <HeroIcon slot="left" name="archive-box" class="size-5" />
+        <TablerIcon slot="left" name="stack" class="size-5" />
          Modals
       </MenuItem>
       <MenuItem href="/tab-panels" aria-current={currentPath === "/tab-panels" ? "page" : "false"}>
-        <HeroIcon slot="left" name="folder" class="size-5" />
+        <TablerIcon slot="left" name="folder" class="size-5" />
          Tabs
       </MenuItem>
       <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
-        <HeroIcon slot="left" name="rocket-launch" class="size-5" />
+        <TablerIcon slot="left" name="rocket" class="size-5" />
          Global Menu
       </MenuItem>
       <MenuItem href="/callouts" aria-current={currentPath === "/callouts" ? "page" : "false"}>
-        <HeroIcon slot="left" name="exclamation-triangle" class="size-5" />
+        <TablerIcon slot="left" name="alert-triangle" class="size-5" />
          Callouts
       </MenuItem>
       <MenuItem href="/tables" aria-current={currentPath === "/tables" ? "page" : "false"}>
-        <HeroIcon slot="left" name="table-cells" class="size-5" />
+        <TablerIcon slot="left" name="table" class="size-5" />
          Tables
       </MenuItem>
       <div class="mt-8 col-span-3 flex gap-2 items-center px-2 py-1">Marketing</div>
       <MenuItem href="/marketing/" aria-current={currentPath === "/marketing/" ? "page" : "false"}>
-        <HeroIcon slot="left" name="link" class="size-5" />
+        <TablerIcon slot="left" name="link" class="size-5" />
          Test page
-        <HeroIcon slot="right" name="arrow-right" class="size-5" />
+        <TablerIcon slot="right" name="arrow-right" class="size-5" />
       </MenuItem>
       <MenuItem as="button">
-        <HeroIcon name="plus-circle" class="size-6" />
+        <TablerIcon name="plus" class="size-6" />
          Create new dashboard
       </MenuItem>
       <MenuItem as="button" color="secondary">Edit configuration</MenuItem>

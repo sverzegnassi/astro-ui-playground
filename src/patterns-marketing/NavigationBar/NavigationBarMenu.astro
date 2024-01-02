@@ -58,7 +58,7 @@ const { title, isSubMenu = false } = Astro.props
   .menu {
     @apply hidden md:inline-flex flex-col md:flex-row gap-x-4 gap-y-2;
     @apply w-full h-auto md:h-max md:w-max;
-    @apply col-span-2;
+    @apply col-span-2 md:col-span-1;
     @apply md:items-center;
     @apply pb-4 md:pb-0;
 
@@ -75,7 +75,7 @@ const { title, isSubMenu = false } = Astro.props
 
   .menuVisible {
     @media (width < 768px) {
-      display: flex;
+      @apply flex;
       @apply bg-neutral-100;
     }
   }

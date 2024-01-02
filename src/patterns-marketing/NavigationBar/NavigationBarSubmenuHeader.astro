@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Button from "@components/Button.astro";
-import HeroIcon from "@components/HeroIcon.astro";
+import TablerIcon from "@components/TablerIcon.astro";
 
 type Props = HTMLAttributes<"button">;
 
@@ -16,7 +16,7 @@ const { class: className, ...attrs } = Astro.props;
     <slot />
   </span>
   <Button {...attrs} color="secondary" size="sm">
-    <HeroIcon name="arrow-uturn-left" class="size-6" />
+    <TablerIcon name="arrow-back-up" class="size-6" />
      Go Back
   </Button>
 </div>

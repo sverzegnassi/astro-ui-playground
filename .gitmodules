@@ -1,3 +1,0 @@
-[submodule "third-party/heroicons"]
-	path = third-party/heroicons
-	url = https://github.com/tailwindlabs/heroicons.git
