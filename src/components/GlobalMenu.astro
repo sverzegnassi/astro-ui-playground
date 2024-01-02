@@ -2,46 +2,41 @@
 import type { HTMLAttributes } from "astro/types";
 
 import Dialog from "./Dialog.astro";
-import HeroIcon from "./HeroIcon.astro";
+import TablerIcon from "./TablerIcon.astro";
 import Kbd from "./Kbd.astro";
-import Menu from "./Menu.astro";
-
-type Action = {
-  id: string;
-  text: string;
-  shortcut: string;
-  action: Function;
-  category: string[];
-  //checkable: boolean,
-  //checked: boolean,
-  enabled: boolean;
-  iconName: string;
-  // toogle
-};
-
-const actions = [{
-    type: "action"  // or "search"
-    
-}];
 
 type Props = HTMLAttributes<"div"> & {
-    entries: Record<string, string>[];
+  id: string; // Id is required to pass the `entries` variable to Alpine, as we rely on x-ref
+  entries: Record<string, string>[];
 };
 
-const { class: className, ...attrs } = Astro.props;
+const { id, class: className, entries, ...attrs } = Astro.props;
 ---
 
-<div {...attrs} class:list={["globalMenu", className]} x-data="{ input: '' }">
+<script define:vars={{ entries, id }} async defer>
+  // Pass the entries in the engine.
+  // TODO: Not quite sure if this is the best way
+  document.addEventListener("alpine:init", () => {
+    Alpine.data(id, () => ({
+      input: "",
+      entries: entries,
+      closePopover: () => $refs.globalMenuPopover.close(),
+      filterEntriesByType: (entries, type) => entries.filter((e) => e.type == type),
+    }));
+  });
+</script>
+
+<div {...attrs} class:list={["globalMenu", className]} id={id} x-ref={id} x-data={id}>
   <label class="globalMenuSeachInputLabel" for="globalMenuSearchInput">Global menu</label>
   <div class="globalMenuInputWrapper">
     <div class="grid">
-      <HeroIcon name="rocket-launch" class="globalMenuInputIcon col-start-1 row-start-1" x-show="input.length == 0" />
+      <TablerIcon name="rocket" class="globalMenuInputIcon col-start-1 row-start-1" x-show="input.length == 0" />
       <button
         class="col-start-1 row-start-1"
         x-show="input.length > 0"
         @click="input = ''; $focus.focus($refs.globalMenuSearchInput)"
       >
-        <HeroIcon name="x-circle" class="globalMenuInputIcon" />
+        <TablerIcon name="xbox-x" class="globalMenuInputIcon" />
       </button>
     </div>
     <input
@@ -49,39 +44,33 @@ const { class: className, ...attrs } = Astro.props;
       x-ref="globalMenuSearchInput"
       class="globalMenuInput"
       type="search"
+      placeholder="Perform a smart search..."
       @keyup.cmd.window="refs.globalmenudialog.show()"
       x-model="input"
+      x-on:focus="$refs.globalMenuPopover.show(); $focus.focus($el)"
     />
-    <Kbd class="globalMenuInputKbd">Ctrl + K</Kbd>
+    <Kbd class="globalMenuInputKbd" x-show="input.length === 0">Ctrl + K</Kbd>
   </div>
+
+  <!-- FIXME: Looks like we can't have x-data in this dialog. -->
+  <!-- WORKAROUND: We rely on the x-data of its parent element. -->
+  <Dialog class="popover" id="globalMenuPopover">
+    <div slot="actions"></div>
+    <slot />
+  </Dialog>
 </div>
 
-<Dialog x-ref="globalmenudialog">
-  <Menu />
-</Dialog>
+<style>
+  .popover {
+    @apply absolute;
+    @apply min-w-96;
+    @apply max-h-[80dvh] overflow-y-auto;
+    @apply bg-neutral-100;
+    @apply rounded-xl shadow-xl;
 
-<script>
-  import Fuse from "fuse.js";
-
-  const options = {
-    includeScore: true,
-    useExtendedSearch: true,
-    keys: [
-    {
-      name: 'title',
-      weight: 0.3
-    },
-    {
-      name: 'author',
-      weight: 0.7
-    }
-  ]
-  };
-
-  const fuse = new Fuse(list, options);
-
-  const result = fuse.search("tion");
-</script>
+    @apply top-16;
+  }
+</style>
 
 <style>
   .globalMenuInputWrapper {
@@ -101,6 +90,11 @@ const { class: className, ...attrs } = Astro.props;
     @apply border border-neutral-300;
     @apply rounded-full;
     @apply leading-none;
+    @apply placeholder-neutral-700;
+
+    &:not(:placeholder-shown) {
+      @apply pr-4;
+    }
   }
   .globalMenuInputIcon {
     @apply absolute;

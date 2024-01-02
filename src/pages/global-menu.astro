@@ -3,10 +3,112 @@ import Box from "@components/Box.astro";
 import BoxGrid from "@components/BoxGrid.astro";
 import AppLayout from "@layouts/AppLayout.astro";
 import GlobalMenu from "@components/GlobalMenu.astro";
+import { importIcon } from "@components/TablerIcon.astro";
+
+const actions = [
+  {
+    groupName: "recent",
+    text: "Recent",
+    entries: [
+      {
+        text: "[Accounts] View 'NovaTech Solutions' details",
+        icon: await importIcon("24", "outline", "building-storefront"),
+        shortcut: "1",
+        categories: ["Accounts", "NovaTech Solutions"],
+      },
+      {
+        text: "[Support] Tickets opened in the Last 24 Hours",
+        icon: await importIcon("24", "outline", "user-group"),
+        shortcut: "2",
+        categories: ["Accounts", "Help Desk"],
+      },
+      {
+        text: "[Sales] Opportunities for 'Pinnacle Dynamics Ltd.' in Q4 2023",
+        icon: await importIcon("24", "outline", "banknotes"),
+        shortcut: "3",
+        categories: ["Accounts", "Sales", "Pinnacle Dynamics Ltd."],
+      },
+    ],
+  },
+  {
+    groupName: "search",
+    text: "Matching your query",
+    entries: [
+      {
+        text: "View 'Quantum Innovations Co.' in Accounts",
+        icon: await importIcon("24", "outline", "magnifying-glass"),
+        shortcut: "4",
+        categories: ["Accounts", "Quantum Innovation Co."],
+      },
+      {
+        text: "View 'Q4 2023' in Sales",
+        icon: await importIcon("24", "outline", "magnifying-glass"),
+        shortcut: "5",
+        categories: ["Sales", "Q4", "2023"],
+      },
+    ],
+  },
+  {
+    groupName: "action",
+    text: "In this context",
+    entries: [
+      {
+        text: "Create new customer",
+        shortcut: "Ctrl + N",
+        icon: await importIcon("24", "outline", "plus"),
+        categories: ["Accounts"],
+      },
+      {
+        text: "Schedule an appointment",
+        icon: await importIcon("24", "outline", "calendar-days"),
+        categories: ["Accounts", "Contacts", "Me"],
+      },
+      {
+        text: "Send an email",
+        icon: await importIcon("24", "outline", "at-symbol"),
+        categories: ["Accounts", "Contacts", "Me"],
+      },
+      {
+        text: "Assign tasks",
+        icon: await importIcon("24", "outline", "rectangle-stack"),
+        categories: ["Tasks", "Me", "Delegation"],
+      },
+      {
+        text: "View reports",
+        icon: await importIcon("24", "outline", "document-chart-bar"),
+        categories: ["Reports", "Analytics"],
+      },
+      {
+        text: "Open Sales module",
+        shortcut: "Ctrl + Alt + 2",
+        icon: await importIcon("24", "outline", "banknotes"),
+        categories: ["Modules", "Accounts", "Sales"],
+      },
+      {
+        text: "Open Marketing module",
+        shortcut: "Ctrl + Alt + 3",
+        icon: await importIcon("24", "outline", "speaker-wave"),
+        categories: ["Modules", "Accounts", "Marketing"],
+      },
+      {
+        text: "Open Help Desk module",
+        shortcut: "Ctrl + Alt + 4",
+        icon: await importIcon("24", "outline", "user-group"),
+        categories: ["Modules", "Accounts", "Help Desk"],
+      },
+      {
+        text: "Get help",
+        icon: await importIcon("24", "outline", "question-mark-circle"),
+        categories: ["Help", "User Guide", "Documentation"],
+      },
+    ],
+  },
+];
+
 ---
 
 <AppLayout pageTitle="Global Menu">
-  <GlobalMenu slot="header-center"></GlobalMenu>
+  <GlobalMenu slot="header-center" class="w-96" id="globalSearch" entries={actions}></GlobalMenu>
   <BoxGrid class="my-8">
     <Box
       padding="xl"

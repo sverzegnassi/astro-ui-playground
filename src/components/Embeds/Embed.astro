@@ -1,0 +1,91 @@
+---
+import "@orestbida/iframemanager/dist/iframemanager.css";
+
+type Props = {
+  service: "youtube" | "twitter";
+  resourceId: string;
+};
+
+const { service, resourceId } = Astro.props;
+---
+
+<div data-service={service} data-id={resourceId} data-autoscale data-ratio="<x:y>" data-iframe-loading="lazy">
+  <!-- data-title -->
+  <!-- data-widget -->
+
+  <!--
+data-params="<iframe-query-parameters>"
+  data-thumbnail="<path-to-image>"
+    provided by config
+
+ -->
+
+  <div data-placeholder>
+    <!-- Put provided placeholder here -->
+
+    <!-- <p>I'm visible only if js is disabled</p> -->
+  </div>
+</div>
+
+<script type="module">
+  import "../../../../@orestbida/iframemanager";
+
+  window.addEventListener("load", function () {
+    const im = iframemanager();
+
+    im.run({
+      onChange: ({ changedServices, eventSource }) => {
+        if (eventSource.type === "click") {
+          // Retrieve all accepted services:
+          // const allAcceptedServices = im.getState().acceptedServices;
+
+          /**
+           * Retrieve array of already accepted services
+           * and add the new service
+           */
+          const servicesToAccept = [
+            ...CookieConsent.getUserPreferences().acceptedServices["analytics"], //cookieconsent v3
+            ...changedServices,
+          ];
+
+          CookieConsent.acceptService(servicesToAccept, "analytics");
+        }
+      },
+
+      services: {
+        youtube: {
+          embedUrl: "https://www.youtube-nocookie.com/embed/{data-id}",
+          thumbnailUrl: "https://i3.ytimg.com/vi/{data-id}/hqdefault.jpg",
+          iframe: {
+            allow: "accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen;",
+          },
+          languages: {
+            en: {
+              notice:
+                'This content is hosted by a third party. By showing the external content you accept the <a rel="noreferrer noopener" href="https://www.youtube.com/t/terms" target="_blank">terms and conditions</a> of youtube.com.',
+              loadBtn: "Load video",
+              loadAllBtn: "Don't ask again",
+            },
+          },
+        },
+
+        twitter: {
+          onAccept: async (div, setIframe) => {
+            // Using cookieconsent v3
+            await CookieConsent.loadScript("https://platform.twitter.com/widgets.js");
+
+            // Make sure the "window.twttr" property exists
+            (await im.childExists({ childProperty: "twttr" })) && (await twttr.widgets.load(div));
+
+            // Make sure the "iframe" element exists
+            (await im.childExists({ parent: div })) && setIframe(div.querySelector("iframe"));
+          },
+
+          onReject: (iframe) => {
+            iframe && iframe.parentElement.remove();
+          },
+        },
+      },
+    });
+  });
+</script>

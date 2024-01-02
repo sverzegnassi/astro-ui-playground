@@ -1,0 +1,59 @@
+{
+    "guiOptions": {
+        "consentModal": {
+            "layout": "box wide",
+            "positionX": "right",
+            "positionY": "bottom"
+        },
+        "preferencesModal": {
+            "layout": "bar",
+            "position:": "left"
+        }
+    },
+
+    "categories": {
+        "necessary": {
+            // These are used for sure by the UI framework
+            // enabled: true,
+            // readOnly: true,
+        },
+        "analytics": {
+            "autoclear": {
+                "services": {
+                    "label": "Google Analytics",
+                },
+                "reloadPage": true
+            }
+        },
+        "personalization": {
+            "autoclear": {
+                "cookies": [],
+                "reloadPage": true
+            }
+        },
+        "socials": {
+            "autoclear": {
+                "cookies": [],
+                "reloadPage": true
+            }
+        },
+        "advertising": {
+            "autoclear": {
+                "cookies": [],
+                "reloadPage": true
+            }
+        },
+        "embeds": {
+            "autoclear": {
+                "cookies": [],
+                "reloadPage": true
+            }
+        },
+        "unclassified": {
+            "autoclear": {
+                "cookies": [],
+                "reloadPage": true
+            }
+        }
+    }
+}

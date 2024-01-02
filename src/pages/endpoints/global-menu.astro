@@ -1,0 +1,45 @@
+---
+import Menu from "@components/Menu.astro";
+import MenuItem from "@components/MenuItem.astro";
+
+---
+
+<script define:vars={{ list: entries }}>
+  import Fuse from "fuse.js";
+
+  const options = {
+    includeScore: true,
+    useExtendedSearch: true,
+    keys: [
+      {
+        name: "title",
+        weight: 0.3,
+      },
+      {
+        name: "author",
+        weight: 0.7,
+      },
+    ],
+  };
+
+  const fuse = new Fuse(list, options);
+
+  const result = fuse.search("sales");
+  console.log(result);
+</script>
+
+<div class="space-y-6">
+  <template x-for="group in entries">
+    <Menu class="space-y-2">
+      <div class="col-span-3 flex gap-2 items-center px-2 py-1" x-text="group.text"></div>
+      <template x-for="entry in group.entries">
+        <!-- WORKAROUND: If `x-text` is used in <MenuItem>, children have no access to `entry` -->
+        <MenuItem as="anchor">
+          <span slot="left" x-html="entry.icon" class="size-4"></span>
+          <span x-text="entry.text"></span>
+          <Kbd slot="right" x-text="entry.shortcut" x-show="entry.shortcut" />
+        </MenuItem>
+      </template>
+    </Menu>
+  </template>
+</div>

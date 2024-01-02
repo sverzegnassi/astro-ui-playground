@@ -1,0 +1,554 @@
+---
+
+/*
+    Refs:
+        - https://www.iubenda.com/it/help/28395-gdpr-consenso-cookie-tabella-paesi
+*/
+
+/*
+    TODO: This component is a work in progress.
+    
+    It relies on the CookieConsent JS library to offer a lightweight, build-in
+    Consent Management Tool without relying on third-party services.
+
+    https://cookieconsent.orestbida.com/
+
+    A few notes on this approach:
+    
+    1. As stated in the documentation:
+        - CookieConsent is not a Consent Management Platform
+        - CookieConsent does not store Consent Records (i.e. proof of consent)
+        - CookieConsent does not implement the IAB Framework - TCP
+
+        There are some implications:
+
+            1. https://github.com/orestbida/cookieconsent/issues/562
+            
+                Google AdSense/Ad Manager will no longer work with CookieConsent
+                    starting from January 2024. 
+            
+                Google will indeed require to use a registered / certified providers
+                    in order to enable Ads-related services.
+
+            2. https://securiti.ai/blog/proof-of-consent/   [1]
+                https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/how-should-we-obtain-record-and-manage-consent/    [2]
+
+                The whole Consent Records thing is a madness.
+
+                According to [2] - valid opt-in mechanisms are:
+
+                    - "signing a consent statement on a paper form"
+                    - "ticking an opt-in box on paper or electronically;"
+                    - "clicking an opt-in button or link online;"
+                    - "selecting from equally prominent yes/no options;"
+                    - "choosing technical settings or preference dashboard settings;"
+                    - "answering yes to a clear oral consent request;"
+
+                While requiring to send a fax or recording an user saying "yes" are not technically
+                    viable solutions, CookieConsent offers us with that "opt-in yes/no option button
+                    with a preference dashboard settings". It also incorporates a mechanism to export
+                    and store consent.
+
+                However, a few notes on how such consent should be recorded [2]:
+
+                    - A spreadsheet with 'consent provided' written against a customer's name -> NOT OK
+                    - Copy of the customer's signed and dated forms that shows they ticked to provide their consent -> OK
+
+                    - Time and date linked to an IP address, with data-capture form and privacy policy -> NOT OK
+                    - ID (which one?!), data and timestamp -> OK
+
+                    - Record of time/date of the verbal conversation, name and date/version of the script used -> OK
+
+                    That sounds a contradiction. 
+
+                    And sounds way too overkill for just cookies.
+
+                    https://wideangle.co/blog/how-to-record-consent-under-gpdr [3]
+
+                        Examples here provided are for more advanced forms of processing data.
+
+                        What could affect this Consent Manager implementation is:
+
+                            - SMS Marketing
+                            - Email Marketing
+                            - Forms
+
+                        A few takes:
+
+                            - Anybody could provide a phone number without authorization
+                                -> Asking for confirmation with a custom link is a must
+
+                            - Same goes for Email Marketing
+                                -> First newsletter email should be a confirmation of consent (i.e. Double Opt-in)
+
+                            https://www.iubenda.com/it/funzioni#consent_solution
+
+                        However, how this would interact with Ads is still a mistery, as technically
+                            user data could are forwarded to third parties.
+
+                    https://www.osano.com/articles/cookies-proof-of-consent-records-of-consent [4]
+
+                        Talks about the 'cookies' dilemma:
+
+                            1. "You don’t need to keep active records of each user’s consent."
+                            2. "his is a common area of confusion since consent records are often required under the GDPR."
+                            3. "When it comes to the Cookie Law and consent, you must simply be able to provide proof of consent if the need arises."
+                            4. "The best way to do this is to use a cookie management solution like Osano that automatically blocks cookie scripts until consent is obtained."
+                            5. "Therefore, if you ever need to prove consent, the fact that cookie scripts were installed in the first place is sufficient evidence that a consenting action took place."
+
+                        As for Forms, check:
+
+                            https://www.iubenda.com/it/help/13287-consent-solution-wordpress-contact-form-7
+
+                            There is an example of what should be included in a form submission.
+
+                Still, anonymous data processing should be fine, as long as we use first (or second, for the matter) party
+                    Web Analytics services that doesn't allow to identify the user.
+
+        https://cookieconsent.orestbida.com/advanced/consent-logging.html [5]
+
+        Even if CookieConsent provides Consent Logging, that won't be implemented at the beginning.
+
+            Still unsure which is a use case for logging consent.
+
+                https://www.cookieyes.com/documentation/record-user-consent-for-cookies/
+
+                    If I need to ask the ID to the user, and they needs to search it through the Dev Tools,
+                        they have as well access to what they consented already.
+            
+        However, we later want to use our ConsentManager as a "middleware" to handle form submissions.
+                
+            That means expose some API to automatically incorporate legal texts' references on form submission.
+
+    2. CookieConsent integrates with IframeManager
+
+        https://cookieconsent.orestbida.com/advanced/iframemanager-setup.html
+
+        I've been advocating for a more advanced way to handle embed from third parties,
+            and the two solutions combined offers built-in support for some commonly-used platform.
+
+        The one missing will be implemented through IframeManager, instead of relying on my old 
+            "per-page" consent script.
+
+            https://github.com/sverzegnassi/inretromarcia.it/tree/master/layouts/shortcodes
+    
+    3. The ultimate goal is to be able to expose an Interface that can accept a JavaScript Object
+        for configuration.
+
+        The goal is to allow the end-user to configure CookieConsent from a CMS like PayloadCMS
+            or KeyStatic (which supports JSON singletons).
+
+
+    Further notes:
+
+        - CookieConsent incorporates Revision Management functionalities, which allows to automatically
+            asks again for consent is the configuration has changed. We want that.
+
+        - Default values refects the orientation of the Italian authority
+            (e.g. do not ask for consent again for a 180-days period - unless something has changed)
+
+        - Privacy Policy and Cookie Policy should be versioned, using a VCS (e.g. Git) or a Database.
+
+
+    === IN SHORT ===
+
+    If the client needs to: (either)
+        - Integrate Google Ads
+        - Integrate with Social Media
+        - Do SMS / Email Marketing
+        
+        An authorized CMP provider could be a better (or the only) solution.
+
+        Email Marketing platforms might integrate some mechanism for the Proof of Consent,
+            and this should be highlighted to the client.
+
+            e.g. Double Opt-in
+
+            https://www.iubenda.com/it/help/15287-mailchimp-gdpr-privacy-policy-form-iscrizione-raccolta-consenso?gclid=CjwKCAiAs6-sBhBmEiwA1Nl8s8Xp9TPiGlLnhc-w7oepclZXzoO6SG0nbLM1LoibpltjBBdtWxrCaxoCxToQAvD_BwE
+*/
+
+const config = {
+  adStorage: {
+    title: "Pubblicità",
+    description: "Consente l'archiviazione di informazioni corrrelate alla pubblicità",
+  },
+  analytics: {
+    title: "Analitica",
+    description:
+      "Consente l'archiviazione di informazioni (ad esempio i cookie) correlate all'analisi, come la durata della visita",
+  },
+  functionality: {
+    title: "Funzionali",
+    description:
+      "Consente l'archiviazione di informazioni che supportano la funzionalità del sito web o dell'app, ad esempio le impostazioni relative alla lingua",
+  },
+  personalization: {
+    title: "Personalizzazione",
+    description:
+      "Consente l'archiviazione di informazioni correlate alla personalizzazione, ad esempio i consigli sui video",
+  },
+  security: {
+    title: "Sicurezza",
+    description:
+      "Consente l'archiviazione di informazioni relative alla sicurezza, ad esempio la funzionalità di autenticazione, la prevenzione delle frodi e altre protezioni per gli utenti",
+  },
+};
+
+import type { ConsentModalLayout, ConsentModalPosition } from "vanilla-cookieconsent/types"
+import "vanilla-cookieconsent/dist/cookieconsent.css";
+
+// To customize CookieConsent CSS using Tailwind variables
+import tailwindConfig from '/tailwind.config.mjs'
+
+
+
+import i18n_EN from "./i18n/en.js"
+import i18n_IT from "./i18n/it.js"
+
+const langConfig = {
+    default: 'it',
+    translations: {
+        'en': i18n_EN,
+        'it': i18n_IT,
+    }
+}
+
+type Props = {
+    disablePageInteraction: bool,
+    revision: number,
+    /*
+        The Italian Data Protection Authority (Garante) requires that the banner
+        (or, alternatively, a designated area/window) displayed by a website
+        upon a user's first visit includes a link to the cookie policy.
+        
+        This link should provide information about any other entities
+        that may receive personal data, the retention periods, and the user's rights exercise.
+
+        https://www.iubenda.com/it/help/31253-cookie-italia-linee-guida-garante-privacy
+
+        As such, we need to include such link in the CookieConsent's popup.
+    */
+    // TODO: Move following two into config file + translation file.
+    cookiePolicyUrl: string,
+    cookiePolicyText: string,
+
+    cookieDuration?: number,
+}
+
+const {
+    disablePageInteraction = true,  // Italian Authority: Consent must be "unequivocal"
+    configRevision = 0,   // '0' means disabled
+    cookiePolicyUrl,
+    cookiePolicyText = "Politica sui Cookie",
+    cookieDuration = 180,   // Minimum defined by the Italian Data Protection Authority (Garante)
+} = Astro.props
+
+
+// TODO: Move services configuration in a separate .json file.
+/*
+  TODO: Once the configuration has been moved into a .json file, integrate it with Git.
+  
+  If the build is initiated from a valid Git repository, determine the number of commits
+  that have affected the configuration file and set 'configRevision' accordingly.
+
+  If it's not a Git repository, rely on the value specified in the configuration file itself.
+
+  If both of the above methods fail, set 'configRevision' to '0'.
+*/
+
+/*
+    TODO: Depending on which categories are enabled, either:
+
+    - Only technical cookies:
+        - No popup
+        - Cookie policy page
+    - Other cookies + non technical:
+        - Popup
+            - Text:
+                - To enhance your browsing experience, our site uses technical cookies and, with your consent, profiling cookies or other tracking tools for specific purposes.
+                - By clicking "Accept," you agree to the use of these cookies. For more information, including details about other entities that may access personal data, data retention periods, and your rights under the Regulation, please review our complete Privacy Policy.
+                - Please note that closing this banner (e.g., by selecting the X icon in the top right corner) will maintain default settings, allowing continued navigation without cookies or tracking tools other than technical ones.
+            - An "X" or "Deny button"
+            - An "Accept All" button
+            - A "configure" button
+            - Cookie Policy Page
+            - In the footer of any page, a link to change consent
+        - Store config for 6 month or at change.
+        - If user is authenticated, do not merge navigation data from multiple devices without consent
+        
+
+*/
+---
+
+
+<!--
+<button type="button" data-cc="show-preferencesModal">Manage cookie preferences</button>
+ -->
+
+<script type="module" define:vars={{ langConfig, configRevision }}>
+  import * as CookieConsent from "../../../../node_modules/vanilla-cookieconsent";
+
+  /* TODO: Plug settings */   
+  CookieConsent.run({
+    /* General */
+    mode: 'opt-in',
+    autoShow: true,
+    manageScriptTags: true,
+    autoClearCookies: true,
+    hideFromBots: true,
+    // TODO: Disable page interaction only if non-technical cookies are used.
+    disablePageInteraction: true,   // [changed] Default value: false
+    lazyHtmlGeneration: true,
+
+    /* Revision management */
+    revision: configRevision,
+
+    onFirstConsent: ({cookie}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onFirstConsent",
+                cookie: cookie
+            }
+        }))
+    },
+
+    onConsent: ({cookie}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onConsent",
+                cookie: cookie
+            }
+        }))
+    },
+
+    onChange: ({cookie, changedCategories, changedPreferences}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onChange",
+                cookie: cookie,
+                changedCategories: changedCategories,
+                changedPreferences: changedPreferences
+            }
+        }))
+    },
+
+    onModalShow: ({modalName}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onModalShow",
+                modalName: modalName
+            }
+        }))
+    },
+
+    onModalHide: ({modalName}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onModalHide",
+                modalName: modalName
+            }
+        }))
+    },
+
+    onModalReady: ({modalName}) => {
+        window.dispatchEvent(new CustomEvent('COOKIE_CONSENT', {
+            detail: {
+                name: "onModalReady",
+                modalName: modalName
+            }
+        }))
+    },
+
+    /* Cookie settings */
+    cookie: {
+        name: 'cc_cookie',
+        domain: window.location.hostname,
+        path: '/',
+        expiresAfterDays: 182,
+        sameSite: 'Lax',
+        useLocalStorage: false
+    },
+
+    guiOptions: {
+        consentModal: {
+            // TODO: Support only 'box wide' and 'bar'
+/***/       layout: 'box wide',
+/***/       position: 'middle center',
+            flipButtons: true,              // Primary buttons on the right
+            equalWeightButtons: true        // Italian Authority: required
+        },
+        preferencesModal: {
+/***/            layout: 'bar',  /* box, bar or bar wide */
+/***/            position: 'left right',
+            flipButtons: false,
+            equalWeightButtons: true        // Italian Authority: required
+        }
+    },
+
+    /*
+        We use five categories:
+
+        - Essentials:
+            Some cookies and scripts are essential for the user to move through a website
+            and use its basic features. You can determine whether a cookie or script
+            is essential if the site would not function without it, or wouldn't comply
+            with legal terms (e.g. CookieConsent needs to store a cookie to record
+            user-provided consent)
+
+        - Analytics:
+            Without these cookies and scripts, your website will still function,
+            but you won’t have access to certain data from your users.
+            These trackers collect aggregated data (i.e., data that measures
+            behavior en masse and does not collect individuals’ personally
+            identifiable information).
+
+            For example, these enable you to evaluate how visitors use
+            your website, which pages are more or less popular,
+            where traffic originates from, how long visitors spend
+            on individual pages, and so on.
+
+            Note: first and second-party analytics which collect aggregated data
+            don't require user consent, according to the Italian Authority.
+
+        - Marketing:
+            Also known as advertising or targeting. If you participate in an advertising network,
+            then you most likely use marketing cookies and scripts.
+            
+            These enable advertisers to show relevant ads to users. Your website drops
+            a cookie onto the users’ browser when they visit your website. Then,
+            when they visit another site with ad space belonging to an advertising network
+            you participate in, your brands’ advertisements may appear.
+
+            This category may also include Social Networks.
+
+            Google Ads requires a Google-certified Consent Management Platform (CMP), which
+            integrates with IAB's Transparency and Consent Framework (TCP).
+            This might also extend to the many other advertising and affiliate networks.
+
+            If a website uses these types of services, we should advise to use IAB-approved CMPs.
+        
+        - Personalization:
+            These enable websites to remember the user's choices, such as user name,
+            language, region, and so on.
+
+            In the case of an e-commerce, some of these might actually be necessary
+            for the website to work properly.
+
+        - Embeds:
+            Third-party embed content is handled separately.
+            Examples are: Youtube Videos, Facebook / Instagram / X / Tiktok posts, etc.
+
+    */    
+    categories: {
+      essentials: {
+        enabled: true, // this category is enabled by default
+        readOnly: true, // this category cannot be disabled
+      },
+      analytics: {},
+      marketing: {},
+      personalization: {},
+      embeds: {}
+    },
+
+    language: langConfig
+    //language: {
+    //    default: "en",            // TODO: Configurable
+    //    autoDetect: "document",   // Match HTML `lang` attribute for consistency. Otherwise fallback to default
+    //    /* rtl: skipped, out of scope */
+//
+    //}
+  });
+
+  // We manage script and services through <script> tags.
+  // https://cookieconsent.orestbida.com/advanced/manage-scripts.html#available-script-attributes
+  //
+  // Template will make a "Code injection" availble
+  //    - Site header
+  //    - Site footer
+  // Like in Ghost
+  //
+  // # Code injection
+  // Add custom code to your publication
+  //
+  // See how does it play with revision management tho.
+  // User will have to customize the snippet provided by the service.
+  //
+  // Alternative is GenericService wrapper.
+  // It takes four variables:
+  /* 
+    Label
+    Category,
+    Cookies[],
+    Snippet[]
+  */
+  //
+  // Unsure about the best approach.
+  // Having pre-defined services might help or might not.
+
+</script>
+
+<style is:global>
+     #cc-main {
+     --cc-font-family: inherit;
+
+     --cc-overlay-bg: #141c2880;
+     --cc-modal-margin: 2rem;
+
+     --cc-bg: #f9f9ff;
+
+     --cc-btn-primary-bg: #141c28;
+     --cc-btn-primary-color: #f9f9ff;
+     --cc-btn-primary-border-color: #141c28;
+     --cc-btn-primary-hover-bg: #545c6b;
+     --cc-btn-primary-hover-border-color: #545c6b;
+     --cc-btn-primary-hover-color: #f9f9ff;
+
+     --cc-btn-secondary-bg: #cad2e3;
+    --cc-btn-secondary-color: #141c28;
+    --cc-btn-secondary-border-color: #cad2e3;
+    --cc-btn-secondary-hover-bg: #8991a0;
+    --cc-btn-secondary-hover-color: #141c28;
+    --cc-btn-secondary-hover-border-color: #8991a0;
+
+    --cc-separator-border-color: #cad2e3;
+
+     & .cc-link {
+        @apply text-neutral-900 font-semibold;
+        @apply underline;
+        @apply decoration-[1.5px] decoration-link-900 underline-offset-2;
+        @apply hover:text-link-900;
+     }
+     --cc-toggle-on-bg: #00834a;
+
+     --cc-btn-border-radius: 2rem;
+     --cc-modal-border-radius: 1.5rem;
+     
+     & .pm__section,
+     & .pm__section--toggle,
+     & .pm__section-title,
+     & .pm__section-desc-wrapper {
+        @apply border border-neutral-300;
+        @apply rounded-xl;
+     }
+
+     --cc-primary-color: #141c28;
+     --cc-secondary-color: #202835;
+
+     & .cm__texts {
+        @apply pt-8 pb-4 px-4;
+    }
+
+    & .cm__title {
+        @apply text-lg px-4;
+    }
+
+    & .cm__btns {
+        @apply border-none;
+        @apply pt-0 pb-5 px-6;
+    }
+
+    & .cm__btn {
+        @apply px-8 py-4;
+    }
+}
+ </style>
