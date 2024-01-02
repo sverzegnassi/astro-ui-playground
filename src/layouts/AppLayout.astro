@@ -43,7 +43,7 @@ const currentPath = new URL(Astro.request.url).pathname;
       <MenuItem href="/buttons" aria-current={currentPath === "/buttons" ? "page" : "false"}>
         <TablerIcon slot="left" name="click" class="size-5" />
          Buttons
-        <Badge slot="right" color="muted">New</Badge>
+        <Badge slot="right" style="muted">New</Badge>
       </MenuItem>
       <MenuItem href="/badges" aria-current={currentPath === "/badges" ? "page" : "false"}>
         <TablerIcon slot="left" name="badge" class="size-5" />

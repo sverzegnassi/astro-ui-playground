@@ -4,7 +4,7 @@ import Box from "@components/Box.astro";
 import { Image } from "astro:assets";
 
 type Asset = {
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
 };
 
@@ -58,9 +58,9 @@ const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
     }
     {
       () => {
-        if (mode === "infinite-scroll" || mode === "infinite-scroll-reverse") {
+        if (mode === "infinite-scroll") {
           console.log(numberOfDuplicates)
-          return Array(numberOfDuplicates).fill().map(
+          return Array(numberOfDuplicates).fill(1).map(
             () => assets.map((asset) => <Image src={asset.src} alt={asset.alt} />)
           )
         }

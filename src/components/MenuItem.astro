@@ -7,7 +7,7 @@ type Props = ({ as: "button" } & ButtonProps) | ({ as: "anchor" } & HTMLAttribut
 const { class: className, as = "anchor", ...attrs } = Astro.props;
 ---
 
-<li class:list={["menuItem"]} role="presentationZ">
+<li class:list={["menuItem"]} role="presentation">
   {
     as === "anchor" && (
       <a class={className} {...attrs}>

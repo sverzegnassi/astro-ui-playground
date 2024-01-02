@@ -18,7 +18,7 @@ const { class: className, title, questions, ...attrs } = Astro.props;
   <div class="divide-y divide-neutral-300">
     <h2 class="font-bold text-xl py-8">Frequenty Asked Questions</h2>
     {
-      questions.map((question) => (
+      questions.map((question: Question) => (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 py-8">
           <h3 class="font-semibold text-lg">{question.q}</h3>
           <div class="prose">
