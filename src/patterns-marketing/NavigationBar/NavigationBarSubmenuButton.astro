@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import HeroIcon from "@components/HeroIcon.astro";
+import TablerIcon from "@components/TablerIcon.astro";
 
 type Props = HTMLAttributes<"button">;
 
@@ -10,8 +10,8 @@ const { class: className, ...attrs } = Astro.props;
 <button {...attrs} class:list={["submenuBtn", className]}>
   <span class="sr-only">Show submenu for</span>
   <slot />
-  <HeroIcon name="chevron-down" size="20" style="solid" class="size-5 hidden md:block" />
-  <HeroIcon name="chevron-right" size="20" style="solid" class="size-5 md:hidden" />
+  <TablerIcon name="chevron-down" size="20" style="solid" class="size-5 hidden md:block" />
+  <TablerIcon name="chevron-right" size="20" style="solid" class="size-5 md:hidden" />
 </button>
 
 <style>
