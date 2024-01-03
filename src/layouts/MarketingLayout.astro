@@ -55,6 +55,7 @@ const { pageTitle } = Astro.props;
     </NavigationBarMenu>
   </NavigationBar>
 
-  <!-- CONTENT -->
-  <slot />
+  <div id="content">
+    <slot />
+  </div>
 </BaseLayout>
