@@ -59,6 +59,7 @@ const { title } = Astro.props;
         x-transition:leave="transition ease-out duration-150"
         x-transition:leave-start="translate-0"
         x-transition:leave-end="-translate-x-full"
+        x-cloak
       >
         <slot name="sidebar" />
       </aside>
