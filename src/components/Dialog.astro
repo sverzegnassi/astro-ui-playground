@@ -4,9 +4,8 @@ import type { HTMLAttributes } from "astro/types";
 import Button from "./Button.astro";
 import TablerIcon from "./TablerIcon.astro";
 
-type Props = HTMLAttributes<"dialog"> & {
+interface Props extends HTMLAttributes<"dialog"> {
   id: string;
-  mode: "modal" | "nonModal"
   "x-data"?: string;
 };
 
@@ -19,7 +18,7 @@ const { class: className, id, ...attrs } = Astro.props;
   <slot />
   <slot name="actions">
     <Button size="sm" fullWidth="fullWidth" color="secondary" @click={`$refs.${id}.close()`} class="mt-8">
-      <TablerIcon name="x" class="size-6" />
+      <TablerIcon iconName="x" class="size-6" />
        Close
     </Button>
   </slot>

@@ -2,9 +2,9 @@
 import NavigationBarSubmenuButton from './NavigationBarSubmenuButton.astro';
 import NavigationBarSubmenuHeader from './NavigationBarSubmenuHeader.astro';
 
-type Props = {
-    isSubMenu?: boolean;
-    title?: string,
+interface Props {
+  isSubMenu?: boolean;
+  title?: string,
 }
 
 const { title, isSubMenu = false } = Astro.props

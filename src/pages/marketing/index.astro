@@ -10,6 +10,7 @@ import Testimonial from "../../patterns-marketing/Testimonial.astro";
 import LogoCarousel from "../../patterns-marketing/LogoCarousel.astro";
 
 // Logo Carousel assets
+import { Image } from "astro:assets";
 import airbnbLogo from "@assets/logos/airbnb-1.svg";
 import coronaLogo from "@assets/logos/corona-2.svg";
 import fordLogo from "@assets/logos/ford-logo-flat.svg";
@@ -68,17 +69,13 @@ import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro"
       <Button class="mt-8">Contact Us</Button>
     </Box>
 
-    <LogoCarousel
-      mode="infinite-scroll"
-      assets={[
-        { src: airbnbLogo, alt: "AirBnb" },
-        { src: coronaLogo, alt: "Corona" },
-        { src: fordLogo, alt: "Ford" },
-        { src: northFaceLogo, alt: "The North Face" },
-        { src: xboxLogo, alt: "XBox" },
-      ]}
-    >
-      <div class="text-center mx-auto mb-16 font-bold text-xl">Trusted by 100+ companies</div>
+    <LogoCarousel mode="infinite-scroll">
+      <div slot="header" class="text-center mx-auto mb-16 font-bold text-xl">Trusted by 100+ companies</div>
+      <Image src={airbnbLogo} alt="AirBnb" />
+      <Image src={coronaLogo} alt="Corona" />
+      <Image src={fordLogo} alt="Ford" />
+      <Image src={northFaceLogo} alt="The North Face" />
+      <Image src={xboxLogo} alt="XBox" />
     </LogoCarousel>
 
     <Box padding="sm" prose="prose-w-full">
@@ -117,7 +114,5 @@ import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro"
       [use/interact with] [Product/Service]. The [specific feature] is a game-changer, and I can't imagine my
       [workday/life] without it.
     </Testimonial>
-
-   
   </BoxGrid>
 </BaseLayout>

@@ -2,8 +2,9 @@
 import Box from "./Box.astro";
 import TablerIcon from "./TablerIcon.astro";
 
-type Props = {
+interface Props {
   title: string;
+  children: any;
 };
 
 const { title } = Astro.props;
@@ -24,7 +25,7 @@ const { title } = Astro.props;
       </span>
       <div class="grid">
         <TablerIcon
-          name="plus"
+          iconName="plus"
           class="size-6 col-start-1 row-start-1"
           x-show="!expanded"
           x-transition:enter="transition ease-out duration-150"
@@ -35,7 +36,7 @@ const { title } = Astro.props;
           x-transition:leave-end="opacity-0 scale-90"
         />
         <TablerIcon
-          name="minus"
+          iconName="minus"
           class="size-6 col-start-1 row-start-1"
           x-show="expanded"
           x-cloak

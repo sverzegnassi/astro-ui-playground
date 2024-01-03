@@ -8,12 +8,13 @@ export type Question = {
   a: string;
 };
 
-type Props = BoxProps & {
+interface Props extends BoxProps {
   title: string;
   questions: Question[];
 };
 
-const { class: className, title, questions, ...attrs } = Astro.props;
+const { class: className, title, questions, ...attributes } = Astro.props;
+const attrs : Record<string, any> = attributes
 ---
 
 <Box {...attrs} class:list={[className]}>

@@ -3,15 +3,16 @@ import type { HTMLAttributes } from "astro/types";
 import Button from "@components/Button.astro";
 import TablerIcon from "@components/TablerIcon.astro";
 
-type Props = HTMLAttributes<"button">;
+interface Props extends HTMLAttributes<"button"> {};
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, ...attributes } = Astro.props;
+const attrs : Record<string, any> = attributes
 ---
 
 <Button {...attrs} class:list={["menuButton", className]} size="sm" color="muted">
   <div class="grid">
     <TablerIcon
-      name="menu"
+    iconName="menu"
       class="size-6 col-start-1 row-start-1"
       x-show="!showMenu"
       x-transition:enter="transition ease-out duration-150"
@@ -22,7 +23,7 @@ const { class: className, ...attrs } = Astro.props;
       x-transition:leave-end="opacity-0 scale-90"
     />
     <TablerIcon
-      name="x"
+    iconName="x"
       class="size-6 col-start-1 row-start-1"
       x-show="showMenu"
       x-cloak

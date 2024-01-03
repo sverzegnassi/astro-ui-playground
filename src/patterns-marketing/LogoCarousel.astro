@@ -1,32 +1,28 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { parse } from "node-html-parser";
 import Box from "@components/Box.astro";
-import { Image } from "astro:assets";
 
-type Asset = {
-  src: string | ImageMetadata;
-  alt: string;
-};
-
-type Props = HTMLAttributes<"div"> & {
-  assets: Asset[];
+interface Props extends HTMLAttributes<"div"> {
   mode?: "no-scroll" | "infinite-scroll";
   logoHeight?: string,
   logoXGap?: string,
   logoXGapXl?: string,
-  duration: string,
+  duration?: string,
+  children: any,
 };
 
 const {
-  assets,
   mode = "no-scroll",
   logoHeight = "2rem",
   logoXGap = "8rem",
   logoXGapXl = "16rem",
   duration = "10s",
   class: className,
-  ...attrs
+  ...attributes
 } = Astro.props;
+
+const attrs : Record<string, any> = attributes
 
 /*
   To ensure a visually pleasing effect without odd gaps in the infinite scroll,
@@ -47,21 +43,26 @@ const {
 
   A value of 9 will be used for convenience.  
 */
-const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
+
+const inner = await Astro.slots.render('default')
+const innerCount = parse(inner).childNodes.filter(c => c.nodeType == 1).length
+
+let numberOfCopies = 1
+
+if (mode === "infinite-scroll") {
+  numberOfCopies = Math.max(3, Math.ceil(9 / innerCount));
+}
+
 ---
 
 <Box {...attrs} padding="xs" size="full-width" class:list={["logoCarousel", className]}>
-  <slot />
+  <slot name="header" />
   <div class:list={["logoCarousel--inner", mode]}>
-    {
-      assets.map((asset) => <Image src={asset.src} alt={asset.alt} />)
-    }
     {
       () => {
         if (mode === "infinite-scroll") {
-          console.log(numberOfDuplicates)
-          return Array(numberOfDuplicates).fill(1).map(
-            () => assets.map((asset) => <Image src={asset.src} alt={asset.alt} />)
+          return Array(numberOfCopies).fill(1).map(
+            () => <Fragment set:html={inner} />
           )
         }
       }
@@ -69,7 +70,7 @@ const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
   </div>
 </Box>
 
-<style define:vars={{ numberOfDuplicates, duration, logoHeight, logoXGap, logoXGapXl }}>
+<style define:vars={{ numberOfCopies, duration, logoHeight, logoXGap, logoXGapXl }}>
   .logoCarousel {
     @apply overflow-hidden;
   }
@@ -85,7 +86,7 @@ const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
     @apply items-center;
     @apply gap-x-[var(--logo-gap-x)];
 
-    & > * {
+    & > :global(*) {
       @apply grow-0 flex-shrink-0;
       @apply block w-auto sm:h-12;
       @apply h-[var(--logoHeight)];
@@ -132,8 +133,8 @@ const numberOfDuplicates = Math.max(2, Math.ceil(9 / assets.length) - 1);
     to {
       transform: translateX(
         calc(-10% + 
-          (-100% / (var(--numberOfDuplicates) + 1)) - 
-          (var(--logo-gap-x) / (var(--numberOfDuplicates) + 1))));
+          (-100% / var(--numberOfCopies)) - 
+          (var(--logo-gap-x) / var(--numberOfCopies))));
     }
   }
 </style>

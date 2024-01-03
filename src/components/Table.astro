@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"table"> & {
+interface Props extends HTMLAttributes<"table"> {
   layout?: "table-auto" | "table-fixed";
 };
 

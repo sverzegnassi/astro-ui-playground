@@ -1,16 +1,17 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-import Box from "./Box.astro";
+import Box, { type Props as BoxProps } from "./Box.astro";
 import Button from "./Button.astro";
 import TablerIcon from "./TablerIcon.astro";
 
-type Props = HTMLAttributes<"div"> & {
+interface Props extends BoxProps {
   color?: "primary" | "secondary" | "tertiary" | "muted" | "success" | "error" | "warning" | "info";
   alignment?: false | "justify-center" | "justify-between";
   dismissable?: boolean;
+  children: any;
 };
 
-const { color = "primary", alignment = false, dismissable = true, class: className, ...attrs } = Astro.props;
+const { color = "primary", alignment = false, dismissable = true, class: className, ...attributes } = Astro.props;
+const attrs : Record<string, any> = attributes
 ---
 <!-- FIXME: Address flickering issue with Dismissable Banner on initial rendering -->
 
@@ -33,7 +34,7 @@ const { color = "primary", alignment = false, dismissable = true, class: classNa
     x-show="dismissable"
     @click="$root.remove(); setSessionCookie($id('banner'), false);"
   >
-    <TablerIcon name="x" class="size-6" />
+    <TablerIcon iconName="x" class="size-6" />
     <span class="sr-only">Close banner</span>
   </Button>
 </Box>

@@ -1,7 +1,7 @@
 ---
-import Box from "../components/Box.astro";
+import Box, { type Props as BoxProps } from "../components/Box.astro";
 
-type Props = {
+interface Props extends BoxProps {
   imageUrl?: string;
   imageAlt?: string;
   figCaption?: string;

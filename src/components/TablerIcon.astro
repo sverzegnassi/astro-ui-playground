@@ -2,30 +2,32 @@
 import type { HTMLAttributes } from "astro/types";
 import { parse } from "node-html-parser";
 
-type Props = {
+interface Props extends HTMLAttributes<"svg"> {
   // https://tabler.io/icons
-  name: string;
-  strokeWidth?: number,
-} & HTMLAttributes<"svg">
+  iconName: string;
+  strokeWidth?: number;
+}
 
-export async function importIcon(name: string) {
-  const tablerIcon = await import(`../../node_modules/@tabler/icons/icons/${name}.svg?raw`);
+export async function importIcon(iconName: string) {
+  const tablerIcon = await import(`../../node_modules/@tabler/icons/icons/${iconName}.svg?raw`);
   return tablerIcon.default;
 }
 
-const { name, strokeWidth = "1.5", ...attrs } = Astro.props;
+const { iconName, strokeWidth = 1.5, ...attrs } = Astro.props;
 
-const icon = await importIcon(name);
+const icon = await importIcon(iconName);
 const svg = parse(icon).querySelector("svg");
 
 if (svg) {
-  Object.keys(attrs)
-    .filter((k) => k == "class" || k.startsWith("data-") || k.startsWith("aria-") || k.startsWith("x-") )
-    .forEach((k) => {
-      svg?.setAttribute(k, attrs[k] as string);
-    });
+  const a : Record<string, any> = attrs;
   
-  svg.setAttribute("stroke-width", strokeWidth);
+  Object.keys(a)
+    .filter((k) => k == "class" || k.startsWith("data-") || k.startsWith("aria-") || k.startsWith("x-"))
+    .forEach((k) => {
+      svg?.setAttribute(k, a[k]);
+    });
+
+  svg.setAttribute("stroke-width", strokeWidth as unknown as string);
 }
 ---
 

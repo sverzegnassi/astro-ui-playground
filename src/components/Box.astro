@@ -1,11 +1,11 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-export type Props = {
+export interface Props extends HTMLAttributes<'div'> {
   size?: "regular" | "breakout" | "full-width";
   padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
   prose?: false | "prose" | "prose-80" | "prose-w-full" | "not-prose";
-} & HTMLAttributes<"div">;
+};
 
 const { size = "regular", padding = "md", prose = false, class: className, ...attrs } = Astro.props;
 

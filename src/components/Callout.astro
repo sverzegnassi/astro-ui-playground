@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-export type Props = HTMLAttributes<"div"> & {
+export interface Props extends HTMLAttributes<"div"> {
   color?: "neutral" | "success" | "error" | "warning" | "info";
 };
 

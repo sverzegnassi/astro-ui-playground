@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { parse } from "node-html-parser";
 
-type Props = HTMLAttributes<"div">;
+interface Props extends HTMLAttributes<"div"> {};
 
 const innerHTML = await Astro.slots.render("default");
 const root = parse(innerHTML);

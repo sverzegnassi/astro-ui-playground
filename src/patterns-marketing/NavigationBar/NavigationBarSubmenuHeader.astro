@@ -3,9 +3,10 @@ import type { HTMLAttributes } from "astro/types";
 import Button from "@components/Button.astro";
 import TablerIcon from "@components/TablerIcon.astro";
 
-type Props = HTMLAttributes<"button">;
+interface Props extends HTMLAttributes<"button"> {};
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, ...attributes } = Astro.props;
+const attrs : Record<string, any> = attributes
 ---
 
 <div class="subMenuHeader">
@@ -16,7 +17,7 @@ const { class: className, ...attrs } = Astro.props;
     <slot />
   </span>
   <Button {...attrs} color="secondary" size="sm">
-    <TablerIcon name="arrow-back-up" class="size-6" />
+    <TablerIcon iconName="arrow-back-up" class="size-6" />
      Go Back
   </Button>
 </div>

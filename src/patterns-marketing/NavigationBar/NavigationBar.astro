@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import NavigationBarMenuButton from "./NavigationBarMenuButton.astro";
 
-type Props = HTMLAttributes<"header">;
+interface Props extends HTMLAttributes<"header"> {};
 
 const { class: className, ...attrs } = Astro.props;
 ---

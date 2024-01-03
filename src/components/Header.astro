@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"header">;
+interface Props extends HTMLAttributes<"header"> {};
 
 const { class: className, ...attrs } = Astro.props;
 ---

@@ -11,7 +11,8 @@ type Props = BoxProps & {
   questions: Question[];
 };
 
-const { class: className, title, questions, ...attrs } = Astro.props;
+const { class: className, title, questions, ...attributes } = Astro.props;
+const attrs : Record<string, any> = attributes
 ---
 
 <Box {...attrs} class:list={[className]}>
