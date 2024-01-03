@@ -62,10 +62,6 @@ const currentPath = new URL(Astro.request.url).pathname;
         <TablerIcon slot="left" iconName="folder" class="size-5" />
          Tabs
       </MenuItem>
-      <MenuItem href="/global-menu" aria-current={currentPath === "/global-menu" ? "page" : "false"}>
-        <TablerIcon slot="left" iconName="rocket" class="size-5" />
-         Global Menu
-      </MenuItem>
       <MenuItem href="/callouts" aria-current={currentPath === "/callouts" ? "page" : "false"}>
         <TablerIcon slot="left" iconName="alert-triangle" class="size-5" />
          Callouts
