@@ -2,7 +2,7 @@
 import MarketingLayout from "@layouts/MarketingLayout.astro";
 import Box from "@components/Box.astro";
 import BoxGrid from "@components/BoxGrid.astro";
-import Button from "../../components/Button.astro";
+import HeroBasic from "@marketing/HeroBasic.astro";
 
 import Testimonial from "../../patterns-marketing/Testimonial.astro";
 import LogoCarousel from "../../patterns-marketing/LogoCarousel.astro";
@@ -18,15 +18,7 @@ import xboxLogo from "@assets/logos/xbox-9.svg";
 
 <MarketingLayout pageTitle="Marketing Example page">
   <BoxGrid>
-    <Box padding="md" prose="prose">
-      <h1 class="mb-0">Empowering Your [Industry] Journey with [Your Company Name]</h1>
-      <p><em>Unleash Possibilities, Embrace Excellence.</em></p>
-      <p>
-        Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
-        [industry] experience, setting the stage for unparalleled success.
-      </p>
-      <Button class="mt-8" as="anchor" href="/marketing/contact-us">Contact Us</Button>
-    </Box>
+    <HeroBasic />
 
     <LogoCarousel mode="infinite-scroll">
       <div slot="header" class="text-center mx-auto mb-16 font-bold text-xl">Trusted by 100+ companies</div>
