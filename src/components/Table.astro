@@ -1,14 +1,14 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends HTMLAttributes<"table"> {
+export interface Props extends HTMLAttributes<"table"> {
   layout?: "table-auto" | "table-fixed";
-};
+}
 
 const { class: className, layout = "table-auto", ...attrs } = Astro.props;
 ---
 
-<div class:list={["table--wrapper", className]}>
+<div class:list={["table--wrapper", "not-prose", className]}>
   <table {...attrs} class:list={["table", layout]}>
     <slot />
   </table>
@@ -75,8 +75,20 @@ const { class: className, layout = "table-auto", ...attrs } = Astro.props;
     & > tbody {
       @apply text-neutral-800;
 
-      & > tr:hover > td {
+      & > tr:hover > td,
+      & > tr:hover > th {
         @apply bg-info-300;
+      }
+
+      & > tr > th {
+        @apply px-4 py-4;
+        @apply first:pl-8 last:pr-8;
+        @apply bg-neutral-100;
+        @apply font-semibold text-left;
+
+        @apply border-b border-b-neutral-300;
+        @apply first:border-l last:border-r first:border-l-neutral-300 last:border-r-neutral-300;
+        @apply transition-colors;
       }
     }
 
