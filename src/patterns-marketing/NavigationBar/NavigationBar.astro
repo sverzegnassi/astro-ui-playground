@@ -48,7 +48,7 @@ const { class: className, ...attrs } = Astro.props;
     @apply md:[&>*:nth-child(3)]:justify-self-start lg:[&>*:nth-child(3)]:justify-self-center;
     @apply md:[&>*:nth-child(4)]:justify-self-end;
     
-    @apply md:[&>*:nth-child(3)>*:first-child]:-ml-2;
+    @apply md:[&>*:nth-child(3)>*:first-child]:ml-2;
 
     @apply md:[&>*:nth-child(3)]:row-start-2 md:[&>*:nth-child(3)]:col-[1/3];    
     @apply lg:[&>*:nth-child(3)]:row-start-1 lg:[&>*:nth-child(3)]:col-[2/3];
