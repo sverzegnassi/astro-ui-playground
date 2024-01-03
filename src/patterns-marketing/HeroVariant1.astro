@@ -1,0 +1,23 @@
+---
+import Box from "@components/Box.astro";
+import Button from "@components/Button.astro";
+import "@fontsource-variable/grenze-gotisch";
+---
+
+<Box padding="md" prose="prose" class="relative">
+  <h1 class="mb-0 altfont text-5xl font-black text-brand-700">We're Your Happy Place for Crunchy Joys!</h1>
+  <p>
+    Our chickens moonwalk in the fryer, and every crunch echoes with laughter. Our secret recipe involves a sprinkle of
+    stardust, a dash of clucks and giggles, and a pinch of wing-flapping delight.
+    <br /><br />Imagine a world where chickens wear sunglasses, and our fryers have disco lights – yes, that's the kind
+    of silly sanctuary we've created.
+  </p>
+  <Button class="mt-8" as="anchor" href="/marketing/contact-us">Fry Hard or Go Home</Button>
+  <video src="/chicken-video.mp4" class="not-prose absolute h-[100%] top-0 right-[-15%] -z-10" autoplay></video>
+</Box>
+
+<style>
+  .altfont {
+    font-family: "Grenze Gotisch Variable", sans-serif;
+  }
+</style>
