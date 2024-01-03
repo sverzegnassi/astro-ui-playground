@@ -15,7 +15,7 @@ export type Props = (
 
 const { class: className, color = "default", size = "md", fullWidth, as = "button", ...attrs } = Astro.props;
 
-const styleClassList = ["btn", color, size, fullWidth, className];
+const styleClassList = ["btn", "not-prose", color, size, fullWidth, className];
 ---
 
 {
