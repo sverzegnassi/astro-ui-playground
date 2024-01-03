@@ -1,0 +1,60 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button.astro";
+import Banner from "@components/Banner.astro";
+import NavigationBar from "@marketing/NavigationBar/NavigationBar.astro";
+import NavigationBarMenu from "@marketing/NavigationBar/NavigationBarMenu.astro";
+import NavigationBarLink from "@marketing/NavigationBar/NavigationBarLink.astro";
+
+interface Props {
+  pageTitle: string;
+}
+
+const { pageTitle } = Astro.props;
+---
+
+<BaseLayout title={pageTitle}>
+  <Banner alignment="justify-center" color="success">
+    🎉 Exciting News: [New Event/Product Launch/Special Offer] - Limited Time Only! 🚀
+    <Button size="xs" color="success" class="border border-success-500 shrink-0">Click here</Button>
+  </Banner>
+
+  <NavigationBar>
+    <Button slot="logo" size="sm" color="muted" as="anchor" href="/marketing">
+      <span class="text-lg font-bold tracking-tighter text-neutral-500">Logo</span>
+    </Button>
+
+    <NavigationBarMenu>
+      <NavigationBarMenu title="About Us" isSubMenu={true}>
+        <NavigationBarLink
+          mode="box"
+          href="#"
+          backgroundImageUrl="https://randomwordgenerator.com/img/picture-generator/nick-dunlap-h65WkTvyWJY-unsplash.jpg"
+        >
+          Our story
+        </NavigationBarLink>
+        <NavigationBarLink href="#">Mission and Values</NavigationBarLink>
+        <NavigationBarLink href="#">Team</NavigationBarLink>
+        <NavigationBarLink href="#">Culture</NavigationBarLink>
+        <NavigationBarLink href="#">Recognition and Awards</NavigationBarLink>
+        <NavigationBarLink mode="box" href="#">Partnerships</NavigationBarLink>
+        <NavigationBarLink href="#">Media Kit</NavigationBarLink>
+        <NavigationBarLink href="#">Testimonials</NavigationBarLink>
+        <NavigationBarLink href="#">Careers</NavigationBarLink>
+      </NavigationBarMenu>
+      <NavigationBarLink href="#">Our Services</NavigationBarLink>
+      <NavigationBarLink href="/marketing/pricing">Pricing</NavigationBarLink>
+      <NavigationBarLink href="#">Blog</NavigationBarLink>
+      <NavigationBarLink href="/marketing/faq">FAQ</NavigationBarLink>
+      <NavigationBarLink href="#">Contact Us</NavigationBarLink>
+    </NavigationBarMenu>
+
+    <NavigationBarMenu>
+      <Button as="anchor" href="/" size="sm" color="tertiary">Web App Example</Button>
+      <Button as="anchor" href="#" size="sm">Contact Us</Button>
+    </NavigationBarMenu>
+  </NavigationBar>
+
+  <!-- CONTENT -->
+  <slot />
+</BaseLayout>

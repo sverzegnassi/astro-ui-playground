@@ -22,9 +22,9 @@ const { class: className, ...attrs } = Astro.props;
   x-bind:data-is-open="showMenu"
 >
   <nav>
-    <a href="/" class="logo">
-      <span class="text-lg font-bold tracking-tighter text-neutral-500">Logo</span>
-    </a>
+    <div class="logo">
+      <slot name="logo" />
+    </div>
     <NavigationBarMenuButton
       @click="showMenu = !showMenu"
       :aria-expanded="showMenu"

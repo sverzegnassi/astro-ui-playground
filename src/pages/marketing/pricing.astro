@@ -1,19 +1,15 @@
 ---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
 import Box from "@components/Box.astro";
 import BoxGrid from "@components/BoxGrid.astro";
 import NavigationBar from "@marketing/NavigationBar/NavigationBar.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 import AccordionGroup from "@components/AccordionGroup.astro";
 import Accordion from "@components/Accordion.astro";
 import Table from "@components/Table.astro";
 import Badge from "@components/Badge.astro";
-
 ---
-
-<BaseLayout title="Pricing">
-  <NavigationBar />
-
+<MarketingLayout pageTitle="Pricing">
   <BoxGrid>
     <Box padding="md" prose="prose" class="[&>*]:mx-auto [&>*]:text-center">
       <h1 class="mb-0">Pricing Plans</h1>
@@ -116,4 +112,4 @@ import Badge from "@components/Badge.astro";
       </AccordionGroup>
     </Box>
   </BoxGrid>
-</BaseLayout>
+</MarketingLayout>

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import MarketingLayout from "@layouts/MarketingLayout.astro";
 import BoxGrid from "@components/BoxGrid.astro";
 import Box from "@components/Box.astro";
 import FaqVariant1 from "@marketing/FaqVariant1.astro"
@@ -34,7 +34,7 @@ const questions = [
 ];
 ---
 
-<BaseLayout title="FAQ Patterns">
+<MarketingLayout pageTitle="FAQ Patterns">
   <BoxGrid>
     <Box
       padding="xl"
@@ -48,6 +48,5 @@ const questions = [
     <FaqVariant1 title="Frequently Asked Questions" questions={questions}/>
     <FaqVariant2 title="Frequently Asked Questions" questions={questions}/>
     <FaqVariant3 title="Frequently Asked Questions" questions={questions}/>
-
   </BoxGrid>
-</BaseLayout>
+</MarketingLayout>
