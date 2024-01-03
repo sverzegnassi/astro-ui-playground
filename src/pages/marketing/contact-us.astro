@@ -1,0 +1,72 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+import Box from "@components/Box.astro";
+import OpeningHours from "@marketing/LocalBusiness/OpeningHours.astro";
+import AddressMap from "@marketing/LocalBusiness/AddressMap.astro";
+---
+
+<MarketingLayout pageTitle="Contact Us">
+  <BoxGrid>
+    <!-- Let's see how bad is ChatGPT 3.5 to generate some copy -->
+    <Box padding="md" prose="prose">
+      <h1 class="mb-0">We'd Love to Hear from You!</h1>
+      <p>
+        Thank you for considering [Restaurant Name] for your dining experience.<br />
+        If you have any questions, feedback, or would like to make a reservation, please don't hesitate to reach out to us.
+      </p>
+    </Box>
+
+    <Box padding="md" prose="prose-w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h2>Contact Information</h2>
+          <AddressMap jsonConfigFileName="localBusiness" jsonPath="address" />
+          Address: [Street Address] [City, State, Zip Code] Phone: [Phone Number] Email: [Email Address]
+        </div>
+        <div>
+          <h2>Opening Hours</h2>
+          <OpeningHours jsonConfigFileName="localBusiness" jsonPath="openingHoursSpecification" />
+        </div>
+      </div>
+    </Box>
+
+    <Box prose="prose-w-full">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h2>Reservation</h2>
+          <p>
+            For reservations, please call us at [Phone Number] during our business hours. We recommend making a
+            reservation, especially during peak hours, to ensure we can provide you with the best dining experience.
+          </p>
+        </div>
+        <div>
+          <h2>General Inquiries</h2>
+          <p>
+            If you have any general inquiries or feedback, feel free to contact us via email at [Email Address]. We
+            appreciate your thoughts and suggestions as we strive to make your dining experience exceptional.
+          </p>
+        </div>
+        <div>
+          <h2>Connect With Us</h2>
+          <p>Follow us on social media for the latest updates, special offers, and mouth-watering food photos!</p>
+          <ul>
+            <li>[Facebook]</li>
+            <li>[Twitter]</li>
+            <li>[Instagram]</li>
+          </ul>
+        </div>
+      </div>
+    </Box>
+
+    <Box prose="prose-w-full">
+        <h2>Feedback Form</h2>
+        <p>Your feedback is important to us. Fill out the form below to share your thoughts, comments, or suggestions:</p>
+        <Box class="bg-neutral-200">Form</Box>
+    </Box>
+
+    <Box padding="xs">
+      <p><em>We look forward to serving you at [Restaurant Name]!</em></p>
+    </Box>
+  </BoxGrid>
+</MarketingLayout>

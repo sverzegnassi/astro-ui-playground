@@ -1,0 +1,163 @@
+---
+import _ from "lodash";
+import { z, ZodError } from "zod";
+import Table, { type Props as TableProps } from "@components/Table.astro";
+import Badge from "@components/Badge.astro";
+import Box from "@components/Box.astro";
+
+function localizedDayOfWeek(enString: string | Date) {
+  // TODO: It should match `lang` attribute in <html>
+  const destLang = "it";
+
+  // Conveniently, January 1st 2024 was Monday.
+  switch (enString) {
+    case "Monday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-1"));
+    case "Tuesday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-2"));
+    case "Wednesday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-3"));
+    case "Thursday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-4"));
+    case "Friday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-5"));
+    case "Saturday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-6"));
+    case "Sunday":
+      return new Intl.DateTimeFormat(destLang, { calendar: "gregory", weekday: "long" }).format(new Date("2024-1-7"));
+    default:
+      return undefined;
+  }
+}
+
+function localizedDateFormat(date: string) {
+  // TODO: It should match `lang` attribute in <html>
+  const destLang = "it";
+
+  return new Intl.DateTimeFormat(destLang, { dateStyle: "medium" }).format(new Date(date));
+}
+
+const DayOfWeek = z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+const Time = z.string();
+const DateOrDateTime = z.union([z.date(), z.string()]);
+const OpeningHoursItem = z.object({
+  "@type": z.literal("OpeningHoursSpecification"),
+  closes: Time,
+  dayOfWeek: z.union([DayOfWeek, z.array(DayOfWeek)]),
+  opens: Time,
+  validFrom: DateOrDateTime.optional(),
+  validThrough: DateOrDateTime.optional(),
+});
+
+const OpeningHoursSpecification = z.array(OpeningHoursItem);
+
+type OpeningHourItem = z.infer<typeof OpeningHoursItem>;
+type OpeningHoursSpecification = z.infer<typeof OpeningHoursSpecification>;
+
+export interface Props extends TableProps {
+  jsonConfigFileName?: string;
+  jsonPath?: string;
+  schema?: OpeningHoursSpecification;
+}
+
+const { jsonConfigFileName, jsonPath, schema, class: className, ...attributes } = Astro.props;
+const attrs: Record<string, any> = attributes;
+
+let openingHours = [];
+
+if (schema) {
+  openingHours = schema;
+} else {
+  if (jsonConfigFileName && jsonPath) {
+    // FIXME: There's a better way...
+    const jsonSource = await import(`../../config/${jsonConfigFileName}.json?raw`);
+
+    if (jsonSource.default) {
+      openingHours = JSON.parse(jsonSource.default);
+      openingHours = _.get(openingHours, jsonPath);
+    }
+  } else {
+    // TODO: Try to fetch a default schema specified through e.g. ENV
+  }
+}
+
+if (openingHours) {
+  try {
+    OpeningHoursSpecification.parse(openingHours);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Validation Error:", error.errors);
+    } else {
+      console.error("Unexpected Error:", error);
+    }
+  }
+}
+---
+
+{
+  !_.isEmpty(openingHours) && (
+    <Table {...attrs} class:list={[className]}>
+      <tbody>
+        {openingHours.map((e: OpeningHourItem) => (
+          <tr>
+            <th class="align-top">
+              {Array.isArray(e.dayOfWeek)
+                ? _.upperFirst(e.dayOfWeek.map((d) => localizedDayOfWeek(d)).join(", "))
+                : _.upperFirst(localizedDayOfWeek(e.dayOfWeek))}
+            </th>
+            <td>
+              <div>
+                {e.opens === e.closes ? (
+                  <Badge color="brand" style="muted" size="sm">
+                    Closed
+                  </Badge>
+                ) : (
+                  `${e.opens} – ${e.closes}`
+                )}
+              </div>
+              <div>
+                {() => {
+                  if (e.validFrom && !e.validThrough) {
+                    return (
+                      <span>
+                        <em>Valid from {localizedDateFormat(e.validFrom)}</em>
+                      </span>
+                    );
+                  }
+
+                  if (!e.validFrom && e.validThrough) {
+                    return (
+                      <span>
+                        <em>Valid until {localizedDateFormat(e.validThrough)}</em>
+                      </span>
+                    );
+                  }
+
+                  if (e.validFrom && e.validThrough) {
+                    return (
+                      <span>
+                        <em>
+                          Valid from {localizedDateFormat(e.validFrom)} to {localizedDateFormat(e.validThrough)}
+                        </em>
+                      </span>
+                    );
+                  }
+                }}
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  )
+}
+
+{
+  _.isEmpty(openingHours) && (
+    <Box class="bg-error-300 [&_*]:text-error-700" prose="prose">
+      <em>
+        <strong>ERROR: Please provide a valid schema.</strong>
+      </em>
+    </Box>
+  )
+}

@@ -1,0 +1,87 @@
+---
+import _ from "lodash";
+import { z, ZodError } from "zod";
+import Box from "@components/Box.astro";
+import type { HTMLAttributes } from "astro/types";
+
+// TODO: Telephone, email
+
+const Address = z.object({
+  "@type": z.literal("PostalAddress"),
+  streetAddress: z.string(),
+  addressLocality: z.string(),
+  addressRegion: z.string().optional(),
+  postalCode: z.string().optional(),
+  addressCountry: z.string().optional(),
+  postOfficeBoxNumber: z.string().optional(),
+});
+
+type Address = z.infer<typeof Address>;
+
+export interface Props extends HTMLAttributes<'div'> {
+  // TODO: [GDPR] We're gonna integrate with CookieConsent and IFrameManager
+  //  - API keys should be provided via .env
+  //  - There must be a way to by-pass IFrameManager (for testing purpose)
+  //  - Add static image options (either user-defined or through a provider - e.g. MapBox)
+  mapProvider?: "mapbox" | "azure" | "google",
+  jsonConfigFileName?: string;
+  jsonPath?: string;
+  schema?: Address;
+}
+
+const { jsonConfigFileName, jsonPath, schema, class: className, ...attributes } = Astro.props;
+const attrs: Record<string, any> = attributes;
+
+let address = {};
+
+if (schema) {
+  address = schema;
+} else {
+  if (jsonConfigFileName && jsonPath) {
+    const jsonSource = await import(`../../config/${jsonConfigFileName}.json?raw`);
+
+    if (jsonSource.default) {
+      address = JSON.parse(jsonSource.default);
+      address = _.get(address, jsonPath);
+    }
+  } else {
+    // TODO: Try to fetch a default schema specified through e.g. ENV
+  }
+}
+
+if (address) {
+  try {
+    Address.parse(address);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Validation Error:", error.errors);
+    } else {
+      console.error("Unexpected Error:", error);
+    }
+  }
+}
+---
+
+{
+  !_.isEmpty(address) && (
+    <address {...attrs} class:list={[className]}>
+      
+    </address>
+  )
+}
+
+{
+  _.isEmpty(address) && (
+    <Box class="bg-error-300 [&_*]:text-error-700" prose="prose">
+      <em>
+        <strong>ERROR: Please provide a valid schema.</strong>
+      </em>
+    </Box>
+  )
+}
+
+<style>
+  address {
+
+  }
+</style>
