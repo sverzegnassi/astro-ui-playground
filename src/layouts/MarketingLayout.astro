@@ -14,10 +14,12 @@ const { pageTitle } = Astro.props;
 ---
 
 <BaseLayout title={pageTitle}>
-  <Banner alignment="justify-center" color="success">
-    🎉 Exciting News: [New Event/Product Launch/Special Offer] - Limited Time Only! 🚀
-    <Button size="xs" color="success" class="border border-success-500 shrink-0">Click here</Button>
-  </Banner>
+  <slot name="banner">
+    <Banner alignment="justify-center" color="success">
+      🎉 Exciting News: [New Event/Product Launch/Special Offer] - Limited Time Only! 🚀
+      <Button size="xs" color="success" class="border border-success-500 shrink-0">Click here</Button>
+    </Banner>
+  </slot>
 
   <NavigationBar>
     <Button slot="logo" size="sm" color="muted" as="anchor" href="/marketing">
