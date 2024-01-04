@@ -109,9 +109,9 @@ import Button from "@components/Button.astro";
           class="aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] object-cover w-full"
           src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920"
         />
-        <div>
+        <div class="md:p-16">
           <h2 class="text-4xl font-medium">You saw this picture a thousand times?</h2>
-          <p class="mt-16 font-light max-w-[45ch] mb-20">
+          <p class="mt-8 lg:mt-16 font-light max-w-[45ch] mb-10 lg:mb-20">
             As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content is in
             alignment with the strategic maxim of not reinventing the wheel. Embracing established and proficient
             platforms such as Unsplash underscores our commitment to efficiency and resource optimization in visual
@@ -124,9 +124,9 @@ import Button from "@components/Button.astro";
 
     <Box padding="none" size="full-width" class="!px-0 [&>*]:!col-[full-width] bg-success-300 !rounded-none">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-screen-[2180px] mx-auto">
-        <div class="order-2 px-10 md:px-12 lg:px-16">
+        <div class="order-2 p-10 md:p-16 lg:p-24">
           <h2 class="text-4xl font-medium">No, seriously? You expected something original?</h2>
-          <p class="mt-16 font-light max-w-[45ch] mb-20">
+          <p class="mt-8 lg:mt-16 font-light max-w-[45ch] mb-10 lg:mb-20">
             In all seriousness, did you anticipate a departure from the conventional? Rest assured, our commitment lies
             in delivering authenticity and innovation, setting us apart within the realms of expectation. Brace yourself
             for a distinctive experience that transcends the ordinary.
@@ -151,7 +151,7 @@ import Button from "@components/Button.astro";
           <Button color="secondary">View All</Button>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24 items-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-24 items-center">
         {
           Array(6)
             .fill(null)
