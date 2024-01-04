@@ -28,8 +28,11 @@ import Button from "@components/Button.astro";
 ---
 
 <MarketingLayout pageTitle="Marketing Example page">
+  <div slot="banner"></div>
   <BoxGrid>
-    <Box padding="md" prose="prose">
+    <Box padding="md" prose="prose" size="full-width" class="relative">
+      <img src="/hero.png" class="not-prose absolute object-cover object-top bottom-0 left-1/3 w-2/3 md:left-1/2 md:w-1/2 h-auto"/>
+
       <h1 class="mb-0 font-extrabold">Empowering Your [Industry] Journey with [Your Company Name]</h1>
       <p><em>Unleash Possibilities, Embrace Excellence.</em></p>
       <p class="font-light">
@@ -40,14 +43,14 @@ import Button from "@components/Button.astro";
     </Box>
 
     <Box padding="md" size="full-width" prose="prose-w-full" class="bg-neutral-900 text-neutral-100 [&>*]:prose-invert !rounded-none">
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-baseline">
         <h2 class="font-medium text-4xl">About Us</h2>
         <Button>View All</Button>
       </div>
 
       <p class="max-w-prose">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
 
-      <div class="grid grid-cols-4 gap-12 mt-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-24">
         <div>
           <div class="w-full aspect-square bg-neutral-700 rounded"></div>
           <h3 class="not-prose uppercase mt-8 mb-2">We are <s class="decoration-8 decoration-error-500">un</s>like</h3>
@@ -72,9 +75,9 @@ import Button from "@components/Button.astro";
     </Box>
 
     <Box padding="md">
-      <div class="grid grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <img
-        class="aspect-[4/5] object-cover w-full"
+        class="aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] object-cover w-full"
         src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920" />
         <div>
           <h2 class="text-4xl font-medium">You saw this picture a thousand times?</h2>
@@ -84,15 +87,15 @@ import Button from "@components/Button.astro";
       </div>
     </Box>
 
-    <Box padding="none" size="full-width" class="!px-0 [&>*]:!col-[full-width]">
-      <div class="grid grid-cols-2 gap-12 items-center">
-        <div class="px-16">
+    <Box padding="none" size="full-width" class="!px-0 [&>*]:!col-[full-width] bg-neutral-200">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-screen-[2180px] mx-auto">
+        <div class="order-2 px-10 md:px-12 lg:px-16">
           <h2 class="text-4xl font-medium">No, seriously? You expected something original?</h2>
           <p class="mt-16 font-light max-w-[45ch] mb-20">In all seriousness, did you anticipate a departure from the conventional? Rest assured, our commitment lies in delivering authenticity and innovation, setting us apart within the realms of expectation. Brace yourself for a distinctive experience that transcends the ordinary.</p>
           <Button as="anchor" href="https://unsplash.com/">Search Stock Pictures</Button>
         </div>
         <img
-        class="aspect-[4/5] object-cover w-full"
+        class="order-1 md:order-3 aspect-[4/5] object-cover w-full"
         src="https://unsplash.com/photos/JBwcenOuRCg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8cGVvcGxlJTIwd29ya3xlbnwwfHx8fDE3MDQzNDQ2NDF8MA&force=true&w=1920" />
       </div>
     </Box>
