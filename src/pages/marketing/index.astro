@@ -30,10 +30,13 @@ import Button from "@components/Button.astro";
 <MarketingLayout pageTitle="Marketing Example page">
   <div slot="banner"></div>
   <BoxGrid>
-    <Box padding="md" prose="prose" size="full-width" class="relative">
-      <img src="/hero.png" class="not-prose absolute object-cover object-top bottom-0 left-1/3 w-2/3 md:left-1/2 md:w-1/2 h-auto"/>
+    <Box padding="xl" prose="prose" size="full-width" class="relative">
+      <img
+        src="/hero.png"
+        class="not-prose absolute object-cover object-top bottom-0 left-1/3 w-2/3 md:left-1/2 md:w-1/2 h-auto"
+      />
 
-      <h1 class="mb-0 font-extrabold">Empowering Your [Industry] Journey with [Your Company Name]</h1>
+      <h1 class="mb-0 font-extrabold -mt-8">Empowering Your [Industry] Journey with [Your Company Name]</h1>
       <p><em>Unleash Possibilities, Embrace Excellence.</em></p>
       <p class="font-light">
         Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
@@ -42,34 +45,60 @@ import Button from "@components/Button.astro";
       <Button class="mt-8" as="anchor" href="/marketing/contact-us">Contact Us</Button>
     </Box>
 
-    <Box padding="md" size="full-width" prose="prose-w-full" class="bg-neutral-900 text-neutral-100 [&>*]:prose-invert !rounded-none">
-      <div class="flex justify-between items-baseline">
+    <Box
+      padding="md"
+      size="full-width"
+      prose="prose-w-full"
+      class="bg-neutral-900 text-neutral-100 [&>*]:prose-invert !rounded-none"
+    >
+      <div class="flex justify-between items-center not-prose mb-8">
         <h2 class="font-medium text-4xl">About Us</h2>
         <Button>View All</Button>
       </div>
 
-      <p class="max-w-prose">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
+      <p class="max-w-prose text-neutral-300">
+        But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I
+        will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+        truth, the master-builder of human happiness.
+      </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-24">
         <div>
           <div class="w-full aspect-square bg-neutral-700 rounded"></div>
           <h3 class="not-prose uppercase mt-8 mb-2">We are <s class="decoration-8 decoration-error-500">un</s>like</h3>
-          <p class="text-neutral-400">Our approach is aligned with industry best practices, as we embrace methodologies that resonate with established norms. By adhering to widely accepted practices, we ensure a harmonious integration within the broader landscape, fostering a synergy that aligns seamlessly with prevailing standards.</p>
+          <p class="text-neutral-400">
+            Our approach is aligned with industry best practices, as we embrace methodologies that resonate with
+            established norms. By adhering to widely accepted practices, we ensure a harmonious integration within the
+            broader landscape, fostering a synergy that aligns seamlessly with prevailing standards.
+          </p>
         </div>
         <div>
           <div class="w-full aspect-square bg-neutral-700 rounded"></div>
           <h3 class="not-prose uppercase mt-8 mb-2">Old-fashioned</h3>
-          <p class="text-neutral-400">Having accumulated substantial experience over an extended tenure within this industry, our seasoned presence underscores a depth of knowledge and a wealth of expertise. Our enduring commitment to excellence is rooted in the longevity of our engagement, positioning us as stalwarts in the ever-evolving landscape of our chosen field.</p>
+          <p class="text-neutral-400">
+            Having accumulated substantial experience over an extended tenure within this industry, our seasoned
+            presence underscores a depth of knowledge and a wealth of expertise. Our enduring commitment to excellence
+            is rooted in the longevity of our engagement, positioning us as stalwarts in the ever-evolving landscape of
+            our chosen field.
+          </p>
         </div>
         <div>
           <div class="w-full aspect-square bg-neutral-700 rounded"></div>
           <h3 class="not-prose uppercase mt-8 mb-2">Strategic</h3>
-          <p class="text-neutral-400">Our operations are underpinned by robust processes, reflecting a commitment to structured workflows and systematic methodologies. This strategic adoption of processes underscores our dedication to efficiency, quality, and the successful execution of our endeavors.</p>
+          <p class="text-neutral-400">
+            Our operations are underpinned by robust processes, reflecting a commitment to structured workflows and
+            systematic methodologies. This strategic adoption of processes underscores our dedication to efficiency,
+            quality, and the successful execution of our endeavors.
+          </p>
         </div>
         <div>
           <div class="w-full aspect-square bg-neutral-700 rounded"></div>
           <h3 class="not-prose uppercase mt-8 mb-2">Your truly partner</h3>
-          <p class="text-neutral-400">We commit to being your exclusive partner, dedicated to fostering a singular and unwavering collaboration. Our pledge is to prioritize your needs, ensuring a focused and exclusive alliance that brings forth mutual success and sustained value in our partnership.</p>
+          <p class="text-neutral-400">
+            We commit to being your exclusive partner, dedicated to fostering a singular and unwavering collaboration.
+            Our pledge is to prioritize your needs, ensuring a focused and exclusive alliance that brings forth mutual
+            success and sustained value in our partnership.
+          </p>
         </div>
       </div>
     </Box>
@@ -77,11 +106,17 @@ import Button from "@components/Button.astro";
     <Box padding="md">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <img
-        class="aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] object-cover w-full"
-        src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920" />
+          class="aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] object-cover w-full"
+          src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920"
+        />
         <div>
           <h2 class="text-4xl font-medium">You saw this picture a thousand times?</h2>
-          <p class="mt-16 font-light max-w-[45ch] mb-20">As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content is in alignment with the strategic maxim of not reinventing the wheel. Embracing established and proficient platforms such as Unsplash underscores our commitment to efficiency and resource optimization in visual content acquisition.</p>
+          <p class="mt-16 font-light max-w-[45ch] mb-20">
+            As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content is in
+            alignment with the strategic maxim of not reinventing the wheel. Embracing established and proficient
+            platforms such as Unsplash underscores our commitment to efficiency and resource optimization in visual
+            content acquisition.
+          </p>
           <Button as="anchor" href="https://unsplash.com/">Join Us</Button>
         </div>
       </div>
@@ -91,12 +126,56 @@ import Button from "@components/Button.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-screen-[2180px] mx-auto">
         <div class="order-2 px-10 md:px-12 lg:px-16">
           <h2 class="text-4xl font-medium">No, seriously? You expected something original?</h2>
-          <p class="mt-16 font-light max-w-[45ch] mb-20">In all seriousness, did you anticipate a departure from the conventional? Rest assured, our commitment lies in delivering authenticity and innovation, setting us apart within the realms of expectation. Brace yourself for a distinctive experience that transcends the ordinary.</p>
+          <p class="mt-16 font-light max-w-[45ch] mb-20">
+            In all seriousness, did you anticipate a departure from the conventional? Rest assured, our commitment lies
+            in delivering authenticity and innovation, setting us apart within the realms of expectation. Brace yourself
+            for a distinctive experience that transcends the ordinary.
+          </p>
           <Button as="anchor" href="https://unsplash.com/">Search Stock Pictures</Button>
         </div>
         <img
-        class="order-1 md:order-3 aspect-[4/5] object-cover w-full"
-        src="https://unsplash.com/photos/JBwcenOuRCg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8cGVvcGxlJTIwd29ya3xlbnwwfHx8fDE3MDQzNDQ2NDF8MA&force=true&w=1920" />
+          class="order-1 md:order-3 aspect-[4/5] object-cover w-full"
+          src="https://unsplash.com/photos/JBwcenOuRCg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8cGVvcGxlJTIwd29ya3xlbnwwfHx8fDE3MDQzNDQ2NDF8MA&force=true&w=1920"
+        />
+      </div>
+    </Box>
+
+    <!-- WIP: Blog -->
+    <Box padding="md">
+      <div class="mb-16">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="uppercase block mb-2">Blog</span>
+            <h2 class="text-3xl font-medium">Our latest insights</h2>
+          </div>
+          <Button color="secondary">View All</Button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24 items-center">
+        {
+          Array(6)
+            .fill(null)
+            .map(() => (
+              <div>
+                <img
+                  class="aspect-[6/7] object-cover w-full"
+                  src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920"
+                />
+                <div class="mt-10">
+                  <h3 class="font-medium text-xl mb-6">Lorem ipsum dolor</h3>
+                  <p class="font-light max-w-[45ch] mb-8">
+                    As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content
+                    is in alignment with the strategic maxim of not reinventing the wheel. Embracing established and
+                    proficient platforms such as Unsplash underscores our commitment to efficiency and resource
+                    optimization in visual content acquisition.
+                  </p>
+                  <Button as="anchor" size="sm" color="tertiary" href="#" class="-ml-3">
+                    Read Article
+                  </Button>
+                </div>
+              </div>
+            ))
+        }
       </div>
     </Box>
 
@@ -165,6 +244,20 @@ import Button from "@components/Button.astro";
           x-data
         >
           @fontsource-variable/nunito-sans
+        </Button>
+      </div>
+    </Box>
+
+    <!-- WIP: Footer -->
+    <Box
+      padding="xl"
+      prose="prose-w-full"
+      size="full-width"
+      class="!rounded-none bg-neutral-900 text-neutral-100 [&>*]:prose-inverse"
+    >
+      <div class="grid grid-cols-3">
+        <Button color="muted" as="anchor" href="/marketing">
+          <span class="text-5xl font-bold tracking-tighter text-neutral-500">Logo</span>
         </Button>
       </div>
     </Box>
