@@ -1,0 +1,357 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import Box from "@components/Box.astro";
+import BoxGrid from "@components/BoxGrid.astro";
+
+import "@fontsource-variable/montserrat";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/rubik";
+import "@fontsource/ibm-plex-sans";
+import "@fontsource/fira-sans";
+import "@fontsource/poppins";
+import "@fontsource/roboto";
+import "@fontsource-variable/nunito-sans";
+import Button from "@components/Button.astro";
+---
+
+<MarketingLayout pageTitle="Marketing Example page">
+  <div slot="banner"></div>
+  <BoxGrid>
+    <Box
+      id="hero"
+      padding="xl"
+      prose="prose"
+      size="full-width"
+      class="text-neutral-100 [&>*]:prose-invert [&>*]:mx-auto [&>*]:text-center min-h-[100dvh]"
+    >
+      <img
+        src="https://unsplash.com/photos/K785Da4A_JA/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzA0MzY2NjU2fA&force=true&w=1920"
+        class="not-prose fixed object-cover top-0 left-0 -z-10"
+      />
+      <div class="fixed -z-10 left-1/2 -translate-x-1/2 max-w-prose origin-center" id="hero-content">
+        <h1 class="text-5xl mb-0 font-extrabold">Empowering Your [Industry] Journey with [Your Company Name]</h1>
+        <p class="font-light mt-16 mb-10">
+          Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
+          [industry] experience, setting the stage for unparalleled success.
+        </p>
+        <Button class="mt-8 mx-auto" color="info" as="anchor" href="/marketing/contact-us">Contact Us</Button>
+      </div>
+    </Box>
+
+    <script>
+      function $(el) {
+        return document.querySelector(el);
+      }
+
+      let lastKnownScrollPosition = 0;
+      let ticking = false;
+
+      function doSomething(scrollPos) {
+        let percentage = scrollPos / window.innerHeight;
+
+        if (percentage > 1) {
+          document.querySelector('#hero')?.setAttribute("style", "visibility: hidden")
+        } else {
+          document.querySelector('#hero')?.setAttribute("style", "")
+        }
+
+        percentage = Math.min(percentage, 1);
+
+        document.querySelector('#hero img')?.setAttribute("style", `top: -${scrollPos * 0.1 }px`)
+        document.querySelector('#hero-content')?.setAttribute("style", `
+        opacity: ${1 - percentage};
+        transform:
+          perspective(1px)
+          translateX(calc(-50% - ${percentage * 15}%))
+          translateY(calc(-${percentage * 100}%))
+          translateZ(${percentage * -0.25}px)
+        `)
+      }
+
+      document.addEventListener("scroll", (event) => {
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            doSomething(lastKnownScrollPosition);
+            ticking = false;
+          });
+
+          ticking = true;
+        }
+      });
+    </script>
+
+    <Box
+      id="next"
+      padding="md"
+      size="full-width"
+      prose="prose-w-full"
+      class="bg-neutral-900 text-neutral-100 [&>*]:prose-invert !rounded-none"
+    >
+      <div class="flex justify-between items-center not-prose mb-8">
+        <h2 class="font-medium text-4xl">About Us</h2>
+        <Button>View All</Button>
+      </div>
+
+      <p class="max-w-prose text-neutral-300">
+        But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I
+        will give you a complete account of the system, and expound the actual teachings of the great explorer of the
+        truth, the master-builder of human happiness.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-24">
+        <div>
+          <div class="w-full aspect-square bg-neutral-700 rounded"></div>
+          <h3 class="not-prose uppercase mt-8 mb-2">We are <s class="decoration-8 decoration-error-500">un</s>like</h3>
+          <p class="text-neutral-400">
+            Our approach is aligned with industry best practices, as we embrace methodologies that resonate with
+            established norms. By adhering to widely accepted practices, we ensure a harmonious integration within the
+            broader landscape, fostering a synergy that aligns seamlessly with prevailing standards.
+          </p>
+        </div>
+        <div>
+          <div class="w-full aspect-square bg-neutral-700 rounded"></div>
+          <h3 class="not-prose uppercase mt-8 mb-2">Old-fashioned</h3>
+          <p class="text-neutral-400">
+            Having accumulated substantial experience over an extended tenure within this industry, our seasoned
+            presence underscores a depth of knowledge and a wealth of expertise. Our enduring commitment to excellence
+            is rooted in the longevity of our engagement, positioning us as stalwarts in the ever-evolving landscape of
+            our chosen field.
+          </p>
+        </div>
+        <div>
+          <div class="w-full aspect-square bg-neutral-700 rounded"></div>
+          <h3 class="not-prose uppercase mt-8 mb-2">Strategic</h3>
+          <p class="text-neutral-400">
+            Our operations are underpinned by robust processes, reflecting a commitment to structured workflows and
+            systematic methodologies. This strategic adoption of processes underscores our dedication to efficiency,
+            quality, and the successful execution of our endeavors.
+          </p>
+        </div>
+        <div>
+          <div class="w-full aspect-square bg-neutral-700 rounded"></div>
+          <h3 class="not-prose uppercase mt-8 mb-2">Your truly partner</h3>
+          <p class="text-neutral-400">
+            We commit to being your exclusive partner, dedicated to fostering a singular and unwavering collaboration.
+            Our pledge is to prioritize your needs, ensuring a focused and exclusive alliance that brings forth mutual
+            success and sustained value in our partnership.
+          </p>
+        </div>
+      </div>
+    </Box>
+
+    <Box padding="md">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <img
+          class="aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] object-cover w-full"
+          src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920"
+        />
+        <div class="md:p-16">
+          <h2 class="text-4xl font-medium">You saw this picture a thousand times?</h2>
+          <p class="mt-8 lg:mt-16 font-light max-w-[45ch] mb-10 lg:mb-20">
+            As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content is in
+            alignment with the strategic maxim of not reinventing the wheel. Embracing established and proficient
+            platforms such as Unsplash underscores our commitment to efficiency and resource optimization in visual
+            content acquisition.
+          </p>
+          <Button as="anchor" href="https://unsplash.com/">Join Us</Button>
+        </div>
+      </div>
+    </Box>
+
+    <Box padding="none" size="full-width" class="!px-0 [&>*]:!col-[full-width] bg-success-300 !rounded-none">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-screen-[2180px] mx-auto">
+        <div class="order-2 p-10 md:p-16 lg:p-24">
+          <h2 class="text-4xl font-medium">No, seriously? You expected something original?</h2>
+          <p class="mt-8 lg:mt-16 font-light max-w-[45ch] mb-10 lg:mb-20">
+            In all seriousness, did you anticipate a departure from the conventional? Rest assured, our commitment lies
+            in delivering authenticity and innovation, setting us apart within the realms of expectation. Brace yourself
+            for a distinctive experience that transcends the ordinary.
+          </p>
+          <Button as="anchor" color="success" href="https://unsplash.com/">Search Stock Pictures</Button>
+        </div>
+        <img
+          class="order-1 md:order-3 aspect-[4/5] object-cover w-full"
+          src="https://unsplash.com/photos/JBwcenOuRCg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8cGVvcGxlJTIwd29ya3xlbnwwfHx8fDE3MDQzNDQ2NDF8MA&force=true&w=1920"
+        />
+      </div>
+    </Box>
+
+    <!-- WIP: Blog -->
+    <Box padding="md">
+      <div class="mb-16">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="text-lg uppercase block mb-2 text-neutral-800">Blog</span>
+            <h2 class="text-3xl font-medium">Our latest insights</h2>
+          </div>
+          <Button color="secondary">View All</Button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-24 items-center">
+        {
+          Array(6)
+            .fill(null)
+            .map(() => (
+              <div>
+                <img
+                  class="aspect-[6/7] object-cover w-full"
+                  src="https://unsplash.com/photos/bzqU01v-G54/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHBlb3BsZSUyMHdvcmt8ZW58MHx8fHwxNzA0MzQ0NjQxfDA&force=true&w=1920"
+                />
+                <div class="mt-10">
+                  <h3 class="font-medium text-xl mb-6">Lorem ipsum dolor</h3>
+                  <p class="font-light max-w-[45ch] mb-8 text-neutral-800">
+                    As is commonplace across the global spectrum, our reliance on Unsplash for sourcing visual content
+                    is in alignment with the strategic maxim of not reinventing the wheel. Embracing established and
+                    proficient platforms such as Unsplash underscores our commitment to efficiency and resource
+                    optimization in visual content acquisition.
+                  </p>
+                  <Button as="anchor" size="sm" color="tertiary" href="#" class="-ml-3">
+                    Read Article
+                  </Button>
+                </div>
+              </div>
+            ))
+        }
+      </div>
+    </Box>
+
+    <Box>
+      <h2 class="text-3xl">Change font</h2>
+      <div class="flex gap-4 flex-wrap">
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='montserrat';"
+          x-data
+        >
+          @fontsource-variable/montserrat
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='inter';"
+          x-data
+        >
+          @fontsource-variable/inter
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='manrope';"
+          x-data
+        >
+          @fontsource-variable/manrope
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='rubik';"
+          x-data
+        >
+          @fontsource-variable/rubik
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='ibm';"
+          x-data
+        >
+          @fontsource/ibm-plex-sans
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='fira';"
+          x-data
+        >
+          @fontsource/fira-sans
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='poppins';"
+          x-data
+        >
+          @fontsource/poppins
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='roboto';"
+          x-data
+        >
+          @fontsource/roboto
+        </Button>
+        <Button
+          color="tertiary"
+          @click="document.querySelector('body').className = ''; document.querySelector('body').className='nunito';"
+          x-data
+        >
+          @fontsource-variable/nunito-sans
+        </Button>
+      </div>
+    </Box>
+
+    <!-- WIP: Footer -->
+    <Box
+      padding="xl"
+      prose="prose-w-full"
+      size="full-width"
+      class="!rounded-none bg-neutral-900 text-neutral-100 [&>*]:prose-inverse"
+    >
+      <div class="grid grid-cols-3">
+        <Button color="muted" as="anchor" href="/marketing">
+          <span class="text-5xl font-bold tracking-tighter text-neutral-500">Logo</span>
+        </Button>
+      </div>
+    </Box>
+  </BoxGrid>
+</MarketingLayout>
+
+<style is:global>
+  body.montserrat {
+    font-family: "Montserrat Variable", sans-serif !important;
+  }
+
+  body.inter {
+    font-family: "Inter Variable", sans-serif !important;
+  }
+
+  body.manrope {
+    font-family: "Manrope Variable", sans-serif !important;
+  }
+
+  body.nunito {
+    font-family: "Rubik Variable", sans-serif !important;
+  }
+
+  body.fira {
+    font-family: "Fira Sans", sans-serif !important;
+    font-weight: 300;
+  }
+
+  body.ibm {
+    font-family: "IBM Plex Sans", sans-serif !important;
+    font-weight: 300;
+  }
+
+  body.rubik {
+    font-family: "Rubik Variable", sans-serif !important;
+    font-weight: 300;
+  }
+
+  body.poppins {
+    font-family: "Poppins", sans-serif !important;
+  }
+
+  body.roboto {
+    font-family: "Roboto", sans-serif !important;
+  }
+
+  body.nunito {
+    font-family: "Nunito Sans Variable", sans-serif !important;
+  }
+</style>
+
+<style is:global>
+  .navbar {
+    @apply !bg-neutral-300/50 !border-b-0 !backdrop-blur-sm !rounded-lg !shadow-2xl;
+    @apply !m-4 !w-[calc(100%-2rem)] !top-4;
+  }
+  
+</style>
