@@ -40,14 +40,14 @@ import Button from "@components/Button.astro";
     </Box>
 
     <script>
-      function $(el) {
+      function $(el: any) {
         return document.querySelector(el);
       }
 
       let lastKnownScrollPosition = 0;
       let ticking = false;
 
-      function doSomething(scrollPos) {
+      function doSomething(scrollPos: any) {
         let percentage = scrollPos / window.innerHeight;
 
         if (percentage > 1) {
