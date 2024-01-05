@@ -71,6 +71,26 @@ const { title, isSubMenu = false } = Astro.props
       @apply border-t-8 border-neutral-300;
       @apply shadow-inner;
     }
+
+    /*
+      TODO: Either use & :global(.btn), or don't use <Button>
+
+        Considerations: 
+          - One idea I've been playing around was that "Buttons should look like buttons, links should look like links."
+          - Menu and MenuItem follow this principle. MenuItem provides an 'as' prop. If it's a link, it looks like a
+            menu entry. If it's a <button>, it looks like a button.
+          - One gray area is Call-to-actions and navbar, which normally presents button-shaped anchors.
+            <Button as="anchor" /> is meant to cover this specific scenario, but I'm not completely sold on using it
+            in <NavigationBar> where <NavigationBarLink> is available.
+          - Having a <NavigationBarButton>, wrapper for <Button>, seems desirable - although redudant.
+          - Another issue is that now there are <Header> and <NavigationBar>. One is designed around flex, one around grid.
+            <NavigationBar> is a pattern component, not a primitive component - and supports more complex scenarios.
+            At the very least, <NavigationBar> should subclass <Header>, and <Header> should be - at least - able
+            to plan on two rows - i.e. use grid instead of flex. 
+    */
+    & :global(.btn:not(.submenuHeaderBtn)) {
+      @apply w-full md:w-fit;
+    }
   }
 
   .menuVisible {

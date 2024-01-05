@@ -26,7 +26,7 @@ const { class: className, as = "anchor", ...attrs } = Astro.props;
 
   {
     as === "button" && (
-      <Button class:list={[className]} size={attrs.size || "sm"} {...attrs}>
+      <Button class:list={[className]} size={attrs.size || "sm"} fullWidth="fullWidth" {...attrs}>
         <slot />
       </Button>
     )
