@@ -2,18 +2,6 @@
 import MarketingLayout from "@layouts/MarketingLayout.astro";
 import Box from "@components/Box.astro";
 import BoxGrid from "@components/BoxGrid.astro";
-import HeroBasic from "@marketing/HeroBasic.astro";
-
-import Testimonial from "../../patterns-marketing/Testimonial.astro";
-import LogoCarousel from "../../patterns-marketing/LogoCarousel.astro";
-
-// Logo Carousel assets
-import { Image } from "astro:assets";
-import airbnbLogo from "@assets/logos/airbnb-1.svg";
-import coronaLogo from "@assets/logos/corona-2.svg";
-import fordLogo from "@assets/logos/ford-logo-flat.svg";
-import northFaceLogo from "@assets/logos/the-north-face-1.svg";
-import xboxLogo from "@assets/logos/xbox-9.svg";
 
 import "@fontsource-variable/montserrat";
 import "@fontsource-variable/inter";
@@ -30,22 +18,73 @@ import Button from "@components/Button.astro";
 <MarketingLayout pageTitle="Marketing Example page">
   <div slot="banner"></div>
   <BoxGrid>
-    <Box padding="xl" prose="prose" size="full-width" class="relative">
+    <Box
+      id="hero"
+      padding="xl"
+      prose="prose"
+      size="full-width"
+      class="text-neutral-100 [&>*]:prose-invert [&>*]:mx-auto [&>*]:text-center min-h-[100dvh]"
+    >
       <img
-        src="/hero.png"
-        class="not-prose absolute object-cover object-top bottom-0 left-1/3 w-2/3 md:left-1/2 md:w-1/2 h-auto"
+        src="https://unsplash.com/photos/K785Da4A_JA/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzA0MzY2NjU2fA&force=true&w=1920"
+        class="not-prose fixed object-cover top-0 left-0 -z-10"
       />
-
-      <h1 class="mb-0 font-extrabold -mt-8">Empowering Your [Industry] Journey with [Your Company Name]</h1>
-      <p><em>Unleash Possibilities, Embrace Excellence.</em></p>
-      <p class="font-light">
-        Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
-        [industry] experience, setting the stage for unparalleled success.
-      </p>
-      <Button class="mt-8" as="anchor" href="/marketing/contact-us">Contact Us</Button>
+      <div class="fixed -z-10 left-1/2 -translate-x-1/2 max-w-prose origin-center" id="hero-content">
+        <h1 class="text-5xl mb-0 font-extrabold">Empowering Your [Industry] Journey with [Your Company Name]</h1>
+        <p class="font-light mt-16 mb-10">
+          Embark on a transformative journey with [Your Company Name]. We don't just provide services; we empower your
+          [industry] experience, setting the stage for unparalleled success.
+        </p>
+        <Button class="mt-8 mx-auto" color="info" as="anchor" href="/marketing/contact-us">Contact Us</Button>
+      </div>
     </Box>
 
+    <script>
+      function $(el: any) {
+        return document.querySelector(el);
+      }
+
+      let lastKnownScrollPosition = 0;
+      let ticking = false;
+
+      function doSomething(scrollPos: any) {
+        let percentage = scrollPos / window.innerHeight;
+
+        if (percentage > 1) {
+          document.querySelector('#hero')?.setAttribute("style", "visibility: hidden")
+        } else {
+          document.querySelector('#hero')?.setAttribute("style", "")
+        }
+
+        percentage = Math.min(percentage, 1);
+
+        document.querySelector('#hero img')?.setAttribute("style", `top: -${scrollPos * 0.1 }px`)
+        document.querySelector('#hero-content')?.setAttribute("style", `
+        opacity: ${1 - percentage};
+        transform:
+          perspective(1px)
+          translateX(calc(-50% - ${percentage * 15}%))
+          translateY(calc(-${percentage * 100}%))
+          translateZ(${percentage * -0.25}px)
+        `)
+      }
+
+      document.addEventListener("scroll", (event) => {
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            doSomething(lastKnownScrollPosition);
+            ticking = false;
+          });
+
+          ticking = true;
+        }
+      });
+    </script>
+
     <Box
+      id="next"
       padding="md"
       size="full-width"
       prose="prose-w-full"
@@ -307,4 +346,12 @@ import Button from "@components/Button.astro";
   body.nunito {
     font-family: "Nunito Sans Variable", sans-serif !important;
   }
+</style>
+
+<style is:global>
+  .navbar {
+    @apply !bg-neutral-300/50 !border-b-0 !backdrop-blur-sm !rounded-lg !shadow-2xl;
+    @apply !m-4 !w-[calc(100%-2rem)] !top-4;
+  }
+  
 </style>
